@@ -1,0 +1,1 @@
+web: gunicorn rum_away.wsgi
