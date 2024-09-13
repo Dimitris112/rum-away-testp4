@@ -2,8 +2,35 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1>Welcome to the RUM AWAY BAR</h1>
-    <p>This is our home page</p>
+<div class="background-container"></div>
+
+<!-- Main Content -->
+<div class="content container text-center mt-5">
+    <h1 class="display-4 mb-4 animate__animated animate__fadeIn">Welcome to the Rum Away Bar</h1>
+    <p class="lead mb-4 animate__animated animate__fadeIn animate__delay-1s">Your perfect place to unwind and enjoy
+        great times with friends.</p>
+    <img src="{% static 'images/main_image.jpg' %}"
+        class="img-fluid rounded shadow-lg animate__animated animate__fadeIn animate__delay-2s" alt="Rum Away Bar">
+    <div class="mt-4">
+        <a href="#menu" class="btn btn-primary btn-lg animate__animated animate__fadeIn animate__delay-3s">View Our
+            Menu</a>
+        <a href="#contact"
+            class="btn btn-secondary btn-lg ms-2 animate__animated animate__fadeIn animate__delay-3s">Contact Us</a>
+    </div>
 </div>
+
+<section id="menu" class="bg-light py-5">
+    <div class="container text-center">
+        <h2 class="display-5 text-warm">Our Menu</h2>
+        <p class="lead">Explore our delicious offerings and find your new favorite.</p>
+    </div>
+</section>
+
+<section id="contact" class="py-5">
+    <div class="container text-center">
+        <h2 class="display-5 text-warm">Contact Us</h2>
+        <p class="lead">Have questions? Get in touch with us!</p>
+    </div>
+</section>
+
 {% endblock %}

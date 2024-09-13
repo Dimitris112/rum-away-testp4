@@ -1,4 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Reservation, Order, Comment, UserProfile
+from allauth.account.views import SignupView
+from django.shortcuts import redirect
+
+class CustomSignupView(SignupView):
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        return redirect('/')
 
 def index(request):
     context = {
