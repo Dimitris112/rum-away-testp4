@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Reservation, Order, Comment, UserProfile
+from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
+from .models import UserProfile
 from allauth.account.views import SignupView
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm, UserForm
@@ -23,27 +24,22 @@ def reservations(request):
 
 @login_required
 def profile(request):
-    # Ensure the user has a UserProfile -  create one if it doesn't exist
-    try:
-        profile = request.user.userprofile
-    except UserProfile.DoesNotExist:
-        profile = UserProfile.objects.create(user=request.user)
+    # Ensure the user has a UserProfile - create one if it doesn't exist
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
 
     # Handle form submission
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
         
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            
             return redirect('profile')
 
     else:
-        # prefill the user's info with current data
         user_form = UserForm(instance=request.user)
-        profile_form = UserProfileForm(instance=request.user.userprofile)
+        profile_form = UserProfileForm(instance=profile)
 
     context = {
         'page_title': 'Profile',
@@ -51,6 +47,17 @@ def profile(request):
         'profile_form': profile_form,
     }
     return render(request, 'bar/profile.html', context)
+
+@login_required
+@require_POST
+def reset_profile_picture(request):
+    # Ensure the user has a UserProfile - create one if it doesn't exist
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
+
+    # Reset profile picture to default
+    profile.profile_picture = 'images/nobody.jpg'
+    profile.save()
+    return redirect('profile')
 
 def orders(request):
     context = {
@@ -62,4 +69,7 @@ def comments(request):
     context = {
         'page_title': 'Comments',
     }
-    return render(request, 'bar/comments.html', context)  
+    return render(request, 'bar/comments.html', context)
+
+def contact(request):
+    return render(request, 'bar/contact.html')

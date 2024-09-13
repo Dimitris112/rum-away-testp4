@@ -33,28 +33,38 @@
 
     <!-- Profile update form -->
     <div class="row justify-content-center mt-4">
-        <div class="col-md-6">
+        <div class="col-md-8 col-lg-6">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mb-3">
-                    {{ user_form.first_name.label_tag }} {{ user_form.first_name }}
+                    {{ user_form.first_name.label_tag }}
+                    <input type="text" name="{{ user_form.first_name.name }}" value="{{ user_form.first_name.value }}"
+                        class="form-control form-control-lg">
                 </div>
                 <div class="mb-3">
-                    {{ user_form.last_name.label_tag }} {{ user_form.last_name }}
+                    {{ user_form.last_name.label_tag }}
+                    <input type="text" name="{{ user_form.last_name.name }}" value="{{ user_form.last_name.value }}"
+                        class="form-control form-control-lg">
                 </div>
                 <div class="mb-3">
-                    {{ user_form.email.label_tag }} {{ user_form.email }}
+                    {{ user_form.email.label_tag }}
+                    <input type="email" name="{{ user_form.email.name }}" value="{{ user_form.email.value }}"
+                        class="form-control form-control-lg">
                 </div>
                 <div class="mb-3">
-                    {{ profile_form.bio.label_tag }} {{ profile_form.bio }}
+                    {{ profile_form.profile_picture.label_tag }}
+                    <input type="file" name="{{ profile_form.profile_picture.name }}"
+                        class="form-control form-control-lg">
                 </div>
-                <div class="mb-3">
-                    {{ profile_form.profile_picture.label_tag }} {{ profile_form.profile_picture }}
-                </div>
-                <button type="submit" class="btn btn-primary">Update Profile</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </form>
+            <form method="POST" action="{% url 'reset_profile_picture' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary mt-3">Reset your profile picture</button>
             </form>
         </div>
     </div>
+
 
     {% else %}
     <p class="text-center">{% trans "You need to be logged in to view this page." %}</p>

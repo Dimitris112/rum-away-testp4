@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load allauth i18n %}
+{% load socialaccount %}
+
+{% block head_title %}
+{% trans "Sign Up | Rum Away Bar" %}
+{% endblock head_title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2 mt-4">
+            <h1 class="display-4 text-center">{% trans "Sign Up" %}</h1>
+            <p class="text-center mb-4">
+                {% trans "Already have an account? Please" %}
+                <a href="{{ login_url }}" class="btn btn-outline-primary btn-lg text-primary fw-bold rounded-pill border-0 shadow-sm px-4 py-2 mx-2 transition-all hover-shadow">
+                    {% trans "sign in" %}
+                </a>
+                {% trans "to your existing account." %}
+            </p>
+
+            {% if not SOCIALACCOUNT_ONLY %}
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <form method="post" action="{% url 'account_signup' %}" class="form-horizontal">
+                        {% csrf_token %}
+
+                        <div class="form-group mb-3">
+                            <label for="id_username" class="form-label">{% trans "Username:" %}</label>
+                            <input type="text" name="username" id="id_username" class="form-control form-control-lg" value="{{ form.username.value }}">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="id_email" class="form-label">{% trans "Email (optional):" %}</label>
+                            <input type="email" name="email" id="id_email" class="form-control form-control-lg" value="{{ form.email.value }}">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="id_password1" class="form-label">{% trans "Password:" %}</label>
+                            <input type="password" name="password1" id="id_password1" class="form-control form-control-lg" value="{{ form.password1.value }}">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="id_password2" class="form-label">{% trans "Password (again):" %}</label>
+                            <input type="password" name="password2" id="id_password2" class="form-control form-control-lg" value="{{ form.password2.value }}">
+                        </div>
+
+                        <div class="form-group">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <small class="text-muted">{% trans "Your password can’t be too similar to your other personal information." %}</small>
+                                </li>
+                                <li class="mb-2">
+                                    <small class="text-muted">{% trans "Your password must contain at least 8 characters." %}</small>
+                                </li>
+                                <li class="mb-2">
+                                    <small class="text-muted">{% trans "Your password can’t be a commonly used password." %}</small>
+                                </li>
+                                <li class="mb-2">
+                                    <small class="text-muted">{% trans "Your password can’t be entirely numeric." %}</small>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">{% trans "Sign Up" %}</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
