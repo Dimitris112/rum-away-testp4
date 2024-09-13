@@ -6,18 +6,18 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>{{ page_title }}</h1>
+    <h1 class="text-center mb-4">{{ page_title }}</h1>
 
     {% if user.is_authenticated %}
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card profile-card">
                 <img src="{% if user.userprofile.profile_picture %}{{ user.userprofile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}"
-                    class="card-img-top" alt="Profile Picture">
+                    class="card-img-top profile-picture" alt="Profile Picture">
                 <div class="card-body">
-                    <h5 class="card-title">{{ user.username }}</h5>
-                    <p class="card-text">Email: {{ user.email }}</p>
-                    <p class="card-text">Bio: {% if user.userprofile.bio %}
+                    <h5 class="card-title text-center">{{ user.username }}</h5>
+                    <p class="card-text text-center">Email: {{ user.email }}</p>
+                    <p class="card-text text-center">Bio: {% if user.userprofile.bio %}
                         {{ user.userprofile.bio }}
                         {% else %}No bio available{% endif %}</p>
                 </div>
@@ -25,7 +25,7 @@
         </div>
     </div>
     {% else %}
-    <p>{% trans "You need to be logged in to view this page." %}</p>
+    <p class="text-center">{% trans "You need to be logged in to view this page." %}</p>
     {% endif %}
 </div>
 {% endblock %}

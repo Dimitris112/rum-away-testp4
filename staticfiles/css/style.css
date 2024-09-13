@@ -84,11 +84,13 @@ body {
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
     background: linear-gradient(45deg, var(--warm-primary), var(--highlight-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: var(--warm-primary);
+    font-weight: 700;
 }
 
 p {
@@ -118,7 +120,7 @@ p {
     }
 }
 
-/* Button  */
+/* Button */
 .btn-primary {
     background-color: var(--warm-primary);
     border: none;
@@ -127,4 +129,44 @@ p {
 
 .btn-primary:hover {
     background-color: #ff5722;
+}
+
+/* Profile Card */
+.profile-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.profile-picture {
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid var(--warm-primary);
+}
+
+.card-body {
+    background-color: var(--warm-bg);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: var(--warm-primary);
+    font-weight: 700;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: var(--warm-secondary);
+    margin-top: 0.5rem;
+}
+
+.text-center {
+    text-align: center;
 }
