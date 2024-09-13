@@ -23,20 +23,25 @@ def reservations(request):
 
 @login_required
 def profile(request):
-    # Ensure the user has a UserProfile - create one if they don't
+    # Ensure the user has a UserProfile -  create one if it doesn't exist
     try:
         profile = request.user.userprofile
     except UserProfile.DoesNotExist:
         profile = UserProfile.objects.create(user=request.user)
 
+    # Handle form submission
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
+        
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
+            
             return redirect('profile')
+
     else:
+        # prefill the user's info with current data
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=request.user.userprofile)
 

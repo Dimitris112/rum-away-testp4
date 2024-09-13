@@ -10,6 +10,8 @@
     --warm-secondary: #6d4c41;
     --warm-dark: #3e2723;
     --highlight-color: #ffab91;
+    --accent-color: #ffd54f;
+    --border-radius: 15px;
 }
 
 body {
@@ -78,7 +80,6 @@ body {
     position: relative;
     z-index: 1;
     padding: 2rem;
-    color: #333;
     text-align: center;
     animation: fadeIn 1.5s ease-in-out;
 }
@@ -89,27 +90,15 @@ h1 {
     background: linear-gradient(45deg, var(--warm-primary), var(--highlight-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: var(--warm-primary);
     font-weight: 700;
 }
 
 p {
     font-size: 1.25rem;
     margin: 0.5rem 0;
-    color: var(--warm-secondary);
 }
 
-@media (max-width: 768px) {
-    .navbar-brand {
-        font-size: 1.25rem;
-    }
-
-    .content {
-        padding: 1rem;
-    }
-}
-
-/* Animation Keyframes */
+/* Animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -120,53 +109,165 @@ p {
     }
 }
 
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 /* Button */
 .btn-primary {
     background-color: var(--warm-primary);
     border: none;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border-radius: var(--border-radius);
+    padding: 10px 20px;
 }
 
 .btn-primary:hover {
     background-color: #ff5722;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Profile Card */
 .profile-card {
     border: none;
-    border-radius: 15px;
+    border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--warm-bg);
+    position: relative;
+    padding: 20px;
+    margin: 20px 0;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+.profile-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 6px;
+    width: 100%;
+    background: linear-gradient(45deg, var(--warm-primary), var(--highlight-color));
+    transition: height 0.3s ease;
 }
 
 .profile-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    background-color: #fff8e1;
+}
+
+.profile-card:hover::before {
+    height: 12px;
 }
 
 .profile-picture {
-    width: 100%;
-    height: auto;
-    border-bottom: 2px solid var(--warm-primary);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--warm-primary);
+    margin: 0 auto 15px;
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover .profile-picture {
+    transform: scale(1.1);
 }
 
 .card-body {
-    background-color: var(--warm-bg);
+    text-align: center;
+    padding: 1.5rem;
 }
 
 .card-title {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     color: var(--warm-primary);
-    font-weight: 700;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.card-title::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: var(--highlight-color);
+    margin: 0.5rem auto;
+    border-radius: 5px;
 }
 
 .card-text {
     font-size: 1rem;
     color: var(--warm-secondary);
     margin-top: 0.5rem;
+    transition: color 0.3s ease;
 }
 
-.text-center {
-    text-align: center;
+.card-text:hover {
+    color: var(--accent-color);
+}
+
+/* Form */
+form {
+    margin-top: 30px;
+}
+
+form .mb-3 label {
+    font-weight: 600;
+    color: var(--warm-secondary);
+}
+
+form .mb-3 input,
+form .mb-3 textarea {
+    border-radius: var(--border-radius);
+    border: 1px solid var(--warm-secondary);
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form .mb-3 input:focus,
+form .mb-3 textarea:focus {
+    border-color: var(--warm-primary);
+    box-shadow: 0 0 8px rgba(255, 112, 67, 0.3);
+}
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .content {
+        padding: 1rem;
+    }
+
+    .profile-card {
+        margin: 10px;
+    }
+
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
 }
