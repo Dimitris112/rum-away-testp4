@@ -12,13 +12,24 @@
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
             <div class="card profile-card">
-                <!-- profile pic updates -->
+                <!-- Profile picture -->
                 <img src="{% if user.userprofile.profile_picture %}{{ user.userprofile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}"
                     class="card-img-top profile-picture" alt="Profile Picture">
+
                 <div class="card-body">
-                    <!-- username - email - bio updates -->
+                    <!-- Username -->
                     <h5 class="card-title text-center">{{ user.username }}</h5>
+
+                    <!-- First name -->
+                    <p class="card-text text-center">First Name: {{ user.first_name }}</p>
+
+                    <!-- Last name -->
+                    <p class="card-text text-center">Last Name: {{ user.last_name }}</p>
+
+                    <!-- Email -->
                     <p class="card-text text-center">Email: {{ user.email }}</p>
+
+                    <!-- Bio -->
                     <p class="card-text text-center">Bio:
                         {% if user.userprofile.bio %}
                         {{ user.userprofile.bio }}
@@ -56,6 +67,11 @@
                     <input type="file" name="{{ profile_form.profile_picture.name }}"
                         class="form-control form-control-lg">
                 </div>
+                <div class="mb-3">
+                    {{ profile_form.bio.label_tag }}
+                    <textarea name="{{ profile_form.bio.name }}"
+                        class="form-control form-control-lg">{{ profile_form.bio.value }}</textarea>
+                </div>
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </form>
             <form method="POST" action="{% url 'reset_profile_picture' %}">
@@ -64,7 +80,6 @@
             </form>
         </div>
     </div>
-
 
     {% else %}
     <p class="text-center">{% trans "You need to be logged in to view this page." %}</p>

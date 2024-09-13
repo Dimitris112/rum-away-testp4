@@ -5,6 +5,58 @@
 {% block content %}
 <div class="background-container"></div>
 
+<!-- Hero Slider -->
+<section id="hero-slider" class="py-5">
+    <div class="container">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'images/slider1.jpg' %}" class="d-block w-100" alt="Slide 1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3 class="display-4">Featured Cocktail</h3>
+                        <p>Try our special cocktail of the month!</p>
+                        <a href="#" class="btn btn-light btn-lg">Discover More</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'images/slider2.jpg' %}" class="d-block w-100" alt="Slide 2">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3 class="display-4">Weekend Special</h3>
+                        <p>Enjoy our weekend specials with friends.</p>
+                        <a href="#" class="btn btn-light btn-lg">See Specials</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'images/slider3.jpg' %}" class="d-block w-100" alt="Slide 3">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3 class="display-4">Happy Hour</h3>
+                        <p>Join us for happy hour every evening!</p>
+                        <a href="#" class="btn btn-light btn-lg">Join Us</a>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+
 <!-- Main Content -->
 <div class="content container text-center mt-5">
     <h1 class="display-4 mb-4 animate__animated animate__fadeIn">Welcome to the Rum Away Bar</h1>
@@ -20,6 +72,39 @@
     </div>
 </div>
 
+<!-- Special Events Section -->
+<section id="events" class="bg-light py-5">
+    <div class="container text-center">
+        <h2 class="display-5 text-warm">Upcoming Events</h2>
+        <p class="lead">Join us for our exciting events and live performances.</p>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <img src="{% static 'images/event1.jpg' %}" class="card-img-top" alt="Event 1">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Live Music Night</h5>
+                        <p class="card-text">Enjoy live performances every Friday night.</p>
+                        <p class="text-muted">Date: Every Friday, 8 PM</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <img src="{% static 'images/event2.jpg' %}" class="card-img-top" alt="Event 2">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Happy Hour</h5>
+                        <p class="card-text">Join us for discounted drinks and great company.</p>
+                        <p class="text-muted">Date: Daily, 5-7 PM</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Menu Section -->
 <section id="menu" class="bg-light py-5">
     <div class="container text-center">
         <h2 class="display-5 text-warm">Our Menu</h2>
@@ -27,6 +112,7 @@
     </div>
 </section>
 
+<!-- Contact Section -->
 <section id="contact" class="py-5">
     <div class="container text-center">
         <h2 class="display-5 text-warm">Contact Us</h2>

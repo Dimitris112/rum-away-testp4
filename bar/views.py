@@ -24,10 +24,8 @@ def reservations(request):
 
 @login_required
 def profile(request):
-    # Ensure the user has a UserProfile - create one if it doesn't exist
     profile, created = UserProfile.objects.get_or_create(user=request.user)
 
-    # Handle form submission
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
@@ -36,7 +34,6 @@ def profile(request):
             user_form.save()
             profile_form.save()
             return redirect('profile')
-
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=profile)
@@ -72,4 +69,7 @@ def comments(request):
     return render(request, 'bar/comments.html', context)
 
 def contact(request):
-    return render(request, 'bar/contact.html')
+    context = {
+        'page_title': 'Contact Us',
+    }
+    return render(request, 'bar/contact.html', context)

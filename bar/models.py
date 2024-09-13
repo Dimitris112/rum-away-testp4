@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.templatetags.static import static
 
 class Table(models.Model):
     number = models.IntegerField(unique=True)
@@ -43,10 +44,20 @@ class Comment(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True, default='images/nobody.jpg')
+    profile_picture = models.ImageField(
+        blank=True,
+        null=True,
+        default='images/nobody.jpg'
+    )
 
     def __str__(self):
         return f"Profile of {self.user.username}"
+
+    def get_profile_picture_url(self):
+        if self.profile_picture and hasattr(self.profile_picture, 'url'):
+            return self.profile_picture.url
+        return static('images/nobody.jpg')
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

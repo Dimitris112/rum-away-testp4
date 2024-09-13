@@ -6,28 +6,36 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Get in Touch with Us</h2>
+    <h2 class="text-center mb-4">We'd Love to Hear From You!</h2>
+
+    <!-- Contact Form -->
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
+        <div class="col-md-6">
             <div class="card shadow-sm border-light mb-4">
                 <div class="card-body p-4">
-                    <h3 class="card-title text-center mb-4">Contact Form</h3>
+                    <h3 class="card-title text-center mb-4">Reach Out to Us</h3>
                     <form method="post" class="animate__animated animate__fadeIn">
                         {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Your Email Address</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <label for="telephone" class="form-label">Phone Number (Optional)</label>
+                            <input type="tel" class="form-control" id="telephone" name="telephone">
                         </div>
                         <div class="mb-3">
-                            <label for="message" class="form-label">Message</label>
+                            <label for="message" class="form-label">Your Message</label>
                             <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Send Message</button>
+                            <button type="submit" class="btn btn-primary">Send Your Message</button>
                         </div>
                     </form>
                 </div>
@@ -35,10 +43,128 @@
         </div>
     </div>
 
+    <!-- Reservation Form -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-light mb-4">
+                <div class="card-body p-4">
+                    <h3 class="card-title text-center mb-4">Reserve Your Spot</h3>
+                    <form method="post" class="animate__animated animate__fadeIn">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="res-name" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="res-name" name="res-name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="res-email" class="form-label">Your Email Address</label>
+                                <input type="email" class="form-control" id="res-email" name="res-email" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="res-date" class="form-label">Date of Reservation</label>
+                                <input type="date" class="form-control" id="res-date" name="res-date" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="res-time" class="form-label">Time of Reservation</label>
+                                <input type="time" class="form-control" id="res-time" name="res-time" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="res-guests" class="form-label">Number of Guests</label>
+                            <input type="number" class="form-control" id="res-guests" name="res-guests" min="1"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="res-special-requests" class="form-label">Any Special Requests?</label>
+                            <textarea class="form-control" id="res-special-requests" name="res-special-requests"
+                                rows="3"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Submit Reservation</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hall Information and Image Carousel -->
+    <section class="mt-5">
+        <div class="container text-center">
+            <h3 class="mb-4">Discover Our Warm and Inviting Halls</h3>
+            <p class="mb-4">We offer two charming halls for your special events, whether you prefer the cozy indoor
+                atmosphere or the delightful outdoor setting. Explore the images below to get a feel for each space.</p>
+
+            <!-- Indoor Hall -->
+            <div class="mb-4">
+                <h4 class="mb-3">Indoor Hall</h4>
+                <div id="indoorCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{% static 'images/indoor1.jpg' %}" class="d-block w-100"
+                                alt="Indoor Hall Image 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'images/indoor2.jpg' %}" class="d-block w-100"
+                                alt="Indoor Hall Image 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'images/indoor3.jpg' %}" class="d-block w-100"
+                                alt="Indoor Hall Image 3">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#indoorCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#indoorCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Outdoor Hall -->
+            <div>
+                <h4 class="mb-3">Outdoor Hall</h4>
+                <div id="outdoorCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{% static 'images/outdoor1.jpg' %}" class="d-block w-100"
+                                alt="Outdoor Hall Image 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'images/outdoor2.jpg' %}" class="d-block w-100"
+                                alt="Outdoor Hall Image 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{% static 'images/outdoor3.jpg' %}" class="d-block w-100"
+                                alt="Outdoor Hall Image 3">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#outdoorCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#outdoorCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Information Section -->
     <section class="mt-5">
         <div class="container text-center">
-            <h3 class="mb-4">Our Location</h3>
+            <h3 class="mb-4">Find Us Here</h3>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <iframe
@@ -49,8 +175,4 @@
         </div>
     </section>
 </div>
-{% endblock %}
-
-{% block extra_styles %}
-
 {% endblock %}
