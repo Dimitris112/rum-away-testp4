@@ -10,7 +10,6 @@ django-summernote==0.8.20.0
 djangorestframework==3.15.2
 gunicorn==23.0.0
 oauthlib==3.2.2
-pillow==10.4.0
 psycopg2==2.9.9
 PyJWT==2.9.0
 python3-openid==3.2.0
