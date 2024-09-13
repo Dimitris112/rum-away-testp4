@@ -34,6 +34,7 @@ if not SECRET_KEY:
 DEBUG = False
 
 ALLOWED_HOSTS = [
+    "8000-dimitris112-rumawaytest-vwtc52qqsyb.ws.codeinstitute-ide.net",
     ".herokuapp.com",
 ]
 
