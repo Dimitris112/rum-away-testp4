@@ -24,6 +24,32 @@
             </div>
         </div>
     </div>
+
+    <!-- Profile update form -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ user_form.first_name.label_tag }} {{ user_form.first_name }}
+                </div>
+                <div class="mb-3">
+                    {{ user_form.last_name.label_tag }} {{ user_form.last_name }}
+                </div>
+                <div class="mb-3">
+                    {{ user_form.email.label_tag }} {{ user_form.email }}
+                </div>
+                <div class="mb-3">
+                    {{ profile_form.bio.label_tag }} {{ profile_form.bio }}
+                </div>
+                <div class="mb-3">
+                    {{ profile_form.profile_picture.label_tag }} {{ profile_form.profile_picture }}
+                </div>
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
     {% else %}
     <p class="text-center">{% trans "You need to be logged in to view this page." %}</p>
     {% endif %}
