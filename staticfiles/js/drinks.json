@@ -1,0 +1,188 @@
+{
+    "Wines": [
+        {
+            "name": "Red Wine",
+            "description": "A rich, full-bodied red wine.",
+            "price": 5.50,
+            "image": "wine1.jpg"
+        },
+        {
+            "name": "White Wine",
+            "description": "A crisp, refreshing white wine.",
+            "price": 4.50,
+            "image": "wine2.jpg"
+        },
+        {
+            "name": "Rosé",
+            "description": "A light and fruity rosé wine.",
+            "price": 5.00,
+            "image": "rose.jpg"
+        },
+        {
+            "name": "Sauvignon Blanc",
+            "description": "A zesty and aromatic white wine.",
+            "price": 5.25,
+            "image": "sauvignon_blanc.jpg"
+        }, {
+            "name": "Merlot",
+            "description": "A smooth and velvety red wine.",
+            "price": 6.00,
+            "image": "merlot.jpg"
+        }
+    ],
+    "Beers": [
+        {
+            "name": "Ale",
+            "description": "A hoppy and flavorful ale.",
+            "price": 3.00,
+            "image": "beer1.jpg"
+        },
+        {
+            "name": "Lager",
+            "description": "A smooth and crisp lager.",
+            "price": 2.50,
+            "image": "beer2.jpg"
+        },
+        {
+            "name": "IPA",
+            "description": "A strong, hoppy India Pale Ale.",
+            "price": 3.50,
+            "image": "ipa.jpg"
+        },
+        {
+            "name": "Stout",
+            "description": "A dark and creamy stout.",
+            "price": 4.00,
+            "image": "stout.jpg"
+        }, {
+            "name": "Pilsner",
+            "description": "A light and refreshing pilsner.",
+            "price": 3.00,
+            "image": "pilsner.jpg"
+        }
+    ],
+    "Whiskey": [
+        {
+            "name": "Bourbon",
+            "description": "A sweet and spicy bourbon.",
+            "price": 7.00,
+            "image": "whiskey1.jpg"
+        },
+        {
+            "name": "Scotch",
+            "description": "A smoky and complex scotch.",
+            "price": 8.50,
+            "image": "whiskey2.jpg"
+        },
+        {
+            "name": "Rye Whiskey",
+            "description": "A spicy and robust rye whiskey.",
+            "price": 7.50,
+            "image": "rye_whiskey.jpg"
+        },
+        {
+            "name": "Irish Whiskey",
+            "description": "A smooth and mellow Irish whiskey.",
+            "price": 6.50,
+            "image": "irish_whiskey.jpg"
+        }, {
+            "name": "Tennessee Whiskey",
+            "description": "A smooth and sweet Tennessee whiskey.",
+            "price": 7.00,
+            "image": "tennessee_whiskey.jpg"
+        }
+    ],
+    "Vodka": [
+        {
+            "name": "Classic Vodka",
+            "description": "A smooth and versatile vodka.",
+            "price": 6.00,
+            "image": "vodka1.jpg"
+        },
+        {
+            "name": "Flavored Vodka",
+            "description": "Vodka with a burst of fruit flavor.",
+            "price": 7.00,
+            "image": "vodka2.jpg"
+        },
+        {
+            "name": "Citron Vodka",
+            "description": "Vodka infused with zesty lemon flavor.",
+            "price": 6.50,
+            "image": "citron_vodka.jpg"
+        },
+        {
+            "name": "Pepper Vodka",
+            "description": "Vodka with a spicy kick.",
+            "price": 7.00,
+            "image": "pepper_vodka.jpg"
+        }, {
+            "name": "Cucumber Vodka",
+            "description": "Refreshing vodka with a hint of cucumber.",
+            "price": 6.75,
+            "image": "cucumber_vodka.jpg"
+        }
+    ],
+    "Rum": [
+        {
+            "name": "Bacardi Superior",
+            "description": "A smooth and classic white rum, perfect for cocktails.",
+            "price": 5.50,
+            "image": "rum1.jpg"
+        },
+        {
+            "name": "Mount Gay Eclipse",
+            "description": "A rich and bold rum from Barbados, perfect for sipping.",
+            "price": 7.00,
+            "image": "rum3.jpg"
+        },
+        {
+            "name": "Dark Rum",
+            "description": "A rich and intense dark rum.",
+            "price": 6.00,
+            "image": "dark_rum.jpg"
+        },
+        {
+            "name": "Spiced Rum",
+            "description": "Rum with a blend of spices for extra flavor.",
+            "price": 6.50,
+            "image": "spiced_rum.jpg"
+        }, {
+            "name": "Overproof Rum",
+            "description": "A high-proof rum with a strong flavor.",
+            "price": 8.00,
+            "image": "overproof_rum.jpg"
+        }
+    ],
+    "Cocktails": [
+        {
+            "name": "Margarita",
+            "description": "Tequila, Lime juice, Triple sec, Salt, Lime wedge.",
+            "price": 6.50,
+            "image": "margarita.jpg"
+        },
+        {
+            "name": "Mojito",
+            "description": "White rum, Fresh lime juice, Sugar, Mint, Soda water.",
+            "price": 5.50,
+            "image": "mojito.jpg"
+        },
+        {
+            "name": "Old Fashioned",
+            "description": "Bourbon, Sugar, Bitters, Orange twist.",
+            "price": 7.00,
+            "image": "old_fashioned.jpg"
+        },
+        {
+            "name": "Cosmopolitan",
+            "description": "Vodka, Triple sec, Cranberry juice, Lime juice.",
+            "price": 6.00,
+            "image": "cosmopolitan.jpg"
+        }, {
+            "name": "Negroni",
+            "description": "Gin, Campari, Sweet vermouth.",
+            "price": 7.50,
+            "image": "negroni.jpg"
+        }
+    ]
+}

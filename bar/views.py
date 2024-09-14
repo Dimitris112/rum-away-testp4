@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-from .models import UserProfile, Event
+from .models import UserProfile, Event, Category
 from .forms import UserForm, UserProfileForm
 from allauth.account.views import SignupView
 from django.contrib.auth.decorators import login_required
@@ -92,4 +92,10 @@ def event_detail(request, event_id):
     return render(request, 'bar/event_detail.html', context)
 
 def menu(request):
-    return render(request, 'bar/menu.html')
+    categories = ["Wines", "Beers", "Whiskey", "Vodka", "Rum", "Cocktails"]
+        
+    context = {
+        'page_title': 'Menu',
+        'categories': categories,
+    }
+    return render(request, 'bar/menu.html', context)
