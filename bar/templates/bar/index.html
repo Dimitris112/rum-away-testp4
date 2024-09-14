@@ -65,7 +65,8 @@
     <img src="{% static 'images/main_image.jpg' %}"
         class="img-fluid rounded shadow-lg animate__animated animate__fadeIn animate__delay-2s" alt="Rum Away Bar">
     <div class="mt-4">
-        <a href="#menu" class="btn btn-primary btn-lg animate__animated animate__fadeIn animate__delay-3s">View Our
+        <a href="{% url 'menu' %}"
+            class="btn btn-primary btn-lg animate__animated animate__fadeIn animate__delay-3s">View Our
             Menu</a>
         <a href="{% url 'contact' %}"
             class="btn btn-secondary btn-lg ms-2 animate__animated animate__fadeIn animate__delay-3s">Contact Us</a>
@@ -80,7 +81,7 @@
         <div class="row">
             <div class="col-md-6 mb-4">
                 <div class="card shadow-lg border-0">
-                    <img src="{% static 'images/event1.jpg' %}" class="card-img-top" alt="Live Music Night weekly">
+                    <img src="{% static 'images/event3.jpg' %}" class="card-img-top" alt="Live Music Night weekly">
                     <div class="card-body text-center">
                         <h5 class="card-title">Live Music Night</h5>
                         <p class="card-text">Enjoy live performances every Friday night.</p>
@@ -92,7 +93,7 @@
             </div>
             <div class="col-md-6 mb-4">
                 <div class="card shadow-lg border-0">
-                    <img src="{% static 'images/event2.jpg' %}" class="card-img-top" alt="Happy Hour daily">
+                    <img src="{% static 'images/event4.jpg' %}" class="card-img-top" alt="Happy Hour daily">
                     <div class="card-body text-center">
                         <h5 class="card-title">Happy Hour</h5>
                         <p class="card-text">Join us for discounted drinks and great company.</p>

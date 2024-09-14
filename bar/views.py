@@ -90,3 +90,6 @@ def event_detail(request, event_id):
         'event': event
     }
     return render(request, 'bar/event_detail.html', context)
+
+def menu(request):
+    return render(request, 'bar/menu.html')

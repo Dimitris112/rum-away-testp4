@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="display-4 text-center mb-4 animate__animated animate__zoomIn">Our Menu</h1>
+    <p class="lead text-center mb-5 animate__animated animate__fadeIn animate__delay-1s">Explore our delicious offerings
+        and find your new favorite.</p>
+
+    <!-- Menu Categories Section -->
+    <div class="text-center mb-5">
+        <h2 class="display-5 mb-4 animate__animated animate__fadeIn animate__delay-2s">Categories</h2>
+        <div class="btn-group mb-4" role="group" aria-label="Menu Categories">
+            <button type="button" class="btn btn-outline-primary btn-lg btn-category animate__animated animate__pulse"
+                data-bs-toggle="modal" data-bs-target="#winesModal">Wines</button>
+            <button type="button" class="btn btn-outline-primary btn-lg btn-category animate__animated animate__pulse"
+                data-bs-toggle="modal" data-bs-target="#beersModal">Beers</button>
+            <button type="button" class="btn btn-outline-primary btn-lg btn-category animate__animated animate__pulse"
+                data-bs-toggle="modal" data-bs-target="#whiskeyModal">Whiskey</button>
+            <button type="button" class="btn btn-outline-primary btn-lg btn-category animate__animated animate__pulse"
+                data-bs-toggle="modal" data-bs-target="#vodkaModal">Vodka</button>
+            <button type="button" class="btn btn-outline-primary btn-lg btn-category animate__animated animate__pulse"
+                data-bs-toggle="modal" data-bs-target="#cocktailsModal">Cocktails</button>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Wines -->
+    <div class="modal fade" id="winesModal" tabindex="-1" aria-labelledby="winesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animate__animated animate__fadeIn animate__delay-1s">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="winesModalLabel">Wines</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="animate__animated animate__fadeIn">Explore our selection of fine wines. From red to white,
+                        we have something for every palate.</p>
+                    <div class="row">
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/wine1.jpg' %}" class="card-img-top" alt="Wine 1">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Red Wine</h5>
+                                    <p class="card-text">A rich, full-bodied red wine.</p>
+                                    <p class="text-muted">$7.50</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-2s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/wine2.jpg' %}" class="card-img-top" alt="Wine 2">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">White Wine</h5>
+                                    <p class="card-text">A crisp, refreshing white wine.</p>
+                                    <p class="text-muted">$6.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Beers -->
+    <div class="modal fade" id="beersModal" tabindex="-1" aria-labelledby="beersModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animate__animated animate__fadeIn animate__delay-1s">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="beersModalLabel">Beers</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="animate__animated animate__fadeIn">Check out our diverse range of beers, from local brews
+                        to international favorites.</p>
+                    <div class="row">
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/beer1.jpg' %}" class="card-img-top" alt="Beer 1">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Ale</h5>
+                                    <p class="card-text">A hoppy and flavorful ale.</p>
+                                    <p class="text-muted">$4.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-2s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/beer2.jpg' %}" class="card-img-top" alt="Beer 2">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Lager</h5>
+                                    <p class="card-text">A smooth and crisp lager.</p>
+                                    <p class="text-muted">$3.50</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Whiskey -->
+    <div class="modal fade" id="whiskeyModal" tabindex="-1" aria-labelledby="whiskeyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animate__animated animate__fadeIn animate__delay-1s">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="whiskeyModalLabel">Whiskey</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="animate__animated animate__fadeIn">Discover our premium whiskey selection. From smooth
+                        bourbons to rich scotches, we have it all.</p>
+                    <div class="row">
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/whiskey1.jpg' %}" class="card-img-top" alt="Whiskey 1">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Bourbon</h5>
+                                    <p class="card-text">A sweet and spicy bourbon.</p>
+                                    <p class="text-muted">$10.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-2s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/whiskey2.jpg' %}" class="card-img-top" alt="Whiskey 2">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Scotch</h5>
+                                    <p class="card-text">A smoky and complex scotch.</p>
+                                    <p class="text-muted">$12.50</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vodka -->
+    <div class="modal fade" id="vodkaModal" tabindex="-1" aria-labelledby="vodkaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animate__animated animate__fadeIn animate__delay-1s">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="vodkaModalLabel">Vodka</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="animate__animated animate__fadeIn">Check out our range of high-quality vodkas. Perfect for
+                        cocktails or sipping neat.</p>
+                    <div class="row">
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/vodka1.jpg' %}" class="card-img-top" alt="Vodka 1">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Classic Vodka</h5>
+                                    <p class="card-text">A smooth and versatile vodka.</p>
+                                    <p class="text-muted">$9.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-2s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/vodka2.jpg' %}" class="card-img-top" alt="Vodka 2">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Flavored Vodka</h5>
+                                    <p class="card-text">Vodka with a burst of fruit flavor.</p>
+                                    <p class="text-muted">$10.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cocktails -->
+    <div class="modal fade" id="cocktailsModal" tabindex="-1" aria-labelledby="cocktailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animate__animated animate__fadeIn animate__delay-1s">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="cocktailsModalLabel">Cocktails</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="animate__animated animate__fadeIn">Enjoy our crafted cocktails, perfect for any occasion.
+                    </p>
+                    <div class="row">
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/mojito.jpg' %}" class="card-img-top" alt="Mojito">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Mojito</h5>
+                                    <p class="card-text">A refreshing mix of rum, mint, and lime.</p>
+                                    <p class="text-muted">$7.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-2s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/margarita.jpg' %}" class="card-img-top"
+                                    alt="Margarita">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Margarita</h5>
+                                    <p class="card-text">A zesty tequila-based cocktail.</p>
+                                    <p class="text-muted">$8.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-3s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/old-fashioned.jpg' %}" class="card-img-top"
+                                    alt="Old Fashioned">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Old Fashioned</h5>
+                                    <p class="card-text">A classic bourbon cocktail with a hint of orange.</p>
+                                    <p class="text-muted">$9.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-4s">
+                            <div class="card border-light card-menu">
+                                <img src="{% static 'images/menu/cosmopolitan.jpg' %}" class="card-img-top"
+                                    alt="Cosmopolitan">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Cosmopolitan</h5>
+                                    <p class="card-text">A chic blend of vodka, cranberry, and lime.</p>
+                                    <p class="text-muted">$8.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="{% static 'js/menu.js' %}"></script>
+{% endblock %}
