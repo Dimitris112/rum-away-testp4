@@ -1,14 +1,17 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-from .models import UserProfile
+from .models import UserProfile, Event
+from .forms import UserForm, UserProfileForm
 from allauth.account.views import SignupView
 from django.contrib.auth.decorators import login_required
-from .forms import UserProfileForm, UserForm
+from django.urls import reverse_lazy
+from django.templatetags.static import static
+from django.utils import timezone
 
 class CustomSignupView(SignupView):
     def form_valid(self, form):
         response = super().form_valid(form)
-        return redirect('/')
+        return redirect(reverse_lazy('index'))
 
 def index(request):
     context = {
@@ -48,11 +51,8 @@ def profile(request):
 @login_required
 @require_POST
 def reset_profile_picture(request):
-    # Ensure the user has a UserProfile - create one if it doesn't exist
     profile, created = UserProfile.objects.get_or_create(user=request.user)
-
-    # Reset profile picture to default
-    profile.profile_picture = 'images/nobody.jpg'
+    profile.profile_picture = static('images/nobody.jpg')
     profile.save()
     return redirect('profile')
 
@@ -73,3 +73,20 @@ def contact(request):
         'page_title': 'Contact Us',
     }
     return render(request, 'bar/contact.html', context)
+
+def event_list(request):
+    now = timezone.now()
+    events = Event.objects.filter(date__gte=now).order_by('date')
+    context = {
+        'page_title': 'Events',
+        'events': events,
+    }
+    return render(request, 'bar/event_list.html', context)
+
+def event_detail(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    context = {
+        'page_title': event.title,
+        'event': event
+    }
+    return render(request, 'bar/event_detail.html', context)

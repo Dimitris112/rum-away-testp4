@@ -58,7 +58,6 @@ class UserProfile(models.Model):
             return self.profile_picture.url
         return static('images/nobody.jpg')
 
-
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -67,3 +66,41 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
+
+class Event(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    date = models.DateTimeField()
+    start_time = models.TimeField(default=timezone.now)
+    end_time = models.TimeField(default=timezone.now)
+    image = models.ImageField(upload_to='events/', blank=True, null=True)
+    recurrence = models.CharField(
+        max_length=10, 
+        choices=[('daily', 'Daily'), ('weekly', 'Weekly')],
+        blank=True,
+        null=True
+    )
+    recurrence_day = models.CharField(
+        max_length=10,
+        choices=[('monday', 'Monday'), ('tuesday', 'Tuesday'), ('wednesday', 'Wednesday'),
+                 ('thursday', 'Thursday'), ('friday', 'Friday'), ('saturday', 'Saturday'),
+                 ('sunday', 'Sunday')],
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return self.title
+
+    def get_next_occurrence(self):
+        now = timezone.now()
+        if self.recurrence == 'daily':
+            return now.replace(hour=17, minute=0, second=0, microsecond=0)
+        elif self.recurrence == 'weekly' and self.recurrence_day:
+            day_index = dict(monday=0, tuesday=1, wednesday=2, thursday=3, friday=4, saturday=5, sunday=6)
+            today_index = now.weekday()
+            target_index = day_index[self.recurrence_day.lower()]
+            days_until_target = (target_index - today_index + 7) % 7
+            next_occurrence = now + timezone.timedelta(days=days_until_target)
+            return next_occurrence.replace(hour=20, minute=0, second=0, microsecond=0)
+        return None

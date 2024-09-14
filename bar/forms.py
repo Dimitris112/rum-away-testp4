@@ -1,5 +1,5 @@
 from django import forms
-from .models import Reservation, Comment, UserProfile
+from .models import Reservation, Comment, UserProfile, Event
 from django.contrib.auth.models import User
 
 # Form to handle profile update
@@ -40,4 +40,17 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Leave your comment here...'}),
             'rating': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 5}),
+        }
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ['title', 'description', 'date', 'start_time', 'end_time', 'image', 'recurrence', 'recurrence_day']
+        widgets = {
+            'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'start_time': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
+            'end_time': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'recurrence': forms.Select(attrs={'class': 'form-control'}),
+            'recurrence_day': forms.Select(attrs={'class': 'form-control'}),
         }
