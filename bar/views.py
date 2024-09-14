@@ -93,7 +93,6 @@ def event_detail(request, event_id):
 
 def menu(request):
     categories = ["Wines", "Beers", "Whiskey", "Vodka", "Rum", "Cocktails"]
-        
     context = {
         'page_title': 'Menu',
         'categories': categories,

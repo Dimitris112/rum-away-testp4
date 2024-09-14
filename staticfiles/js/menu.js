@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("JavaScript file loaded.");
 
+  const itemsPerPage = 4; // Changed to 4
+  let currentPage = 1;
+  let drinksData = [];
+
   // Click listener for category buttons
   const categoryButtons = document.querySelectorAll(".btn-category");
   categoryButtons.forEach((button) => {
@@ -28,9 +32,10 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then((data) => {
         console.log("Data fetched:", data);
-        const drinksData = data[category];
-        if (drinksData) {
-          updateModal(category, drinksData);
+        drinksData = data[category] || [];
+        if (drinksData.length > 0) {
+          currentPage = 1; // Reset to the first page
+          updateModal(category);
         } else {
           console.error("No drinks data found for category:", category);
         }
@@ -38,21 +43,37 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => console.error("Error fetching drinks data:", error));
   }
 
-  // Update modal with drinks data
-  function updateModal(category, drinksData) {
+  // Update modal with drinks data and pagination
+  function updateModal(category) {
     const modalTitle = document.querySelector("#drinksModalLabel");
     const modalDescription = document.querySelector("#modal-description");
     const drinksContainer = document.querySelector("#drinks-container");
+    const pageInfo = document.querySelector("#page-info");
+    const prevButton = document.querySelector("#prev");
+    const nextButton = document.querySelector("#next");
 
     modalTitle.textContent = category;
     modalDescription.textContent = `Explore our exquisite selection of ${category}.`;
 
+    // Pagination logic
+    const totalPages = Math.ceil(drinksData.length / itemsPerPage);
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+
     drinksContainer.innerHTML = "";
 
-    drinksData.forEach((drink) => {
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const currentDrinks = drinksData.slice(start, end);
+
+    currentDrinks.forEach((drink) => {
       const drinkCard = createDrinkCard(drink);
       drinksContainer.appendChild(drinkCard);
     });
+
+    // Show-hide pagination buttons
+    prevButton.style.display = currentPage > 1 ? "inline-block" : "none";
+    nextButton.style.display =
+      currentPage < totalPages ? "inline-block" : "none";
 
     const modalContent = document.querySelector(".modal-content");
     modalContent.classList.add("animate__animated", "animate__fadeIn");
@@ -102,4 +123,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     return colDiv;
   }
+
+  // Event listeners for pagination
+  document.querySelector("#prev").addEventListener("click", function () {
+    if (currentPage > 1) {
+      currentPage--;
+      updateModal(document.querySelector("#drinksModalLabel").textContent);
+    }
+  });
+
+  document.querySelector("#next").addEventListener("click", function () {
+    const totalPages = Math.ceil(drinksData.length / itemsPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      updateModal(document.querySelector("#drinksModalLabel").textContent);
+    }
+  });
 });

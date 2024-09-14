@@ -2,9 +2,9 @@
 {% load static %}
 {% block content %}
 <div class="container mt-5">
-    <h1 class="display-4 text-center mb-4 animate__animated animate__zoomIn">Our Menu</h1>
-    <p class="lead text-center mb-5 animate__animated animate__fadeIn animate__delay-0.5s">
-        Explore our exquisite selection and discover your new favorite drink.
+    <h1 class="display-4 text-center mb-4 animate__animated animate__zoomIn animate__delay-1s">Our Menu</h1>
+    <p class="lead text-center mb-5 animate__animated animate__fadeIn animate__delay-1s">
+        Dive into our vibrant selection and discover your new favorite drink.
     </p>
 
     <!-- Menu Categories Section -->
@@ -24,17 +24,27 @@
     <!-- Drinks Modal -->
     <div class="modal fade" id="drinksModal" tabindex="-1" aria-labelledby="drinksModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content animate__animated animate__fadeIn animate__delay-0.5s">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title" id="drinksModalLabel">Drinks</h5>
+            <div class="modal-content animate__animated animate__zoomIn animate__delay-0.5s">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="drinksModalLabel">Exciting Drinks</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p id="modal-description" class="animate__animated animate__fadeInUp"></p>
-                    <div id="drinks-container" class="row"></div>
+                    <p id="modal-description" class="animate__animated animate__fadeInUp animate__delay-1s"></p>
+                    <div id="drinks-container" class="row mb-4"></div>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <button id="prev" class="btn btn-primary btn-lg">Previous</button>
+                            </li>
+                            <li class="page-item">
+                                <button id="next" class="btn btn-primary btn-lg">Next</button>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

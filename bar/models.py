@@ -104,8 +104,6 @@ class Event(models.Model):
             next_occurrence = now + timezone.timedelta(days=days_until_target)
             return next_occurrence.replace(hour=20, minute=0, second=0, microsecond=0)
         return None
-
-
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
