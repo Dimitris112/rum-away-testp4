@@ -1,10 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.templatetags.static import static
+from cloudinary.models import CloudinaryField
+from django.core.exceptions import ValidationError
+
+# Custom validation for image formats
+def validate_image_format(value):
+    valid_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp']
+    if not any(value.name.lower().endswith(ext) for ext in valid_extensions):
+        raise ValidationError('Unsupported file extension. Allowed extensions are: png, jpg, jpeg, gif, webp.')
 
 class Table(models.Model):
     number = models.IntegerField(unique=True)
@@ -44,19 +51,26 @@ class Comment(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
-    profile_picture = models.ImageField(
-        blank=True,
-        null=True,
-        default='images/nobody.jpg'
-    )
+    featured_image = CloudinaryField('image', blank=True, null=True)
 
     def __str__(self):
         return f"Profile of {self.user.username}"
 
     def get_profile_picture_url(self):
-        if self.profile_picture and hasattr(self.profile_picture, 'url'):
-            return self.profile_picture.url
+        """
+        Returns the profile picture URL if available in Cloudinary.
+        If not, falls back to the default static image.
+        """
+        if self.featured_image and self.featured_image.url:
+            return self.featured_image.url
         return static('images/nobody.jpg')
+
+    def clean(self):
+        """
+        Validation for image formats.
+        """
+        if self.featured_image:
+            validate_image_format(self.featured_image)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -104,6 +118,7 @@ class Event(models.Model):
             next_occurrence = now + timezone.timedelta(days=days_until_target)
             return next_occurrence.replace(hour=20, minute=0, second=0, microsecond=0)
         return None
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)

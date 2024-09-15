@@ -1,17 +1,21 @@
 from django.urls import path
 from . import views
-from .views import CustomSignupView
+from .views import (
+    index, reservations, profile, reset_profile_picture,
+    orders, comments, contact, event_list, event_detail, menu,
+    CustomSignupView
+)
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('profile/', views.profile, name='profile'),
-    path('profile/reset-picture/', views.reset_profile_picture, name='reset_profile_picture'),
-    path('reservations/', views.reservations, name='reservations'),
-    path('orders/', views.orders, name='orders'),
-    path('comments/', views.comments, name='comments'),
-    path('contact/', views.contact, name='contact'),
-    path('events/', views.event_list, name='event_list'),
-    path('events/<int:event_id>/', views.event_detail, name='event_detail'),
+    path('', index, name='index'),
+    path('profile/', profile, name='profile'),
+    path('profile/reset-picture/', reset_profile_picture, name='reset_profile_picture'),
+    path('reservations/', reservations, name='reservations'),
+    path('orders/', orders, name='orders'),
+    path('comments/', comments, name='comments'),
+    path('contact/', contact, name='contact'),
+    path('events/', event_list, name='event_list'),
+    path('events/<int:event_id>/', event_detail, name='event_detail'),
     path('accounts/signup/', CustomSignupView.as_view(), name='account_signup'),
-    path('menu/', views.menu, name='menu'),
+    path('menu/', menu, name='menu'),
 ]

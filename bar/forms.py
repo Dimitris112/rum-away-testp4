@@ -1,15 +1,28 @@
 from django import forms
 from .models import Reservation, Comment, UserProfile, Event
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+# Validation for image formats
+def validate_image_format(value):
+    valid_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp']
+    if not any(value.name.lower().endswith(ext) for ext in valid_extensions):
+        raise ValidationError('Unsupported file extension. Allowed extensions are: png, jpg, jpeg, gif, webp.')
 
 # Form to handle profile update
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['profile_picture', 'bio']
+        fields = ['featured_image', 'bio']
         widgets = {
             'bio': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Tell us about yourself...'}),
         }
+
+    def clean_featured_image(self):
+        image = self.cleaned_data.get('featured_image')
+        if image:
+            validate_image_format(image)
+        return image
 
 # Form to handle user data update
 class UserForm(forms.ModelForm):
@@ -40,6 +53,9 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Leave your comment here...'}),
             'rating': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 5}),
+        }
+        help_texts = {
+            'rating': 'Please give a rating between 1 and 5.',
         }
 
 class EventForm(forms.ModelForm):

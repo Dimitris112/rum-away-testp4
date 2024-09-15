@@ -13,7 +13,7 @@
         <div class="col-md-6 col-lg-4">
             <div class="card profile-card">
                 <!-- Profile picture -->
-                <img src="{% if user.userprofile.profile_picture %}{{ user.userprofile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}"
+                <img src="{% if user.userprofile.featured_image %}{{ user.userprofile.featured_image.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}"
                     class="card-img-top profile-picture" alt="Profile Picture">
 
                 <div class="card-body">
@@ -63,8 +63,8 @@
                         class="form-control form-control-lg">
                 </div>
                 <div class="mb-3">
-                    {{ profile_form.profile_picture.label_tag }}
-                    <input type="file" name="{{ profile_form.profile_picture.name }}"
+                    {{ profile_form.featured_image.label_tag }}
+                    <input type="file" name="{{ profile_form.featured_image.name }}"
                         class="form-control form-control-lg">
                 </div>
                 <div class="mb-3">

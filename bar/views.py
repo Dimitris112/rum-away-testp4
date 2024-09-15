@@ -27,7 +27,7 @@ def reservations(request):
 
 @login_required
 def profile(request):
-    profile, created = UserProfile.objects.get_or_create(user=request.user)
+    profile = UserProfile.objects.get(user=request.user)
 
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
@@ -52,7 +52,7 @@ def profile(request):
 @require_POST
 def reset_profile_picture(request):
     profile, created = UserProfile.objects.get_or_create(user=request.user)
-    profile.profile_picture = static('images/nobody.jpg')
+    profile.featured_image = None  # Set the profile image to None
     profile.save()
     return redirect('profile')
 
