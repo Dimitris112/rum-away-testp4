@@ -4,73 +4,77 @@
             "name": "Red Wine",
             "description": "A rich, full-bodied red wine.",
             "price": 5.50,
-            "image": "wine1.jpg"
+            "image": "wine1.jpg",
+            "details": "A bold red wine with deep flavors of dark fruit and a smooth finish."
         },
         {
             "name": "White Wine",
             "description": "A crisp, refreshing white wine.",
             "price": 4.50,
-            "image": "wine2.jpg"
+            "image": "wine2.jpg",
+            "details": "A clean and zesty white wine with notes of citrus and green apple."
         },
         {
             "name": "Rosé",
             "description": "A light and fruity rosé wine.",
             "price": 5.00,
-            "image": "rose.jpg"
+            "image": "rose.jpg",
+            "details": "A refreshing rosé with delicate flavors of strawberry and melon."
         },
         {
             "name": "Sauvignon Blanc",
             "description": "A zesty and aromatic white wine.",
             "price": 5.25,
-            "image": "sauvignon_blanc.jpg"
-        },
-        {
+            "image": "sauvignon_blanc.jpg",
+            "details": "A white wine with vibrant acidity and notes of grapefruit and lime."
+        }, {
             "name": "Merlot",
             "description": "A smooth and velvety red wine.",
             "price": 6.00,
-            "image": "merlot.jpg"
-        },
-        {
+            "image": "merlot.jpg",
+            "details": "A soft red wine with flavors of cherry and plum and a hint of vanilla."
+        }, {
             "name": "Chardonnay",
             "description": "A full-bodied and creamy white wine.",
             "price": 6.50,
-            "image": "chardonnay.jpg"
-        },
-        {
+            "image": "chardonnay.jpg",
+            "details": "A rich white wine with notes of butter, vanilla, and tropical fruit."
+        }, {
             "name": "Pinot Noir",
             "description": "A light, elegant red wine with earthy notes.",
             "price": 7.00,
-            "image": "pinot_noir.jpg"
-        },
-        {
+            "image": "pinot_noir.jpg",
+            "details": "A delicate red wine with flavors of raspberry, cherry, and subtle earthiness."
+        }, {
             "name": "Cabernet Sauvignon",
             "description": "A bold and complex red wine.",
             "price": 7.50,
-            "image": "cab_sauvignon.jpg"
-        },
-        {
+            "image": "cab_sauvignon.jpg",
+            "details": "A full-bodied red wine with flavors of black currant, cedar, and tobacco."
+        }, {
             "name": "Zinfandel",
             "description": "A fruity and spicy red wine.",
             "price": 6.75,
-            "image": "zinfandel.jpg"
-        },
-        {
+            "image": "zinfandel.jpg",
+            "details": "A robust red wine with flavors of blackberry, pepper, and cinnamon."
+        }, {
             "name": "Syrah",
             "description": "A bold red wine with spicy and smoky notes.",
             "price": 6.00,
-            "image": "syrah.jpg"
-        },
-        {
+            "image": "syrah.jpg",
+            "details": "A rich red wine with flavors of blackberry, plum, and a hint of black pepper."
+        }, {
             "name": "Riesling",
             "description": "A sweet and aromatic white wine with hints of peach and honey.",
             "price": 5.75,
-            "image": "riesling.jpg"
-        },
-        {
+            "image": "riesling.jpg",
+            "details": "A fragrant white wine with flavors of peach, honey, and floral notes."
+        }, {
             "name": "Pinot Grigio",
             "description": "A light, crisp white wine with notes of citrus and pear.",
             "price": 5.25,
-            "image": "pinot_grigio.jpg"
+            "image": "pinot_grigio.jpg",
+            "details": "A refreshing white wine with bright acidity and flavors of lime and pear."
         }
     ],
     "Beers": [
@@ -78,73 +82,77 @@
             "name": "Ale",
             "description": "A hoppy and flavorful ale.",
             "price": 3.00,
-            "image": "beer1.jpg"
+            "image": "beer1.jpg",
+            "details": "A well-balanced ale with a pronounced hop character and a malty backbone."
         },
         {
             "name": "Lager",
             "description": "A smooth and crisp lager.",
             "price": 2.50,
-            "image": "beer2.jpg"
+            "image": "beer2.jpg",
+            "details": "A clean, light beer with a crisp finish and subtle hop bitterness."
         },
         {
             "name": "IPA",
             "description": "A strong, hoppy India Pale Ale.",
             "price": 3.50,
-            "image": "ipa.jpg"
+            "image": "ipa.jpg",
+            "details": "A bold beer with intense hop flavors and aromas, often featuring citrus and pine."
         },
         {
             "name": "Stout",
             "description": "A dark and creamy stout.",
             "price": 4.00,
-            "image": "stout.jpg"
-        },
-        {
+            "image": "stout.jpg",
+            "details": "A rich beer with flavors of roasted coffee, chocolate, and caramel."
+        }, {
             "name": "Pilsner",
             "description": "A light and refreshing pilsner.",
             "price": 3.00,
-            "image": "pilsner.jpg"
-        },
-        {
+            "image": "pilsner.jpg",
+            "details": "A pale lager with a crisp and clean taste, featuring a mild hop bitterness."
+        }, {
             "name": "Porter",
             "description": "A rich and robust porter.",
             "price": 4.50,
-            "image": "porter.jpg"
-        },
-        {
+            "image": "porter.jpg",
+            "details": "A dark beer with flavors of coffee, chocolate, and roasted malt."
+        }, {
             "name": "Wheat Beer",
             "description": "A smooth and slightly fruity wheat beer.",
             "price": 3.25,
-            "image": "wheat_beer.jpg"
-        },
-        {
+            "image": "wheat_beer.jpg",
+            "details": "A light, refreshing beer with fruity and spicy notes from wheat and yeast."
+        }, {
             "name": "Saison",
             "description": "A fruity and spicy farmhouse ale.",
             "price": 4.00,
-            "image": "saison.jpg"
-        },
-        {
+            "image": "saison.jpg",
+            "details": "A complex beer with a blend of fruity esters, spicy phenols, and a dry finish."
+        }, {
             "name": "Brown Ale",
             "description": "A malty and slightly sweet brown ale.",
             "price": 3.75,
-            "image": "brown_ale.jpg"
-        },
-        {
+            "image": "brown_ale.jpg",
+            "details": "A medium-bodied ale with flavors of caramel, toffee, and nuts."
+        }, {
             "name": "Amber Ale",
             "description": "A rich and malty ale with a hint of caramel.",
             "price": 3.50,
-            "image": "amber_ale.jpg"
-        },
-        {
+            "image": "amber_ale.jpg",
+            "details": "A balanced ale with a blend of caramel malt sweetness and mild hop bitterness."
+        }, {
             "name": "Sour Ale",
             "description": "A tart and fruity ale with complex flavors.",
             "price": 4.25,
-            "image": "sour_ale.jpg"
-        },
-        {
+            "image": "sour_ale.jpg",
+            "details": "A tangy beer with vibrant fruit flavors and a puckering sourness."
+        }, {
             "name": "Barleywine",
             "description": "A strong and malty ale with high alcohol content.",
             "price": 5.00,
-            "image": "barleywine.jpg"
+            "image": "barleywine.jpg",
+            "details": "A robust beer with rich malt flavors, hints of caramel, and a warming alcohol presence."
         }
     ],
     "Whiskey": [
@@ -152,79 +160,83 @@
             "name": "Bourbon",
             "description": "A sweet and spicy bourbon.",
             "price": 7.00,
-            "image": "whiskey1.jpg"
+            "image": "whiskey1.jpg",
+            "details": "A rich whiskey with flavors of vanilla, caramel, and a hint of oak."
         },
         {
             "name": "Scotch",
             "description": "A smoky and complex scotch.",
             "price": 8.50,
-            "image": "whiskey2.jpg"
+            "image": "whiskey2.jpg",
+            "details": "A peaty scotch with flavors of smoke, malt, and a touch of sweetness."
         },
         {
             "name": "Rye Whiskey",
             "description": "A spicy and robust rye whiskey.",
             "price": 7.50,
-            "image": "rye_whiskey.jpg"
+            "image": "rye_whiskey.jpg",
+            "details": "A bold whiskey with spicy notes of pepper and cinnamon, balanced by a rich malt profile."
         },
         {
             "name": "Irish Whiskey",
             "description": "A smooth and mellow Irish whiskey.",
             "price": 6.50,
-            "image": "irish_whiskey.jpg"
-        },
-        {
+            "image": "irish_whiskey.jpg",
+            "details": "A smooth whiskey with light notes of vanilla, honey, and toasted wood."
+        }, {
             "name": "Tennessee Whiskey",
             "description": "A smooth and sweet Tennessee whiskey.",
             "price": 7.00,
-            "image": "tennessee_whiskey.jpg"
-        },
-        {
+            "image": "tennessee_whiskey.jpg",
+            "details": "A mellow whiskey with flavors of caramel, vanilla, and a touch of smoke."
+        }, {
             "name": "Single Malt Scotch",
             "description": "A refined and rich single malt scotch.",
             "price": 10.00,
-            "image": "single_malt_scotch.jpg"
-        },
-        {
+            "image": "single_malt_scotch.jpg",
+            "details": "A complex scotch with layers of fruit, spice, and subtle smoke."
+        }, {
             "name": "Bourbon Barrel Aged Rye",
             "description": "Rye whiskey aged in bourbon barrels.",
             "price": 8.00,
-            "image": "bourbon_barrel_aged_rye.jpg"
-        },
-        {
+            "image": "bourbon_barrel_aged_rye.jpg",
+            "details": "A rich rye with added depth from bourbon barrel aging, featuring notes of vanilla and oak."
+        }, {
             "name": "Blended Scotch",
             "description": "A smooth and versatile blended scotch.",
             "price": 7.75,
-            "image": "blended_scotch.jpg"
-        },
-        {
+            "image": "blended_scotch.jpg",
+            "details": "A balanced scotch with a harmonious blend of malt and grain whiskeys."
+        }, {
             "name": "Corn Whiskey",
             "description": "A sweet and unaged corn whiskey.",
             "price": 6.00,
-            "image": "corn_whiskey.jpg"
-        },
-        {
+            "image": "corn_whiskey.jpg",
+            "details": "A youthful whiskey with a pronounced corn sweetness and a smooth finish."
+        }, {
             "name": "Peated Scotch",
             "description": "A scotch with a distinctive peaty flavor.",
             "price": 9.00,
-            "image": "peated_scotch.jpg"
-        },
-        {
+            "image": "peated_scotch.jpg",
+            "details": "A robust scotch with intense smoky and earthy flavors from peated malt."
+        }, {
             "name": "Blended Rye",
             "description": "A mix of rye whiskeys for a balanced flavor.",
             "price": 7.25,
-            "image": "blended_rye.jpg"
-        },
-        {
+            "image": "blended_rye.jpg",
+            "details": "A harmonious blend of rye whiskeys with a balance of spice and sweetness."
+        }, {
             "name": "Cask Strength Bourbon",
             "description": "A powerful bourbon with high alcohol content.",
             "price": 8.50,
-            "image": "cask_strength_bourbon.jpg"
-        },
-        {
+            "image": "cask_strength_bourbon.jpg",
+            "details": "A bold bourbon with high proof, delivering intense flavors of caramel, vanilla, and spice."
+        }, {
             "name": "Bourbon Cream",
             "description": "A rich and creamy bourbon liqueur.",
             "price": 7.50,
-            "image": "bourbon_cream.jpg"
+            "image": "bourbon_cream.jpg",
+            "details": "A decadent liqueur with creamy vanilla and bourbon notes."
         }
     ],
     "Vodka": [
@@ -232,79 +244,83 @@
             "name": "Classic Vodka",
             "description": "A smooth and versatile vodka.",
             "price": 6.00,
-            "image": "vodka1.jpg"
+            "image": "vodka1.jpg",
+            "details": "A clean and neutral vodka suitable for a variety of cocktails."
         },
         {
             "name": "Flavored Vodka",
             "description": "Vodka with a burst of fruit flavor.",
             "price": 7.00,
-            "image": "vodka2.jpg"
+            "image": "vodka2.jpg",
+            "details": "A versatile vodka infused with vibrant fruit flavors."
         },
         {
             "name": "Citron Vodka",
             "description": "Vodka infused with zesty lemon flavor.",
             "price": 6.50,
-            "image": "citron_vodka.jpg"
+            "image": "citron_vodka.jpg",
+            "details": "A bright vodka with a refreshing lemon taste, ideal for citrus cocktails."
         },
         {
             "name": "Pepper Vodka",
             "description": "Vodka with a spicy kick.",
             "price": 7.00,
-            "image": "pepper_vodka.jpg"
-        },
-        {
+            "image": "pepper_vodka.jpg",
+            "details": "A spicy vodka with a bold pepper flavor, great for adding a kick to drinks."
+        }, {
             "name": "Cucumber Vodka",
             "description": "Refreshing vodka with a hint of cucumber.",
             "price": 6.75,
-            "image": "cucumber_vodka.jpg"
-        },
-        {
+            "image": "cucumber_vodka.jpg",
+            "details": "A cool and crisp vodka with a subtle cucumber flavor, perfect for refreshing cocktails."
+        }, {
             "name": "Vanilla Vodka",
             "description": "Vodka with a smooth vanilla flavor.",
             "price": 7.00,
-            "image": "vanilla_vodka.jpg"
-        },
-        {
+            "image": "vanilla_vodka.jpg",
+            "details": "A rich vodka with a sweet vanilla profile, ideal for dessert cocktails."
+        }, {
             "name": "Ginger Vodka",
             "description": "Vodka infused with spicy ginger.",
             "price": 6.50,
-            "image": "ginger_vodka.jpg"
-        },
-        {
+            "image": "ginger_vodka.jpg",
+            "details": "A spicy vodka with a lively ginger flavor, adding a zesty kick to cocktails."
+        }, {
             "name": "Blueberry Vodka",
             "description": "Vodka with a sweet blueberry flavor.",
             "price": 6.75,
-            "image": "blueberry_vodka.jpg"
-        },
-        {
+            "image": "blueberry_vodka.jpg",
+            "details": "A flavorful vodka with sweet and tart blueberry notes."
+        }, {
             "name": "Peach Vodka",
             "description": "Vodka with a hint of juicy peach.",
             "price": 6.50,
-            "image": "peach_vodka.jpg"
-        },
-        {
+            "image": "peach_vodka.jpg",
+            "details": "A fruity vodka with a smooth peach flavor, perfect for summer cocktails."
+        }, {
             "name": "Blackberry Vodka",
             "description": "Vodka infused with rich blackberry flavor.",
             "price": 7.25,
-            "image": "blackberry_vodka.jpg"
-        },
-        {
+            "image": "blackberry_vodka.jpg",
+            "details": "A rich vodka with deep blackberry notes, great for creating sophisticated cocktails."
+        }, {
             "name": "Hibiscus Vodka",
             "description": "Vodka infused with floral hibiscus notes.",
             "price": 6.75,
-            "image": "hibiscus_vodka.jpg"
-        },
-        {
+            "image": "hibiscus_vodka.jpg",
+            "details": "A unique vodka with floral hibiscus flavors, adding a touch of elegance to drinks."
+        }, {
             "name": "Raspberry Vodka",
             "description": "Vodka with a tart raspberry flavor.",
             "price": 6.50,
-            "image": "raspberry_vodka.jpg"
-        },
-        {
+            "image": "raspberry_vodka.jpg",
+            "details": "A vibrant vodka with tart raspberry flavors, perfect for fruity cocktails."
+        }, {
             "name": "Maple Vodka",
             "description": "Vodka with a hint of rich maple sweetness.",
             "price": 7.00,
-            "image": "maple_vodka.jpg"
+            "image": "maple_vodka.jpg",
+            "details": "A smooth vodka with a subtle maple sweetness, ideal for unique cocktails."
         }
     ],
     "Rum": [
@@ -312,79 +328,83 @@
             "name": "Bacardi Superior",
             "description": "A smooth and classic white rum, perfect for cocktails.",
             "price": 5.50,
-            "image": "rum1.jpg"
+            "image": "rum1.jpg",
+            "details": "A light and clean white rum, great for mixing in cocktails."
         },
         {
             "name": "Mount Gay Eclipse",
             "description": "A rich and bold rum from Barbados, perfect for sipping.",
             "price": 7.00,
-            "image": "rum3.jpg"
+            "image": "rum3.jpg",
+            "details": "A full-flavored rum with notes of vanilla, banana, and a hint of spice."
         },
         {
             "name": "Dark Rum",
             "description": "A rich and intense dark rum.",
             "price": 6.00,
-            "image": "dark_rum.jpg"
+            "image": "dark_rum.jpg",
+            "details": "A deep and flavorful rum with notes of molasses, caramel, and spices."
         },
         {
             "name": "Spiced Rum",
             "description": "Rum with a blend of spices for extra flavor.",
             "price": 6.50,
-            "image": "spiced_rum.jpg"
-        },
-        {
+            "image": "spiced_rum.jpg",
+            "details": "A spiced rum with a blend of cinnamon, cloves, and other spices."
+        }, {
             "name": "Overproof Rum",
             "description": "A high-proof rum with a strong flavor.",
             "price": 8.00,
-            "image": "overproof_rum.jpg"
-        },
-        {
+            "image": "overproof_rum.jpg",
+            "details": "A potent rum with intense flavors and high alcohol content."
+        }, {
             "name": "Aged Rum",
             "description": "Rum aged for a smooth, complex flavor.",
             "price": 7.50,
-            "image": "aged_rum.jpg"
-        },
-        {
+            "image": "aged_rum.jpg",
+            "details": "A smooth rum with rich flavors developed through aging."
+        }, {
             "name": "Coconut Rum",
             "description": "Rum infused with tropical coconut flavor.",
             "price": 6.00,
-            "image": "coconut_rum.jpg"
-        },
-        {
+            "image": "coconut_rum.jpg",
+            "details": "A tropical rum with a sweet and creamy coconut flavor."
+        }, {
             "name": "Gold Rum",
             "description": "A rich and smooth gold rum.",
             "price": 6.75,
-            "image": "gold_rum.jpg"
-        },
-        {
+            "image": "gold_rum.jpg",
+            "details": "A golden rum with a rich and smooth flavor profile, featuring hints of caramel and vanilla."
+        }, {
             "name": "White Rum",
             "description": "A clean and light white rum.",
             "price": 5.75,
-            "image": "white_rum.jpg"
-        },
-        {
+            "image": "white_rum.jpg",
+            "details": "A crisp and light rum, perfect for mixing in cocktails."
+        }, {
             "name": "Spiced Aged Rum",
             "description": "Aged rum with added spices.",
             "price": 8.25,
-            "image": "spiced_aged_rum.jpg"
-        },
-        {
+            "image": "spiced_aged_rum.jpg",
+            "details": "Aged rum with a rich, complex flavor and a blend of aromatic spices."
+        }, {
             "name": "Platinum Rum",
             "description": "A smooth and refined platinum rum.",
             "price": 7.00,
-            "image": "platinum_rum.jpg"
-        },
-        {
+            "image": "platinum_rum.jpg",
+            "details": "A high-quality rum with a smooth and refined flavor."
+        }, {
             "name": "Honey Rum",
             "description": "Rum with a sweet honey infusion.",
             "price": 6.50,
-            "image": "honey_rum.jpg"
-        },
-        {
+            "image": "honey_rum.jpg",
+            "details": "A rum with a rich honey flavor, adding a touch of sweetness."
+        }, {
             "name": "Cinnamon Rum",
             "description": "Rum with a spicy cinnamon kick.",
             "price": 6.75,
-            "image": "cinnamon_rum.jpg"
+            "image": "cinnamon_rum.jpg",
+            "details": "A spiced rum with a warm and spicy cinnamon flavor."
         }
     ],
     "Cocktails": [
@@ -392,109 +412,107 @@
             "name": "Margarita",
             "description": "Tequila, Lime juice, Triple sec, Salt, Lime wedge.",
             "price": 6.50,
-            "image": "margarita.jpg"
+            "image": "margarita.jpg",
+            "details": "A classic cocktail with a tangy lime flavor and a salted rim."
         },
         {
             "name": "Mojito",
             "description": "White rum, Fresh lime juice, Sugar, Mint, Soda water.",
             "price": 5.50,
-            "image": "mojito.jpg"
+            "image": "mojito.jpg",
+            "details": "A refreshing cocktail with lime, mint, and a touch of sweetness."
         },
         {
             "name": "Old Fashioned",
             "description": "Bourbon, Sugar, Bitters, Orange twist.",
             "price": 7.00,
-            "image": "old_fashioned.jpg"
+            "image": "old_fashioned.jpg",
+            "details": "A timeless cocktail with a perfect balance of bourbon, sweetness, and bitters."
         },
         {
             "name": "Cosmopolitan",
             "description": "Vodka, Triple sec, Cranberry juice, Lime juice.",
             "price": 6.00,
-            "image": "cosmopolitan.jpg"
-        },
-        {
+            "image": "cosmopolitan.jpg",
+            "details": "A stylish cocktail with a vibrant cranberry flavor and a touch of citrus."
+        }, {
             "name": "Negroni",
             "description": "Gin, Campari, Sweet vermouth.",
             "price": 7.50,
-            "image": "negroni.jpg"
-        },
-        {
+            "image": "negroni.jpg",
+            "details": "A classic cocktail with a bitter and complex flavor profile."
+        }, {
             "name": "Mai Tai",
             "description": "Rum, Lime juice, Orange curaçao, Orgeat syrup, Simple syrup.",
             "price": 8.00,
-            "image": "mai_tai.jpg"
-        },
-        {
+            "image": "mai_tai.jpg",
+            "details": "A tropical cocktail with a perfect blend of rum, citrus, and almond flavors."
+        }, {
             "name": "Daiquiri",
             "description": "Rum, Lime juice, Simple syrup.",
             "price": 6.00,
-            "image": "daiquiri.jpg"
-        },
-        {
+            "image": "daiquiri.jpg",
+            "details": "A simple and refreshing cocktail with a balance of rum and lime."
+        }, {
             "name": "Manhattan",
             "description": "Bourbon, Sweet vermouth, Bitters.",
             "price": 7.50,
-            "image": "manhattan.jpg"
-        },
-        {
+            "image": "manhattan.jpg",
+            "details": "A sophisticated cocktail with a blend of bourbon and sweet vermouth."
+        }, {
             "name": "Pina Colada",
             "description": "Rum, Coconut cream, Pineapple juice.",
             "price": 7.00,
-            "image": "pina_colada.jpg"
-        },
-        {
+            "image": "pina_colada.jpg",
+            "details": "A creamy and tropical cocktail with rich coconut and pineapple flavors."
+        }, {
             "name": "Sazerac",
             "description": "Rye whiskey, Absinthe, Sugar, Bitters.",
             "price": 8.00,
-            "image": "sazerac.jpg"
-        },
-        {
+            "image": "sazerac.jpg",
+            "details": "A bold and aromatic cocktail with a distinctive absinthe flavor."
+        }, {
             "name": "Bellini",
             "description": "Prosecco, Peach purée.",
             "price": 7.00,
-            "image": "bellini.jpg"
-        },
-        {
+            "image": "bellini.jpg",
+            "details": "A light and refreshing cocktail with peach and sparkling wine."
+        }, {
             "name": "Martini",
             "description": "Gin or vodka, Dry vermouth, Olive or lemon twist.",
             "price": 8.00,
-            "image": "martini.jpg"
-        },
-        {
+            "image": "martini.jpg",
+            "details": "A classic and elegant cocktail, with your choice of gin or vodka."
+        }, {
             "name": "Whiskey Sour",
             "description": "Whiskey, Lemon juice, Simple syrup.",
             "price": 6.50,
-            "image": "whiskey_sour.jpg"
-        },
-        {
+            "image": "whiskey_sour.jpg",
+            "details": "A tangy and sweet cocktail with a balance of whiskey and lemon."
+        }, {
             "name": "Tom Collins",
             "description": "Gin, Lemon juice, Simple syrup, Soda water.",
             "price": 6.00,
-            "image": "tom_collins.jpg"
-        },
-        {
-            "name": "Mai Tai",
-            "description": "Rum, Lime juice, Orange curaçao, Orgeat syrup, Simple syrup.",
-            "price": 8.00,
-            "image": "mai_tai.jpg"
-        },
-        {
+            "image": "tom_collins.jpg",
+            "details": "A refreshing cocktail with gin, lemon, and soda water."
+        }, {
             "name": "French 75",
             "description": "Gin, Lemon juice, Simple syrup, Champagne.",
             "price": 7.50,
-            "image": "french_75.jpg"
-        },
-        {
+            "image": "french_75.jpg",
+            "details": "A sparkling cocktail with gin and champagne, perfect for celebrations."
+        }, {
             "name": "Moscow Mule",
             "description": "Vodka, Lime juice, Ginger beer.",
             "price": 6.00,
-            "image": "moscow_mule.jpg"
-        },
-        {
+            "image": "moscow_mule.jpg",
+            "details": "A zesty and refreshing cocktail with vodka and ginger beer."
+        }, {
             "name": "Gimlet",
             "description": "Gin or vodka, Lime juice, Simple syrup.",
             "price": 6.50,
-            "image": "gimlet.jpg"
+            "image": "gimlet.jpg",
+            "details": "A crisp cocktail with gin or vodka and a tart lime flavor."
         }
     ]
 }

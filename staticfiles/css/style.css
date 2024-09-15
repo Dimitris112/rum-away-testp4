@@ -360,6 +360,14 @@ form .mb-3 textarea:focus {
     border-top: 3px solid var(--highlight-color);
 }
 
+.modal-backdrop {
+    display: none;
+}
+
+.modal-backdrop.show {
+    display: block;
+}
+
 /* Modal Buttons */
 .btn-primary {
     background-color: var(--warm-primary);

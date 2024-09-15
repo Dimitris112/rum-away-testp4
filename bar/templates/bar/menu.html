@@ -2,14 +2,15 @@
 {% load static %}
 {% block content %}
 <div class="container mt-5">
-    <h1 class="display-4 text-center mb-4 animate__animated animate__zoomIn animate__delay-1s">Our Menu</h1>
+    <!-- Page Title -->
+    <h1 class="display-4 text-center mb-4 animate__animated animate__zoomIn animate__delay-1s">Explore Our Menu</h1>
     <p class="lead text-center mb-5 animate__animated animate__fadeIn animate__delay-1s">
-        Dive into our vibrant selection and discover your new favorite drink.
+        Discover our curated selection of drinks and find your new favorite.
     </p>
 
     <!-- Menu Categories Section -->
     <div class="text-center mb-5">
-        <h2 class="display-5 mb-4 animate__animated animate__fadeIn animate__delay-1s">Categories</h2>
+        <h2 class="display-5 mb-4 animate__animated animate__fadeIn animate__delay-1s">Select a Category</h2>
         <div class="btn-group mb-4" role="group" aria-label="Menu Categories">
             {% for category in categories %}
             <button type="button"
@@ -26,26 +27,53 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content animate__animated animate__zoomIn animate__delay-0.5s">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="drinksModalLabel">Exciting Drinks</h5>
+                    <h5 class="modal-title" id="drinksModalLabel">Drink Selection</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p id="modal-description" class="animate__animated animate__fadeInUp animate__delay-1s"></p>
+                    <p id="modal-description"
+                        class="lead text-center mb-4 animate__animated animate__fadeInUp animate__delay-1s"></p>
                     <div id="drinks-container" class="row mb-4"></div>
                     <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
+                        <ul class="pagination justify-content-center mt-4">
                             <li class="page-item" id="prev-container">
-                                <button id="prev" class="btn btn-primary btn-lg">Previous</button>
+                                <button id="prev" class="btn btn-primary btn-lg"
+                                    aria-label="Previous Page">Previous</button>
                             </li>
                             <li class="page-item">
                                 <span id="page-info" class="page-info"></span>
                             </li>
                             <li class="page-item" id="next-container">
-                                <button id="next" class="btn btn-primary btn-lg">Next</button>
+                                <button id="next" class="btn btn-primary btn-lg" aria-label="Next Page">Next</button>
                             </li>
                         </ul>
                     </nav>
-                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Drink Details Modal -->
+    <div class="modal fade" id="drinkDetailsModal" tabindex="-1" aria-labelledby="drinkDetailsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animate__animated animate__zoomIn animate__delay-0.5s">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="drinkDetailsModalLabel">Drink Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="drink-details-container" class="d-flex align-items-center">
+                        <img id="drink-image" src="" alt="" class="img-fluid rounded me-4" style="max-width: 150px;">
+                        <div>
+                            <h5 id="drink-name" class="mb-2"></h5>
+                            <p id="drink-description" class="mb-3"></p>
+                            <p class="fw-bold" id="drink-price"></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
