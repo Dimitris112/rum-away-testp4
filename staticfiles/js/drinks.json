@@ -23,31 +23,54 @@
             "description": "A zesty and aromatic white wine.",
             "price": 5.25,
             "image": "sauvignon_blanc.jpg"
-        }, {
+        },
+        {
             "name": "Merlot",
             "description": "A smooth and velvety red wine.",
             "price": 6.00,
             "image": "merlot.jpg"
-        }, {
+        },
+        {
             "name": "Chardonnay",
             "description": "A full-bodied and creamy white wine.",
             "price": 6.50,
             "image": "chardonnay.jpg"
-        }, {
+        },
+        {
             "name": "Pinot Noir",
             "description": "A light, elegant red wine with earthy notes.",
             "price": 7.00,
             "image": "pinot_noir.jpg"
-        }, {
+        },
+        {
             "name": "Cabernet Sauvignon",
             "description": "A bold and complex red wine.",
             "price": 7.50,
             "image": "cab_sauvignon.jpg"
-        }, {
+        },
+        {
             "name": "Zinfandel",
             "description": "A fruity and spicy red wine.",
             "price": 6.75,
             "image": "zinfandel.jpg"
+        },
+        {
+            "name": "Syrah",
+            "description": "A bold red wine with spicy and smoky notes.",
+            "price": 6.00,
+            "image": "syrah.jpg"
+        },
+        {
+            "name": "Riesling",
+            "description": "A sweet and aromatic white wine with hints of peach and honey.",
+            "price": 5.75,
+            "image": "riesling.jpg"
+        },
+        {
+            "name": "Pinot Grigio",
+            "description": "A light, crisp white wine with notes of citrus and pear.",
+            "price": 5.25,
+            "image": "pinot_grigio.jpg"
         }
     ],
     "Beers": [
@@ -74,31 +97,54 @@
             "description": "A dark and creamy stout.",
             "price": 4.00,
             "image": "stout.jpg"
-        }, {
+        },
+        {
             "name": "Pilsner",
             "description": "A light and refreshing pilsner.",
             "price": 3.00,
             "image": "pilsner.jpg"
-        }, {
+        },
+        {
             "name": "Porter",
             "description": "A rich and robust porter.",
             "price": 4.50,
             "image": "porter.jpg"
-        }, {
+        },
+        {
             "name": "Wheat Beer",
             "description": "A smooth and slightly fruity wheat beer.",
             "price": 3.25,
             "image": "wheat_beer.jpg"
-        }, {
+        },
+        {
             "name": "Saison",
             "description": "A fruity and spicy farmhouse ale.",
             "price": 4.00,
             "image": "saison.jpg"
-        }, {
+        },
+        {
             "name": "Brown Ale",
             "description": "A malty and slightly sweet brown ale.",
             "price": 3.75,
             "image": "brown_ale.jpg"
+        },
+        {
+            "name": "Amber Ale",
+            "description": "A rich and malty ale with a hint of caramel.",
+            "price": 3.50,
+            "image": "amber_ale.jpg"
+        },
+        {
+            "name": "Sour Ale",
+            "description": "A tart and fruity ale with complex flavors.",
+            "price": 4.25,
+            "image": "sour_ale.jpg"
+        },
+        {
+            "name": "Barleywine",
+            "description": "A strong and malty ale with high alcohol content.",
+            "price": 5.00,
+            "image": "barleywine.jpg"
         }
     ],
     "Whiskey": [
@@ -125,36 +171,60 @@
             "description": "A smooth and mellow Irish whiskey.",
             "price": 6.50,
             "image": "irish_whiskey.jpg"
-        }, {
+        },
+        {
             "name": "Tennessee Whiskey",
             "description": "A smooth and sweet Tennessee whiskey.",
             "price": 7.00,
             "image": "tennessee_whiskey.jpg"
-        }, {
+        },
+        {
             "name": "Single Malt Scotch",
             "description": "A refined and rich single malt scotch.",
             "price": 10.00,
             "image": "single_malt_scotch.jpg"
-        }, {
+        },
+        {
             "name": "Bourbon Barrel Aged Rye",
             "description": "Rye whiskey aged in bourbon barrels.",
             "price": 8.00,
             "image": "bourbon_barrel_aged_rye.jpg"
-        }, {
+        },
+        {
             "name": "Blended Scotch",
             "description": "A smooth and versatile blended scotch.",
             "price": 7.75,
             "image": "blended_scotch.jpg"
-        }, {
+        },
+        {
             "name": "Corn Whiskey",
             "description": "A sweet and unaged corn whiskey.",
             "price": 6.00,
             "image": "corn_whiskey.jpg"
-        }, {
+        },
+        {
             "name": "Peated Scotch",
             "description": "A scotch with a distinctive peaty flavor.",
             "price": 9.00,
             "image": "peated_scotch.jpg"
+        },
+        {
+            "name": "Blended Rye",
+            "description": "A mix of rye whiskeys for a balanced flavor.",
+            "price": 7.25,
+            "image": "blended_rye.jpg"
+        },
+        {
+            "name": "Cask Strength Bourbon",
+            "description": "A powerful bourbon with high alcohol content.",
+            "price": 8.50,
+            "image": "cask_strength_bourbon.jpg"
+        },
+        {
+            "name": "Bourbon Cream",
+            "description": "A rich and creamy bourbon liqueur.",
+            "price": 7.50,
+            "image": "bourbon_cream.jpg"
         }
     ],
     "Vodka": [
@@ -181,36 +251,60 @@
             "description": "Vodka with a spicy kick.",
             "price": 7.00,
             "image": "pepper_vodka.jpg"
-        }, {
+        },
+        {
             "name": "Cucumber Vodka",
             "description": "Refreshing vodka with a hint of cucumber.",
             "price": 6.75,
             "image": "cucumber_vodka.jpg"
-        }, {
+        },
+        {
             "name": "Vanilla Vodka",
             "description": "Vodka with a smooth vanilla flavor.",
             "price": 7.00,
             "image": "vanilla_vodka.jpg"
-        }, {
+        },
+        {
             "name": "Ginger Vodka",
             "description": "Vodka infused with spicy ginger.",
             "price": 6.50,
             "image": "ginger_vodka.jpg"
-        }, {
+        },
+        {
             "name": "Blueberry Vodka",
             "description": "Vodka with a sweet blueberry flavor.",
             "price": 6.75,
             "image": "blueberry_vodka.jpg"
-        }, {
+        },
+        {
             "name": "Peach Vodka",
             "description": "Vodka with a hint of juicy peach.",
             "price": 6.50,
             "image": "peach_vodka.jpg"
-        }, {
+        },
+        {
             "name": "Blackberry Vodka",
             "description": "Vodka infused with rich blackberry flavor.",
             "price": 7.25,
             "image": "blackberry_vodka.jpg"
+        },
+        {
+            "name": "Hibiscus Vodka",
+            "description": "Vodka infused with floral hibiscus notes.",
+            "price": 6.75,
+            "image": "hibiscus_vodka.jpg"
+        },
+        {
+            "name": "Raspberry Vodka",
+            "description": "Vodka with a tart raspberry flavor.",
+            "price": 6.50,
+            "image": "raspberry_vodka.jpg"
+        },
+        {
+            "name": "Maple Vodka",
+            "description": "Vodka with a hint of rich maple sweetness.",
+            "price": 7.00,
+            "image": "maple_vodka.jpg"
         }
     ],
     "Rum": [
@@ -237,36 +331,60 @@
             "description": "Rum with a blend of spices for extra flavor.",
             "price": 6.50,
             "image": "spiced_rum.jpg"
-        }, {
+        },
+        {
             "name": "Overproof Rum",
             "description": "A high-proof rum with a strong flavor.",
             "price": 8.00,
             "image": "overproof_rum.jpg"
-        }, {
+        },
+        {
             "name": "Aged Rum",
             "description": "Rum aged for a smooth, complex flavor.",
             "price": 7.50,
             "image": "aged_rum.jpg"
-        }, {
+        },
+        {
             "name": "Coconut Rum",
             "description": "Rum infused with tropical coconut flavor.",
             "price": 6.00,
             "image": "coconut_rum.jpg"
-        }, {
+        },
+        {
             "name": "Gold Rum",
             "description": "A rich and smooth gold rum.",
             "price": 6.75,
             "image": "gold_rum.jpg"
-        }, {
+        },
+        {
             "name": "White Rum",
             "description": "A clean and light white rum.",
             "price": 5.75,
             "image": "white_rum.jpg"
-        }, {
+        },
+        {
             "name": "Spiced Aged Rum",
             "description": "Aged rum with added spices.",
             "price": 8.25,
             "image": "spiced_aged_rum.jpg"
+        },
+        {
+            "name": "Platinum Rum",
+            "description": "A smooth and refined platinum rum.",
+            "price": 7.00,
+            "image": "platinum_rum.jpg"
+        },
+        {
+            "name": "Honey Rum",
+            "description": "Rum with a sweet honey infusion.",
+            "price": 6.50,
+            "image": "honey_rum.jpg"
+        },
+        {
+            "name": "Cinnamon Rum",
+            "description": "Rum with a spicy cinnamon kick.",
+            "price": 6.75,
+            "image": "cinnamon_rum.jpg"
         }
     ],
     "Cocktails": [
@@ -293,56 +411,90 @@
             "description": "Vodka, Triple sec, Cranberry juice, Lime juice.",
             "price": 6.00,
             "image": "cosmopolitan.jpg"
-        }, {
+        },
+        {
             "name": "Negroni",
             "description": "Gin, Campari, Sweet vermouth.",
             "price": 7.50,
             "image": "negroni.jpg"
-        }, {
+        },
+        {
             "name": "Mai Tai",
             "description": "Rum, Lime juice, Orange curaçao, Orgeat syrup, Simple syrup.",
             "price": 8.00,
             "image": "mai_tai.jpg"
-        }, {
+        },
+        {
             "name": "Daiquiri",
             "description": "Rum, Lime juice, Simple syrup.",
             "price": 6.00,
             "image": "daiquiri.jpg"
-        }, {
+        },
+        {
             "name": "Manhattan",
             "description": "Bourbon, Sweet vermouth, Bitters.",
             "price": 7.50,
             "image": "manhattan.jpg"
-        }, {
+        },
+        {
             "name": "Pina Colada",
             "description": "Rum, Coconut cream, Pineapple juice.",
             "price": 7.00,
             "image": "pina_colada.jpg"
-        }, {
+        },
+        {
             "name": "Sazerac",
             "description": "Rye whiskey, Absinthe, Sugar, Bitters.",
             "price": 8.00,
             "image": "sazerac.jpg"
-        }, {
+        },
+        {
             "name": "Bellini",
             "description": "Prosecco, Peach purée.",
             "price": 7.00,
             "image": "bellini.jpg"
-        }, {
+        },
+        {
             "name": "Martini",
             "description": "Gin or vodka, Dry vermouth, Olive or lemon twist.",
             "price": 8.00,
             "image": "martini.jpg"
-        }, {
+        },
+        {
             "name": "Whiskey Sour",
             "description": "Whiskey, Lemon juice, Simple syrup.",
             "price": 6.50,
             "image": "whiskey_sour.jpg"
-        }, {
+        },
+        {
             "name": "Tom Collins",
             "description": "Gin, Lemon juice, Simple syrup, Soda water.",
             "price": 6.00,
             "image": "tom_collins.jpg"
+        },
+        {
+            "name": "Mai Tai",
+            "description": "Rum, Lime juice, Orange curaçao, Orgeat syrup, Simple syrup.",
+            "price": 8.00,
+            "image": "mai_tai.jpg"
+        },
+        {
+            "name": "French 75",
+            "description": "Gin, Lemon juice, Simple syrup, Champagne.",
+            "price": 7.50,
+            "image": "french_75.jpg"
+        },
+        {
+            "name": "Moscow Mule",
+            "description": "Vodka, Lime juice, Ginger beer.",
+            "price": 6.00,
+            "image": "moscow_mule.jpg"
+        },
+        {
+            "name": "Gimlet",
+            "description": "Gin or vodka, Lime juice, Simple syrup.",
+            "price": 6.50,
+            "image": "gimlet.jpg"
         }
     ]
 }
