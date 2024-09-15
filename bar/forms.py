@@ -2,6 +2,7 @@ from django import forms
 from .models import Reservation, Comment, UserProfile, Event, User
 from django.core.exceptions import ValidationError
 
+
 # Validation for image formats
 def validate_image_format(value):
     valid_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp']
@@ -33,6 +34,7 @@ class UserProfileForm(forms.ModelForm):
         if image:
             validate_image_format(image)
         return image
+
 
 
 # Form to handle user data update

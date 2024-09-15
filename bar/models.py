@@ -10,8 +10,15 @@ from django.core.exceptions import ValidationError
 # Validation for image formats
 def validate_image_format(value):
     valid_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp']
-    if not any(value.name.lower().endswith(ext) for ext in valid_extensions):
-        raise ValidationError('Unsupported file extension. Allowed extensions are: png, jpg, jpeg, gif, webp.')
+    
+    # Check for file URL in CloudinaryField
+    if hasattr(value, 'url'):
+        file_url = value.url.lower()
+        if not any(file_url.endswith(ext) for ext in valid_extensions):
+            raise ValidationError('Unsupported file extension. Allowed extensions are: png, jpg, jpeg, gif, webp.')
+    else:
+        raise ValidationError('Unsupported file type.')
+
 
 class Table(models.Model):
     number = models.IntegerField(unique=True)
