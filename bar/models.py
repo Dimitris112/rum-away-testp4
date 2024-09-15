@@ -7,7 +7,7 @@ from django.templatetags.static import static
 from cloudinary.models import CloudinaryField
 from django.core.exceptions import ValidationError
 
-# Custom validation for image formats
+# Validation for image formats
 def validate_image_format(value):
     valid_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp']
     if not any(value.name.lower().endswith(ext) for ext in valid_extensions):

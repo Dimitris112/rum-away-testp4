@@ -48,11 +48,12 @@ def profile(request):
     }
     return render(request, 'bar/profile.html', context)
 
+
 @login_required
 @require_POST
 def reset_profile_picture(request):
     profile, created = UserProfile.objects.get_or_create(user=request.user)
-    profile.featured_image = None  # Set the profile image to None
+    profile.featured_image = None
     profile.save()
     return redirect('profile')
 

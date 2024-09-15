@@ -1,13 +1,23 @@
 from django import forms
-from .models import Reservation, Comment, UserProfile, Event
-from django.contrib.auth.models import User
+from .models import Reservation, Comment, UserProfile, Event, User
 from django.core.exceptions import ValidationError
 
 # Validation for image formats
 def validate_image_format(value):
     valid_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp']
-    if not any(value.name.lower().endswith(ext) for ext in valid_extensions):
-        raise ValidationError('Unsupported file extension. Allowed extensions are: png, jpg, jpeg, gif, webp.')
+    
+    if hasattr(value, 'name'):
+        if not any(value.name.lower().endswith(ext) for ext in valid_extensions):
+            raise ValidationError('Unsupported file extension. Allowed extensions are: png, jpg, jpeg, gif, webp.')
+    
+    elif hasattr(value, 'url'):
+        file_url = value.url.lower()
+        if not any(file_url.endswith(ext) for ext in valid_extensions):
+            raise ValidationError('Unsupported file extension. Allowed extensions are: png, jpg, jpeg, gif, webp.')
+    
+    else:
+        raise ValidationError('Unsupported file type.')
+
 
 # Form to handle profile update
 class UserProfileForm(forms.ModelForm):
@@ -23,6 +33,7 @@ class UserProfileForm(forms.ModelForm):
         if image:
             validate_image_format(image)
         return image
+
 
 # Form to handle user data update
 class UserForm(forms.ModelForm):
@@ -58,6 +69,7 @@ class CommentForm(forms.ModelForm):
             'rating': 'Please give a rating between 1 and 5.',
         }
 
+# Form for creating or updating events
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event

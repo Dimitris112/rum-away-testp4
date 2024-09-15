@@ -49,28 +49,23 @@
                 {% csrf_token %}
                 <div class="mb-3">
                     {{ user_form.first_name.label_tag }}
-                    <input type="text" name="{{ user_form.first_name.name }}" value="{{ user_form.first_name.value }}"
-                        class="form-control form-control-lg">
+                    {{ user_form.first_name }}
                 </div>
                 <div class="mb-3">
                     {{ user_form.last_name.label_tag }}
-                    <input type="text" name="{{ user_form.last_name.name }}" value="{{ user_form.last_name.value }}"
-                        class="form-control form-control-lg">
+                    {{ user_form.last_name }}
                 </div>
                 <div class="mb-3">
                     {{ user_form.email.label_tag }}
-                    <input type="email" name="{{ user_form.email.name }}" value="{{ user_form.email.value }}"
-                        class="form-control form-control-lg">
+                    {{ user_form.email }}
                 </div>
                 <div class="mb-3">
                     {{ profile_form.featured_image.label_tag }}
-                    <input type="file" name="{{ profile_form.featured_image.name }}"
-                        class="form-control form-control-lg">
+                    {{ profile_form.featured_image }}
                 </div>
                 <div class="mb-3">
                     {{ profile_form.bio.label_tag }}
-                    <textarea name="{{ profile_form.bio.name }}"
-                        class="form-control form-control-lg">{{ profile_form.bio.value }}</textarea>
+                    {{ profile_form.bio }}
                 </div>
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </form>
