@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("JavaScript file loaded.");
 
-  const itemsPerPage = 4; // Changed to 4
+  const itemsPerPage = 4; // Number of items per page
   let currentPage = 1;
   let drinksData = [];
 
@@ -49,15 +49,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const modalDescription = document.querySelector("#modal-description");
     const drinksContainer = document.querySelector("#drinks-container");
     const pageInfo = document.querySelector("#page-info");
-    const prevButton = document.querySelector("#prev");
-    const nextButton = document.querySelector("#next");
+    const prevContainer = document.querySelector("#prev-container");
+    const nextContainer = document.querySelector("#next-container");
 
     modalTitle.textContent = category;
     modalDescription.textContent = `Explore our exquisite selection of ${category}.`;
 
     // Pagination logic
     const totalPages = Math.ceil(drinksData.length / itemsPerPage);
-    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    pageInfo.innerHTML = `<span class="page-number">${currentPage}</span> of <span class="page-total">${totalPages}</span>`;
 
     drinksContainer.innerHTML = "";
 
@@ -71,8 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Show-hide pagination buttons
-    prevButton.style.display = currentPage > 1 ? "inline-block" : "none";
-    nextButton.style.display =
+    prevContainer.style.display = currentPage > 1 ? "inline-block" : "none";
+    nextContainer.style.display =
       currentPage < totalPages ? "inline-block" : "none";
 
     const modalContent = document.querySelector(".modal-content");
