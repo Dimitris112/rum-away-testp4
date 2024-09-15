@@ -2,20 +2,35 @@
 {% load static %}
 {% load i18n %}
 
+{% block title %}Testimonials | Rum Away{% endblock %}
+
 {% block content %}
-<h1>{% trans "Testimonials" %}</h1>
+<div class="container mt-5">
+    <h1 class="mb-4 text-center text-secondary">{% trans "Testimonials" %}</h1>
 
-<ul>
-    {% for testimonial in testimonials %}
-    <li>
-        <strong>{{ testimonial.author }}</strong>: {{ testimonial.text }}
-    </li>
-    {% empty %}
-    <li>{% trans "No testimonials yet!" %}</li>
-    {% endfor %}
-</ul>
+    <div class="testimonial-container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <ul class="list-group shadow-sm">
+                    {% for testimonial in testimonials %}
+                    <li class="list-group-item p-4 mb-3 border-0 rounded shadow-sm">
+                        <h5 class="mb-2 text-primary">{{ testimonial.author }}</h5>
+                        <p class="mb-0 text-muted">{{ testimonial.text }}</p>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-center">
+                        <p class="text-muted">{% trans "No testimonials yet!" %}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
 
-<a href="{% url 'add_testimonial' %}" class="btn btn-primary">
-    {% trans "Add your testimonial" %}
-</a>
+        <div class="text-center mt-4">
+            <a href="{% url 'add_testimonial' %}" class="btn btn-primary btn-lg shadow">
+                {% trans "Add your testimonial" %}
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}
