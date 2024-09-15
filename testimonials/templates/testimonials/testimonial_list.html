@@ -14,8 +14,22 @@
                 <ul class="list-group shadow-sm">
                     {% for testimonial in testimonials %}
                     <li class="list-group-item p-4 mb-3 border-0 rounded shadow-sm">
-                        <h5 class="mb-2 text-primary">{{ testimonial.author }}</h5>
-                        <p class="mb-0 text-muted">{{ testimonial.text }}</p>
+                        <h5 class="mb-2 text-primary">
+                            {{ testimonial.name }}
+                            {% if testimonial.updated_at > testimonial.created_at %}
+                            <span class="text-muted small">(edited)</span>
+                            {% endif %}
+                        </h5>
+                        <p class="mb-0 text-muted">{{ testimonial.content }}</p>
+                        <p class="text-muted">Rating: {{ testimonial.rating }} Stars</p>
+                        <p class="text-muted">Submitted on: {{ testimonial.created_at }}</p>
+                        {% if testimonial.updated_at > testimonial.created_at %}
+                        <p class="text-muted">Edited on: {{ testimonial.updated_at }}</p>
+                        {% endif %}
+                        {% if user.is_authenticated and user == testimonial.user %}
+                        <a href="{% url 'edit_testimonial' testimonial.pk %}" class="btn btn-warning">Edit</a>
+                        <a href="{% url 'delete_testimonial' testimonial.pk %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
                     </li>
                     {% empty %}
                     <li class="list-group-item text-center">

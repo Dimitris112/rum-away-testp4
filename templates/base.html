@@ -84,6 +84,16 @@
 
     <!-- Main Content -->
     <main class="flex-shrink-0">
+        {% if messages %}
+        <div class="container mt-5">
+            {% for message in messages %}
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
         {% block content %}
         {% endblock %}
     </main>

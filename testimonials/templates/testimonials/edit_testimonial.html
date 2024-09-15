@@ -2,19 +2,20 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}Add Testimonial | Rum Away{% endblock %}
+{% block title %}Edit Testimonial{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">{% trans "Add a Testimonial" %}</h1>
+    <h1 class="mb-4">{% trans "Edit Your Testimonial" %}</h1>
 
-    <form method="post" action="{% url 'add_testimonial' %}" class="form-group bg-light p-4 rounded shadow-sm">
+    <form method="post" action="{% url 'edit_testimonial' testimonial.pk %}"
+        class="form-group bg-light p-4 rounded shadow-sm">
+
         {% csrf_token %}
 
         <div class="form-group mb-3">
             <label for="{{ form.content.id_for_label }}" class="form-label">{{ form.content.label }}</label>
-            <input type="text" name="{{ form.content.name }}" id="{{ form.content.id_for_label }}"
-                value="{{ form.content.value }}" class="form-control">
+            {{ form.content }}
             {% if form.content.errors %}
             <div class="text-danger">
                 {% for error in form.content.errors %}
@@ -26,12 +27,7 @@
 
         <div class="form-group mb-3">
             <label for="{{ form.rating.id_for_label }}" class="form-label">{{ form.rating.label }}</label>
-            <select name="{{ form.rating.name }}" id="{{ form.rating.id_for_label }}" class="form-control">
-                {% for option in form.rating.field.choices %}
-                <option value="{{ option.0 }}" {% if option.0 == form.rating.value %}selected{% endif %}>{{ option.1 }}
-                </option>
-                {% endfor %}
-            </select>
+            {{ form.rating }}
             {% if form.rating.errors %}
             <div class="text-danger">
                 {% for error in form.rating.errors %}
@@ -41,7 +37,7 @@
             {% endif %}
         </div>
 
-        <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+        <button type="submit" class="btn btn-primary">{% trans "Save Changes" %}</button>
     </form>
 </div>
 {% endblock %}

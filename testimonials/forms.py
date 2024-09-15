@@ -14,6 +14,7 @@ class TestimonialForm(forms.ModelForm):
         instance = super().save(commit=False)
         if self.user:
             instance.name = self.user.username
+            instance.user = self.user
         if commit:
             instance.save()
         return instance
