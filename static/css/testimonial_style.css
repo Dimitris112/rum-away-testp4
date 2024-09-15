@@ -38,3 +38,49 @@
 .btn-add-testimonial:hover {
     background-color: #ffab91;
 }
+
+/* Rating */
+.bar-rating-container {
+    position: relative;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.bar-rating {
+    height: 100%;
+    background: linear-gradient(to right,
+            red 0%,
+            yellow 20%,
+            orange 40%,
+            lightgreen 60%,
+            green 100%);
+    transition: width 0.3s ease;
+}
+
+.bar-rating[data-rating="1"] {
+    width: 20%;
+    background: red;
+}
+
+.bar-rating[data-rating="2"] {
+    width: 40%;
+    background: orange;
+}
+
+.bar-rating[data-rating="3"] {
+    width: 60%;
+    background: yellow;
+}
+
+.bar-rating[data-rating="4"] {
+    width: 80%;
+    background: lightgreen;
+}
+
+.bar-rating[data-rating="5"] {
+    width: 100%;
+    background: green;
+}

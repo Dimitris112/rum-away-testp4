@@ -7,46 +7,71 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="mb-4 text-center text-secondary">{% trans "Testimonials" %}</h1>
+    <div class="alert alert-info text-center" role="alert">
+        <span class="fw-bold">Rate Your Experience:</span>
+        <div class="alert alert-info mb-4">
+            <p>{% trans "Curious about our ratings? 🍺 Red means 'Room for Improvement', yellow is 'Good, but Could Be Better', and green signifies 'Top-Notch Experience!' 🍺" %}
+            </p>
+        </div>
+    </div>
 
     <div class="testimonial-container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2">
-                <ul class="list-group shadow-sm">
-                    {% for testimonial in testimonials %}
-                    <li class="list-group-item p-4 mb-3 border-0 rounded shadow-sm">
-                        <h5 class="mb-2 text-primary">
-                            {{ testimonial.name }}
-                            {% if testimonial.was_edited %}
-                            <span class="text-muted small">(Edited)</span>
-                            {% endif %}
-                        </h5>
-                        <p class="mb-0 text-muted">{{ testimonial.content }}</p>
-                        <p class="text-muted">Rating: {{ testimonial.rating }} Stars</p>
+        <div class="row justify-content-center">
+            {% for testimonial in testimonials %}
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header d-flex align-items-center">
+                        <img src="{{ testimonial.user.userprofile.get_profile_picture_url }}"
+                            alt="{{ testimonial.user.username }}'s profile picture" class="rounded-circle me-3"
+                            style="width: 50px; height: 50px;">
+                        <h5 class="mb-0">{{ testimonial.name }}</h5>
+                        {% if testimonial.was_edited %}
+                        <span class="text-muted small ms-2">(Edited)</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">{{ testimonial.content }}</p>
+
+                        <!-- Bar metric for rating-->
+                        <div class="bar-rating-container">
+                            <div class="bar-rating" data-rating="{{ testimonial.rating }}"></div>
+                        </div>
+
                         <p class="text-muted">Submitted on: {{ testimonial.created_at }}</p>
 
-                        {% if testimonial.was_edited %}
+                        {% if testimonial.updated_at > testimonial.created_at %}
                         <p class="text-muted">Last edited on: {{ testimonial.updated_at }}</p>
                         {% endif %}
 
                         {% if user.is_authenticated and user == testimonial.user %}
-                        <a href="{% url 'edit_testimonial' testimonial.pk %}" class="btn btn-warning">Edit</a>
-                        <a href="{% url 'delete_testimonial' testimonial.pk %}" class="btn btn-danger">Delete</a>
+                        <div class="d-flex justify-content-end">
+                            <a href="{% url 'edit_testimonial' testimonial.pk %}" class="btn btn-warning me-2">Edit</a>
+                            <a href="{% url 'delete_testimonial' testimonial.pk %}" class="btn btn-danger">Delete</a>
+                        </div>
                         {% endif %}
-                    </li>
-                    {% empty %}
-                    <li class="list-group-item text-center">
-                        <p class="text-muted">{% trans "No testimonials yet!" %}</p>
-                    </li>
-                    {% endfor %}
-                </ul>
+                    </div>
+                </div>
             </div>
+            {% empty %}
+            <div class="col-md-6 text-center">
+                <p class="text-muted">{% trans "No testimonials yet!" %}</p>
+            </div>
+            {% endfor %}
         </div>
 
         <div class="text-center mt-4">
+            {% if user.is_authenticated %}
             <a href="{% url 'add_testimonial' %}" class="btn btn-primary btn-lg shadow">
                 {% trans "Add your testimonial" %}
             </a>
+            {% else %}
+            <p class="lead text-secondary">{% trans "Want to share your experience?" %}</p>
+            <a href="{% url 'account_login' %}" class="btn btn-outline-primary btn-lg shadow">
+                {% trans "Log in to share" %}
+            </a>
+            {% endif %}
         </div>
     </div>
 </div>
+
 {% endblock %}
