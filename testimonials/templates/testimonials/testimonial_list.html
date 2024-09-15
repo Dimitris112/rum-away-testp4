@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<h1>{% trans "Testimonials" %}</h1>
+
+<ul>
+    {% for testimonial in testimonials %}
+    <li>
+        <strong>{{ testimonial.author }}</strong>: {{ testimonial.text }}
+    </li>
+    {% empty %}
+    <li>{% trans "No testimonials yet!" %}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'add_testimonial' %}" class="btn btn-primary">
+    {% trans "Add your testimonial" %}
+</a>
+{% endblock %}
