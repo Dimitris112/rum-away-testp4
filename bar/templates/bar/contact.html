@@ -19,23 +19,27 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="name" class="form-label">Your Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                                <input type="text" class="form-control" id="name" name="name"
+                                    placeholder="Enter your name" required aria-label="Your Name">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="email" class="form-label">Your Email Address</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Enter your email" required aria-label="Your Email Address">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="telephone" class="form-label">Phone Number (Optional)</label>
-                            <input type="tel" class="form-control" id="telephone" name="telephone">
+                            <input type="tel" class="form-control" id="telephone" name="telephone"
+                                placeholder="(123) 456-7890" aria-label="Phone Number">
                         </div>
                         <div class="mb-3">
                             <label for="message" class="form-label">Your Message</label>
-                            <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                            <textarea class="form-control" id="message" name="message" rows="4"
+                                placeholder="Type your message here..." required aria-label="Your Message"></textarea>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Send Your Message</button>
+                            <button type="submit" class="btn btn-primary btn-lg px-5">Send Your Message</button>
                         </div>
                     </form>
                 </div>
@@ -43,7 +47,11 @@
         </div>
     </div>
 
+    <!-- Divider between sections -->
+    <hr class="my-5" />
+
     <!-- Reservation Form -->
+    {% if user.is_authenticated %}
     <div class="row justify-content-center mt-5">
         <div class="col-md-6">
             <div class="card shadow-sm border-light mb-4">
@@ -54,52 +62,67 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="res-name" class="form-label">Your Name</label>
-                                <input type="text" class="form-control" id="res-name" name="res-name" required>
+                                <input type="text" class="form-control" id="res-name" name="res-name"
+                                    placeholder="Enter your name" required aria-label="Your Name">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="res-email" class="form-label">Your Email Address</label>
-                                <input type="email" class="form-control" id="res-email" name="res-email" required>
+                                <input type="email" class="form-control" id="res-email" name="res-email"
+                                    placeholder="Enter your email" required aria-label="Your Email Address">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="res-date" class="form-label">Date of Reservation</label>
-                                <input type="date" class="form-control" id="res-date" name="res-date" required>
+                                <input type="date" class="form-control" id="res-date" name="res-date" required
+                                    aria-label="Date of Reservation">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="res-time" class="form-label">Time of Reservation</label>
-                                <input type="time" class="form-control" id="res-time" name="res-time" required>
+                                <input type="time" class="form-control" id="res-time" name="res-time" required
+                                    aria-label="Time of Reservation">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="res-guests" class="form-label">Number of Guests</label>
-                            <input type="number" class="form-control" id="res-guests" name="res-guests" min="1"
-                                required>
+                            <input type="number" class="form-control" id="res-guests" name="res-guests" min="1" required
+                                aria-label="Number of Guests">
                         </div>
                         <div class="mb-3">
                             <label for="res-special-requests" class="form-label">Any Special Requests?</label>
                             <textarea class="form-control" id="res-special-requests" name="res-special-requests"
-                                rows="3"></textarea>
+                                rows="3" placeholder="Enter any special requests here..."
+                                aria-label="Special Requests"></textarea>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Submit Reservation</button>
+                            <button type="submit" class="btn btn-primary btn-lg px-5">Submit Reservation</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    {% else %}
+    <div class="alert alert-warning text-center mt-5">
+        <p><strong>You need to be logged in to make a reservation. Please <a href="{% url 'account_login' %}"
+                    class="btn btn-primary">Log In</a> to continue.</strong></p>
+    </div>
+    {% endif %}
 
     <!-- Hall Information and Image Carousel -->
     <section class="mt-5">
         <div class="container text-center">
             <h3 class="mb-4">Discover Our Warm and Inviting Halls</h3>
-            <p class="mb-4">We offer two charming halls for your special events, whether you prefer the cozy indoor
-                atmosphere or the delightful outdoor setting. Explore the images below to get a feel for each space.</p>
+            <p class="mb-4">Step into a world where comfort meets elegance. Whether you're planning an intimate
+                gathering or a grand celebration, our halls provide the perfect backdrop. Explore our indoor and outdoor
+                spaces to find the ideal setting for your special occasion.</p>
 
             <!-- Indoor Hall -->
             <div class="mb-4">
                 <h4 class="mb-3">Indoor Hall</h4>
+                <p class="mb-4">Immerse yourself in the cozy charm of our Indoor Hall. Featuring rich wood finishes and
+                    plush seating, it’s designed for those who appreciate a sophisticated and intimate atmosphere.
+                    Perfect for winter gatherings and cozy celebrations.</p>
                 <div id="indoorCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -131,6 +154,9 @@
             <!-- Outdoor Hall -->
             <div>
                 <h4 class="mb-3">Outdoor Hall</h4>
+                <p class="mb-4">Experience the allure of the outdoors with our stunning Outdoor Hall. Ideal for sunny
+                    days and warm evenings, this space offers a breath of fresh air and a vibrant atmosphere. From
+                    garden parties to evening soirees, it's the perfect venue to celebrate in style.</p>
                 <div id="outdoorCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -161,18 +187,29 @@
         </div>
     </section>
 
-    <!-- Contact Information Section -->
+    <!-- Contact Information -->
     <section class="mt-5">
         <div class="container text-center">
             <h3 class="mb-4">Find Us Here</h3>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27320.849278345057!2d-115.83088239999998!3d37.2354913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80b8d8d4cf16c6ef%3A0x2d3792769e5c7f0!2sArea%2051!5e0!3m2!1sen!2sus!4v1694807742961!5m2!1sen!2sus"
-                        width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <p><strong>Phone:</strong> +123 456 7890</p>
+                    <p><strong>Email:</strong> contact@rumaway.com</p>
+                    <p><strong>Location:</strong> Area 51, Nevada</p>
+                </div>
+            </div>
+            <!-- Google Maps -->
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8">
+                    <div class="map-container" style="width:100%;height:400px;">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3307.3931382554314!2d-115.80477172417235!3d37.244046940593135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80b8e848d370a6ad%3A0x45b4fd223484c7ea!2sArea%2051!5e0!3m2!1sen!2sus!4v1637685259138!5m2!1sen!2sus"
+                            style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
 </div>
 {% endblock %}

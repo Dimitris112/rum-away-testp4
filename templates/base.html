@@ -37,6 +37,9 @@
 
     <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <!-- Phone masking -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/6.2.0/imask.min.js"></script>
 </head>
 
 <body class="d-flex flex-column h-100 main-bg">
@@ -118,6 +121,7 @@
     {% block extra_scripts %}
     <script src="{% static 'js/menu.js' %}"></script>
     <script src="{% static 'js/testimonials.js' %}"></script>
+    <script src="{% static 'js/phone_mask.js' %}"></script>
     {% endblock %}
 </body>
 

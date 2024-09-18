@@ -126,6 +126,16 @@ class Event(models.Model):
             return next_occurrence.replace(hour=20, minute=0, second=0, microsecond=0)
         return None
 
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    telephone = models.CharField(max_length=20, blank=True, null=True)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Message from {self.name} ({self.email}) on {self.created_at}"
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)

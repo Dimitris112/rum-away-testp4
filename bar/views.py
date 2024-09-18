@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-from .models import UserProfile, Event, Category
+from .models import UserProfile, Event, Category, ContactMessage
 from .forms import UserForm, UserProfileForm
 from allauth.account.views import SignupView
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.templatetags.static import static
 from django.utils import timezone
+from django.contrib import messages
 
 class CustomSignupView(SignupView):
     def form_valid(self, form):
@@ -19,11 +20,14 @@ def index(request):
     }
     return render(request, 'bar/index.html', context)
 
+@login_required
 def reservations(request):
+    if request.method == 'POST':
+        pass
     context = {
         'page_title': 'Reservations',
     }
-    return render(request, 'bar/reservations.html', context)
+    return render(request, 'bar/contact.html', context)
 
 @login_required
 def profile(request):
@@ -57,23 +61,27 @@ def reset_profile_picture(request):
     profile.save()
     return redirect('profile')
 
-def orders(request):
-    context = {
-        'page_title': 'Orders',
-    }
-    return render(request, 'bar/orders.html', context)
-
-def comments(request):
-    context = {
-        'page_title': 'Comments',
-    }
-    return render(request, 'bar/comments.html', context)
 
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message_content = request.POST.get('message')
+
+        ContactMessage.objects.create(
+            name=name,
+            email=email,
+            message=message_content
+        )
+
+        messages.success(request, "Your message has been sent successfully!")
+        return redirect('contact')
+
     context = {
         'page_title': 'Contact Us',
     }
     return render(request, 'bar/contact.html', context)
+
 
 def event_list(request):
     now = timezone.now()
