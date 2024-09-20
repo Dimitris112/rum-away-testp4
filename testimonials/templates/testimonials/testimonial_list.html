@@ -32,7 +32,7 @@
                     <div class="card-body">
                         <p class="text-muted">{{ testimonial.content }}</p>
 
-                        <!-- Bar metric for rating-->
+                        <!-- Bar metric for rating -->
                         <div class="bar-rating-container">
                             <div class="bar-rating" data-rating="{{ testimonial.rating }}"></div>
                         </div>
@@ -43,12 +43,49 @@
                         <p class="text-muted">Last edited on: {{ testimonial.updated_at }}</p>
                         {% endif %}
 
-                        {% if user.is_authenticated and user == testimonial.user %}
+                        {% if user.is_authenticated %}
                         <div class="d-flex justify-content-end">
+                            {% if user.is_superuser or user == testimonial.user %}
                             <a href="{% url 'edit_testimonial' testimonial.pk %}" class="btn btn-warning me-2">Edit</a>
-                            <a href="{% url 'delete_testimonial' testimonial.pk %}" class="btn btn-danger">Delete</a>
+                            <button class="btn btn-danger me-2 delete-comment-button"
+                                data-testimonial-id="{{ testimonial.pk }}">Delete</button>
+                            {% endif %}
+                            <button class="btn btn-success comment-button" data-testimonial-id="{{ testimonial.pk }}"
+                                data-user-name="{{ testimonial.user.username }}">
+                                {% trans "Comment" %}
+                            </button>
                         </div>
                         {% endif %}
+
+                        <!-- Display Comments -->
+                        <div class="comment-section" data-testimonial-id="{{ testimonial.pk }}">
+                            {% if testimonial.comments.count > 0 %}
+                            {% for comment in testimonial.comments.all %}
+                            <div class="mt-2 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>{{ comment.user.username }}</strong>:
+                                    <p>{{ comment.content }}</p>
+                                    <small class="text-muted">{{ comment.created_at }}</small>
+                                </div>
+                                <div>
+                                    {% if user.is_authenticated %}
+                                    {% if user.is_superuser or user == comment.user %}
+                                    <button class="btn btn-warning btn-sm me-2 edit-comment-button"
+                                        data-comment-id="{{ comment.id }}" data-comment-content="{{ comment.content }}">
+                                        Edit
+                                    </button>
+                                    <button class="btn btn-danger btn-sm delete-comment-button"
+                                        data-comment-id="{{ comment.id }}">Delete</button>
+                                    {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <p class="text-muted">{% trans "No comments yet!" %}</p>
+                            {% endif %}
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -70,6 +107,69 @@
                 {% trans "Log in to share" %}
             </a>
             {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Add Comment Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">{% trans "Comment on" %} <span
+                        id="testimonialUserName"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="commentForm">
+                    {% csrf_token %}
+                    <input type="hidden" id="testimonialId">
+                    <textarea id="commentContent" name="content" class="form-control" rows="3"
+                        placeholder="{% trans 'Add your comment...' %}"></textarea>
+                    <button type="submit" class="btn btn-primary mt-2">{% trans "Submit" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Comment Modal -->
+<div class="modal fade" id="editCommentModal" tabindex="-1" aria-labelledby="editCommentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCommentModalLabel">{% trans "Edit Comment" %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editCommentForm">
+                    {% csrf_token %}
+                    <input type="hidden" id="editCommentId">
+                    <textarea id="editCommentContent" class="form-control" rows="3"
+                        placeholder="{% trans 'Edit your comment...' %}"></textarea>
+                    <button type="submit" class="btn btn-primary mt-2">{% trans "Update Comment" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteCommentModal" tabindex="-1" aria-labelledby="deleteCommentModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCommentModalLabel">{% trans "Confirm Deletion" %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% trans "Are you sure you want to delete this comment?" %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">{% trans "Delete" %}</button>
+            </div>
         </div>
     </div>
 </div>

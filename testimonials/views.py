@@ -1,13 +1,21 @@
+from django.http import JsonResponse, HttpResponseForbidden
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import TestimonialForm
-from .models import Testimonial
+from .forms import TestimonialForm, CommentForm
+from .models import Testimonial, Comment
 from django.utils import timezone
+from django.utils.decorators import method_decorator
+import json
+
+# all testimonials
 
 def testimonial_list(request):
     testimonials = Testimonial.objects.all()
     return render(request, 'testimonials/testimonial_list.html', {'testimonials': testimonials})
+
+# add testimonial
 
 @login_required
 def add_testimonial(request):
@@ -20,6 +28,9 @@ def add_testimonial(request):
         form = TestimonialForm(user=request.user)
     
     return render(request, 'testimonials/add_testimonial.html', {'form': form})
+
+
+# edit testimonial
 
 @login_required
 def edit_testimonial(request, pk):
@@ -38,11 +49,84 @@ def edit_testimonial(request, pk):
     return render(request, 'testimonials/edit_testimonial.html', {'form': form, 'testimonial': testimonial})
 
 
+# delete testimonial
+
 @login_required
 def delete_testimonial(request, pk):
-    testimonial = get_object_or_404(Testimonial, pk=pk, user=request.user)
-    if request.method == 'POST':
-        testimonial.delete()
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+
+    if request.user == testimonial.user or request.user.is_superuser:
+        if request.method == 'POST':
+            testimonial.delete()
+            messages.success(request, 'Testimonial deleted successfully.')
+            return redirect('testimonial_list')
+    else:
+        messages.error(request, 'You do not have permission to delete this testimonial.')
         return redirect('testimonial_list')
     
     return render(request, 'testimonials/delete_testimonial.html', {'testimonial': testimonial})
+
+
+#add comment
+
+@require_POST
+@login_required
+def add_comment(request, testimonial_id):
+    try:
+        # Parse the request body to get the comment content
+        data = json.loads(request.body)
+        content = data.get('content')
+
+        if not content:
+            return JsonResponse({'success': False, 'error': 'Comment content cannot be empty'}, status=400)
+
+        testimonial = get_object_or_404(Testimonial, id=testimonial_id)
+
+        comment = Comment.objects.create(
+            content=content,
+            testimonial=testimonial,
+            user=request.user
+        )
+
+        return JsonResponse({
+            'success': True,
+            'user_name': request.user.username,
+            'created_at': comment.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        })
+
+    except json.JSONDecodeError:
+        return JsonResponse({'success': False, 'error': 'Invalid JSON data'}, status=400)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+
+# edit comment
+
+@method_decorator(login_required, name='dispatch')
+@require_POST
+def edit_comment(request, comment_id):
+    try:
+        comment = Comment.objects.get(id=comment_id, user=request.user)
+        content = json.loads(request.body).get('content')
+        comment.content = content
+        comment.save()
+        return JsonResponse({'success': True, 'testimonial_id': comment.testimonial.id})
+    except Comment.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Comment not found.'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+
+# delete comment
+
+@login_required
+@require_POST
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+
+    if request.user == comment.user or request.user.is_superuser:
+        comment.delete()
+        messages.success(request, 'Comment deleted successfully.')
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False, 'error': 'You do not have permission to delete this comment.'}, status=403)

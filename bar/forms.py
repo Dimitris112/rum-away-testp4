@@ -1,6 +1,7 @@
 from django import forms
 from .models import Reservation, Comment, UserProfile, Event, User
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
 # Validation for image formats
@@ -55,7 +56,11 @@ class ReservationForm(forms.ModelForm):
         fields = ['name', 'reservation_time', 'special_requests', 'num_guests', 'hall']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your name'}),
-            'reservation_time': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'reservation_time': forms.DateTimeInput(attrs={
+                'class': 'form-control',
+                'type': 'datetime-local',
+                'min': timezone.now().isoformat()
+            }),
             'special_requests': forms.Textarea(attrs={'rows': 3, 'class': 'form-control', 'placeholder': 'Any special requests?'}),
             'num_guests': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
             'hall': forms.Select(attrs={'class': 'form-control'}),

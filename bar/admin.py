@@ -2,15 +2,7 @@ from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django_summernote.admin import SummernoteModelAdmin
-from .models import Reservation, Comment, UserProfile, Event, ContactMessage
-
-@admin.register(Comment)
-class CommentAdmin(SummernoteModelAdmin):
-    summernote_fields = ('content',)
-    list_display = ('user', 'created_at', 'rating')
-    search_fields = ('user__username', 'content')
-    list_filter = ('created_at', 'rating')
-    ordering = ('-created_at',)
+from .models import Reservation, UserProfile, Event, ContactMessage
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):

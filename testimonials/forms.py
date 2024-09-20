@@ -1,5 +1,5 @@
 from django import forms
-from .models import Testimonial
+from .models import Testimonial, Comment
 
 class TestimonialForm(forms.ModelForm):
     class Meta:
@@ -18,3 +18,15 @@ class TestimonialForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Add your comment...',
+                'rows': 3
+            }),
+        }

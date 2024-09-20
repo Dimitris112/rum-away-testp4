@@ -36,4 +36,33 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
+
+  // validate reservation time
+  function validateReservationTime() {
+    const currentHour = new Date().getHours();
+    const currentMinute = new Date().getMinutes();
+
+    hourSelect.addEventListener("change", function () {
+      checkFutureTime();
+    });
+
+    minuteSelect.addEventListener("change", function () {
+      checkFutureTime();
+    });
+
+    function checkFutureTime() {
+      const selectedHour = parseInt(hourSelect.value);
+      const selectedMinute = parseInt(minuteSelect.value);
+      if (
+        selectedHour < currentHour ||
+        (selectedHour === currentHour && selectedMinute < currentMinute)
+      ) {
+        alert("Please select a future time for your reservation.");
+        hourSelect.value = "";
+        minuteSelect.value = "";
+      }
+    }
+  }
+
+  validateReservationTime();
 });

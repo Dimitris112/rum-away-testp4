@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.conf import settings
 
 class Testimonial(models.Model):
     name = models.CharField(max_length=100)
@@ -10,14 +11,23 @@ class Testimonial(models.Model):
     updated_at = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='testimonials', null=True, blank=True)
 
+class Comment(models.Model):
+    content = models.TextField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='testimonial_comments')
+    testimonial = models.ForeignKey(Testimonial, on_delete=models.CASCADE, related_name='comments')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+
+
     def __str__(self):
-        return self.name
+        return f"{self.user.username}: {self.content[:20]}... on {self.testimonial.id}"
 
-    def save(self, *args, **kwargs):
-        if self.pk and self.created_at != timezone.now():
-            self.updated_at = timezone.now()
-        super().save(*args, **kwargs)
-
-    @property
-    def was_edited(self):
-        return self.updated_at and self.updated_at != self.created_at
+    
+    def clean(self):
+        if len(self.content) < 1:
+            raise ValidationError('Comment cannot be empty.')
