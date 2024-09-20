@@ -11,23 +11,38 @@ from django.core.exceptions import ValidationError
 def validate_image_format(value):
     valid_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp']
     
-    # Check for file URL in CloudinaryField
-    if hasattr(value, 'url'):
+    if hasattr(value, 'name'):
+        file_name = value.name.lower()
+        if not any(file_name.endswith(ext) for ext in valid_extensions):
+            raise ValidationError('Unsupported file extension. Allowed extensions are: png, jpg, jpeg, gif, webp.')
+    
+    elif hasattr(value, 'url'):
         file_url = value.url.lower()
         if not any(file_url.endswith(ext) for ext in valid_extensions):
             raise ValidationError('Unsupported file extension. Allowed extensions are: png, jpg, jpeg, gif, webp.')
+    
     else:
         raise ValidationError('Unsupported file type.')
 
+
 class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, null=True, blank=True)
     reservation_time = models.DateTimeField()
     special_requests = models.TextField(blank=True, null=True)
     num_guests = models.PositiveIntegerField(default=1)
     hall = models.CharField(max_length=10, choices=[('indoor', 'Indoor'), ('outdoor', 'Outdoor')], default='indoor')
 
+    def clean(self):
+        super().clean()
+        if self.hall == 'indoor' and self.num_guests > 70:
+            raise ValidationError('Indoor capacity is limited to 70 guests.')
+        elif self.hall == 'outdoor' and self.num_guests > 120:
+            raise ValidationError('Outdoor capacity is limited to 120 guests.')
+
     def __str__(self):
         return f"Reservation for {self.user.username} at {self.reservation_time} in the {self.hall} area"
+
 
 
 class Comment(models.Model):

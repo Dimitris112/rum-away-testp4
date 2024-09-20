@@ -52,13 +52,15 @@ class UserForm(forms.ModelForm):
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ['reservation_time', 'special_requests', 'num_guests', 'hall']
+        fields = ['name', 'reservation_time', 'special_requests', 'num_guests', 'hall']
         widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your name'}),
             'reservation_time': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
             'special_requests': forms.Textarea(attrs={'rows': 3, 'class': 'form-control', 'placeholder': 'Any special requests?'}),
             'num_guests': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
             'hall': forms.Select(attrs={'class': 'form-control'}),
         }
+
 
 # Form to add comments
 class CommentForm(forms.ModelForm):

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from .models import UserProfile, Event, Category, ContactMessage, Reservation
-from .forms import UserForm, UserProfileForm
+from .forms import UserForm, UserProfileForm, ReservationForm
 from allauth.account.views import SignupView
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
@@ -27,12 +27,13 @@ def reservations(request):
         if form.is_valid():
             reservation = form.save(commit=False)
             reservation.user = request.user
+            reservation.name = request.user.username
             reservation.save()
             messages.success(request, "Your reservation has been made successfully!")
             return redirect('profile')
     else:
-        form = ReservationForm()
-    
+        form = ReservationForm(initial={'name': request.user.username})
+
     context = {
         'page_title': 'Reservations',
         'form': form,
@@ -51,12 +52,12 @@ def profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
+            messages.success(request, "Your profile has been updated successfully!")
             return redirect('profile')
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=profile)
 
-    # upcoming reservations
     upcoming_reservations = Reservation.objects.filter(user=request.user, reservation_time__gte=timezone.now()).order_by('reservation_time')
 
     context = {
@@ -66,7 +67,6 @@ def profile(request):
         'upcoming_reservations': upcoming_reservations,
     }
     return render(request, 'bar/profile.html', context)
-
 
 
 @login_required
@@ -84,6 +84,10 @@ def contact(request):
         email = request.POST.get('email')
         message_content = request.POST.get('message')
 
+        if not name:
+            messages.error(request, "Name is required.")
+            return redirect('contact')
+
         ContactMessage.objects.create(
             name=name,
             email=email,
@@ -97,6 +101,7 @@ def contact(request):
         'page_title': 'Contact Us',
     }
     return render(request, 'bar/contact.html', context)
+
 
 
 def event_list(request):

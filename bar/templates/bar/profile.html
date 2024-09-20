@@ -84,9 +84,9 @@
             <ul class="list-group">
                 {% for reservation in upcoming_reservations %}
                 <li class="list-group-item">
-                    <strong>Date:</strong> {{ reservation.date }} <br>
-                    <strong>Time:</strong> {{ reservation.time }} <br>
-                    <strong>Guests:</strong> {{ reservation.guests }} <br>
+                    <strong>Date:</strong> {{ reservation.reservation_time|date:"Y-m-d" }} <br>
+                    <strong>Time:</strong> {{ reservation.reservation_time|time:"H:i" }} <br>
+                    <strong>Guests:</strong> {{ reservation.num_guests }} <br>
                 </li>
                 {% endfor %}
             </ul>
