@@ -19,32 +19,16 @@ def validate_image_format(value):
     else:
         raise ValidationError('Unsupported file type.')
 
-
-class Table(models.Model):
-    number = models.IntegerField(unique=True)
-    seats = models.IntegerField()
-
-    def __str__(self):
-        return f"Table {self.number} ({self.seats} seats)"
-
 class Reservation(models.Model):
-    table = models.ForeignKey(Table, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     reservation_time = models.DateTimeField()
     special_requests = models.TextField(blank=True, null=True)
+    num_guests = models.PositiveIntegerField(default=1)
+    hall = models.CharField(max_length=10, choices=[('indoor', 'Indoor'), ('outdoor', 'Outdoor')], default='indoor')
 
     def __str__(self):
-        return f"Reservation for {self.user.username} at {self.reservation_time} on Table {self.table.number}"
+        return f"Reservation for {self.user.username} at {self.reservation_time} in the {self.hall} area"
 
-class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    table = models.ForeignKey(Table, on_delete=models.CASCADE)
-    order_time = models.DateTimeField(default=timezone.now)
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    items = models.TextField()
-
-    def __str__(self):
-        return f"Order by {self.user.username} on Table {self.table.number} for ${self.total_amount}"
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

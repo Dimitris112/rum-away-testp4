@@ -76,6 +76,26 @@
         </div>
     </div>
 
+    <!-- Upcoming Reservations Section -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 col-lg-6">
+            <h3 class="text-center">Upcoming Reservations</h3>
+            {% if upcoming_reservations %}
+            <ul class="list-group">
+                {% for reservation in upcoming_reservations %}
+                <li class="list-group-item">
+                    <strong>Date:</strong> {{ reservation.date }} <br>
+                    <strong>Time:</strong> {{ reservation.time }} <br>
+                    <strong>Guests:</strong> {{ reservation.guests }} <br>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-center">No upcoming reservations.</p>
+            {% endif %}
+        </div>
+    </div>
+
     {% else %}
     <p class="text-center">{% trans "You need to be logged in to view this page." %}</p>
     {% endif %}

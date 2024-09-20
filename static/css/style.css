@@ -321,6 +321,7 @@ form .mb-3 textarea:focus {
     object-fit: contain;
     object-position: center;
     border-radius: 10px;
+    transition: transform 0.5s ease, opacity 0.5s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3),
         0 6px 20px rgba(0, 0, 0, 0.1),
         0 10px 30px rgba(0, 0, 0, 0.05);
@@ -329,13 +330,15 @@ form .mb-3 textarea:focus {
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
-    padding: 15px;
-    width: 40px;
-    height: 40px;
-    border: 2px solid white;
+    transition: transform 0.3s ease;
 }
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
 
 .carousel-caption {
     background: rgba(0, 0, 0, 0.6);
@@ -360,6 +363,21 @@ form .mb-3 textarea:focus {
 
 .carousel-item img:hover {
     transform: scale(1.02);
+}
+
+.section-halls {
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.8), rgba(240, 240, 240, 0.8)),
+    url('{% static "images/background.jpg" %}');
+    background-size: cover;
+    background-position: center;
+    padding: 50px 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+h3,
+h4 {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes fadeIn {
@@ -503,6 +521,27 @@ form .mb-3 textarea:focus {
 .page-total {
     font-size: 1rem;
     color: #6d4c41;
+}
+
+
+/* Contact */
+.contact-section {
+    background-color: #f9f9f9;
+    padding: 40px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.map-container {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Authentication */

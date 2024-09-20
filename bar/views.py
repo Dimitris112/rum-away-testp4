@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-from .models import UserProfile, Event, Category, ContactMessage
+from .models import UserProfile, Event, Category, ContactMessage, Reservation
 from .forms import UserForm, UserProfileForm
 from allauth.account.views import SignupView
 from django.contrib.auth.decorators import login_required
@@ -23,11 +23,22 @@ def index(request):
 @login_required
 def reservations(request):
     if request.method == 'POST':
-        pass
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            reservation = form.save(commit=False)
+            reservation.user = request.user
+            reservation.save()
+            messages.success(request, "Your reservation has been made successfully!")
+            return redirect('profile')
+    else:
+        form = ReservationForm()
+    
     context = {
         'page_title': 'Reservations',
+        'form': form,
     }
     return render(request, 'bar/contact.html', context)
+
 
 @login_required
 def profile(request):
@@ -45,12 +56,17 @@ def profile(request):
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=profile)
 
+    # upcoming reservations
+    upcoming_reservations = Reservation.objects.filter(user=request.user, reservation_time__gte=timezone.now()).order_by('reservation_time')
+
     context = {
         'page_title': 'Profile',
         'user_form': user_form,
         'profile_form': profile_form,
+        'upcoming_reservations': upcoming_reservations,
     }
     return render(request, 'bar/profile.html', context)
+
 
 
 @login_required
