@@ -19,9 +19,18 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('user', 'reservation_time', 'hall', 'num_guests')
+    list_display = ('user', 'reservation_time', 'hall', 'num_guests', 'available_spots')
     search_fields = ('user__username', 'reservation_time', 'hall')
-    
+
+    def available_spots(self, obj):
+        if obj.hall == 'indoor':
+            return 70 - obj.num_guests
+        elif obj.hall == 'outdoor':
+            return 120 - obj.num_guests
+        return 0
+
+    available_spots.short_description = 'Available Spots'
+
     def save_model(self, request, obj, form, change):
         if obj.hall == 'indoor' and obj.num_guests > 70:
             raise ValidationError(_('Indoor reservations can accept a maximum of 70 guests.'))

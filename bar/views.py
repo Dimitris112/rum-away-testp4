@@ -9,6 +9,9 @@ from django.urls import reverse_lazy
 from django.templatetags.static import static
 from django.utils import timezone
 from django.contrib import messages
+from django.views.generic import TemplateView
+from django.http import JsonResponse
+from datetime import datetime
 
 class CustomSignupView(SignupView):
     def form_valid(self, form):
@@ -45,31 +48,87 @@ class CustomLoginView(LoginView):
             messages.error(self.request, "Invalid username or password.")
             return self.form_invalid(form)
 
+
+
 def index(request):
     context = {
         'page_title': 'Home',
     }
     return render(request, 'bar/index.html', context)
 
+
 @login_required
-def reservations(request):
+def reservations(request, reservation_id=None):
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
+            reservation_date = request.POST.get('reservation_time').split("T")[0]
+            reservation_hour = int(request.POST.get('reservation_hour'))
+            reservation_minute = int(request.POST.get('reservation_minute'))
+
+            if reservation_hour == 24:
+                reservation_hour = 0
+                reservation_date = (timezone.datetime.strptime(reservation_date, '%Y-%m-%d') + timezone.timedelta(days=1)).date()
+
+            reservation_time = f"{reservation_date} {reservation_hour}:{reservation_minute}"
+            reservation_time = timezone.make_aware(datetime.strptime(reservation_time, '%Y-%m-%d %H:%M'))
+
             reservation = form.save(commit=False)
             reservation.user = request.user
-            reservation.name = request.user.username
+            reservation.reservation_time = reservation_time
             reservation.save()
+
             messages.success(request, "Your reservation has been made successfully!")
-            return redirect('profile')
+            return redirect('reservations_with_id', reservation_id=reservation.id)
+
     else:
-        form = ReservationForm(initial={'name': request.user.username})
+        form = ReservationForm()
+
+    upcoming_reservations = Reservation.objects.filter(user=request.user, reservation_time__gte=timezone.now()).order_by('reservation_time')
+
+    reservation = None
+    if reservation_id:
+        try:
+            reservation = Reservation.objects.get(id=reservation_id, user=request.user)
+        except Reservation.DoesNotExist:
+            messages.error(request, "Reservation not found.")
 
     context = {
         'page_title': 'Reservations',
         'form': form,
+        'upcoming_reservations': upcoming_reservations,
+        'reservation': reservation,
     }
-    return render(request, 'bar/contact.html', context)
+    return render(request, 'bar/reservations.html', context)
+
+
+
+@login_required
+def edit_reservation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+    if request.method == 'POST':
+        form = ReservationForm(request.POST, instance=reservation)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your reservation has been updated successfully!")
+            return redirect('profile')
+    else:
+        form = ReservationForm(instance=reservation)
+
+    context = {
+        'form': form,
+        'reservation': reservation,
+        'page_title': 'Edit Reservation',
+    }
+    return render(request, 'bar/edit_reservation.html', context)
+
+
+@login_required
+def delete_reservation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+    reservation.delete()
+    messages.success(request, "Your reservation has been deleted successfully!")
+    return redirect('profile')
 
 
 @login_required
@@ -110,6 +169,8 @@ def reset_profile_picture(request):
 
 
 def contact(request):
+    form_data = {}
+
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -117,22 +178,30 @@ def contact(request):
 
         if not name:
             messages.error(request, "Name is required.")
+        elif not email:
+            messages.error(request, "Email is required.")
+        elif not message_content:
+            messages.error(request, "Message cannot be empty.")
+        else:
+            ContactMessage.objects.create(
+                name=name,
+                email=email,
+                message=message_content
+            )
+            messages.success(request, "Your message has been sent successfully!")
             return redirect('contact')
 
-        ContactMessage.objects.create(
-            name=name,
-            email=email,
-            message=message_content
-        )
-
-        messages.success(request, "Your message has been sent successfully!")
-        return redirect('contact')
+        form_data = {
+            'name': name,
+            'email': email,
+            'message': message_content,
+        }
 
     context = {
         'page_title': 'Contact Us',
+        'form_data': form_data,
     }
     return render(request, 'bar/contact.html', context)
-
 
 
 def event_list(request):
@@ -159,3 +228,20 @@ def menu(request):
         'categories': categories,
     }
     return render(request, 'bar/menu.html', context)
+
+# spots available
+
+@login_required
+def get_availability(request):
+    hall = request.GET.get('hall')
+    reservation_time = request.GET.get('reservation_time')
+
+    reserved_count = Reservation.objects.filter(
+        hall=hall,
+        reservation_time=reservation_time
+    ).aggregate(Sum('num_guests'))['num_guests__sum'] or 0
+
+    max_capacity = 70 if hall == 'indoor' else 120
+    spots_left = max_capacity - reserved_count
+
+    return JsonResponse({'spots_left': spots_left, 'max_capacity': max_capacity})

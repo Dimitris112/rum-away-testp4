@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Edit Reservation | Rum Away{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">{{ page_title }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_reservation_time" class="form-label">Date and Time of Reservation</label>
+            {{ form.reservation_time }}
+        </div>
+        <div class="mb-3">
+            <label for="id_num_guests" class="form-label">Number of Guests</label>
+            {{ form.num_guests }}
+        </div>
+        <div class="mb-3">
+            <label for="id_hall" class="form-label">Select Location</label>
+            {{ form.hall }}
+            <div id="available-spots" class="mt-2"></div> <!-- Placeholder for available spots -->
+        </div>
+        <div class="mb-3">
+            <label for="id_special_requests" class="form-label">Any Special Requests?</label>
+            {{ form.special_requests }}
+        </div>
+        <button type="submit" class="btn btn-primary">Update Reservation</button>
+    </form>
+</div>
+{% endblock %}

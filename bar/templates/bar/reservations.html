@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Reservations | Rum Away{% endblock %}
+
+{% block content %}
+<main class="container mt-5">
+    <header>
+        <h2 class="text-center mb-4">Reservation Confirmation</h2>
+    </header>
+
+    <section>
+        <div class="alert alert-success text-center">
+            <h4>Your reservation has been successfully made!</h4>
+            <p>Thank you for choosing us. We look forward to welcoming you.</p>
+            <p>If you have any questions, feel free to contact us.</p>
+            <a href="{% url 'profile' %}" class="btn btn-primary mt-3">Go to Profile</a>
+            <a href="{% url 'contact' %}#reserve-spot" class="btn btn-primary">Make Another Reservation</a>
+        </div>
+    </section>
+
+    <section class="mt-5">
+        <h4 class="text-center mb-3">Reservation Details</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Guests</th>
+                    <th>Location</th>
+                    <th>Special Requests</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ reservation.reservation_time|date:"Y-m-d" }}</td>
+                    <td>{{ reservation.reservation_time|time:"H:i" }}</td>
+                    <td>{{ reservation.num_guests }}</td>
+                    <td>{{ reservation.hall }}</td>
+                    <td>{{ reservation.special_requests }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+{% endblock %}
