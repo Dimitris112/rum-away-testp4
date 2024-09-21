@@ -60,6 +60,11 @@ INSTALLED_APPS = [
     'testimonials',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'bar.backends.CaseInsensitiveUsernameBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'

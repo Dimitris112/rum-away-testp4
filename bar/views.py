@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from .models import UserProfile, Event, Category, ContactMessage, Reservation
 from .forms import UserForm, UserProfileForm, ReservationForm
-from allauth.account.views import SignupView
+from allauth.account.views import SignupView, LoginView
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.templatetags.static import static
@@ -30,6 +31,19 @@ class CustomSignupView(SignupView):
 
         return self.render_to_response(self.get_context_data(form=form))
 
+
+class CustomLoginView(LoginView):
+    def form_valid(self, form):
+        username = form.cleaned_data.get('username').lower()
+        password = form.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(self.request, user)
+            return redirect(self.get_success_url())
+        else:
+            messages.error(self.request, "Invalid username or password.")
+            return self.form_invalid(form)
 
 def index(request):
     context = {
