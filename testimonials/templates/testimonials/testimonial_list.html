@@ -7,20 +7,21 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="mb-4 text-center text-secondary">{% trans "Testimonials" %}</h1>
+
     <div class="alert alert-info text-center" role="alert">
         <span class="fw-bold">Rate Your Experience:</span>
-        <div class="alert alert-info mb-4">
+        <div class="alert alert-info mb-4" role="note">
             <p>{% trans "Curious about our ratings? 🍺 Red means 'Room for Improvement', yellow is 'Good, but Could Be Better', and green signifies 'Top-Notch Experience!' 🍺" %}
             </p>
         </div>
     </div>
 
-    <div class="testimonial-container">
+    <section class="testimonial-container">
         <div class="row justify-content-center">
             {% for testimonial in testimonials %}
-            <div class="col-md-6 mb-4">
+            <article class="col-md-6 mb-4">
                 <div class="card shadow-sm">
-                    <div class="card-header d-flex align-items-center">
+                    <header class="card-header d-flex align-items-center">
                         <a href="#" class="user-profile-link" data-user-id="{{ testimonial.user.id }}">
                             <img src="{{ testimonial.user.userprofile.get_profile_picture_url }}"
                                 alt="{{ testimonial.user.username }}'s profile picture" class="rounded-circle"
@@ -31,11 +32,10 @@
                         {% if testimonial.was_edited %}
                         <span class="text-muted small ms-2">(Edited)</span>
                         {% endif %}
-                    </div>
+                    </header>
 
                     <div class="card-body">
                         <p class="text-muted">{{ testimonial.content }}</p>
-                        <!-- Bar metric for rating -->
                         <div class="bar-rating-container">
                             <div class="bar-rating" data-rating="{{ testimonial.rating }}"></div>
                         </div>
@@ -58,8 +58,7 @@
                         </div>
                         {% endif %}
 
-                        <!-- Display Comments -->
-                        <div class="comment-section" data-testimonial-id="{{ testimonial.pk }}">
+                        <section class="comment-section" data-testimonial-id="{{ testimonial.pk }}">
                             {% if testimonial.comments.count > 0 %}
                             {% for comment in testimonial.comments.all %}
                             <div class="mt-2 d-flex justify-content-between align-items-center">
@@ -67,6 +66,9 @@
                                     <strong>{{ comment.user.username }}</strong>:
                                     <p>{{ comment.content }}</p>
                                     <small class="text-muted">{{ comment.created_at }}</small>
+                                    {% if comment.was_edited %}
+                                    <span class="text-muted small ms-2">(Edited)</span>
+                                    {% endif %}
                                 </div>
                                 <div>
                                     {% if user.is_authenticated %}
@@ -80,15 +82,17 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            <hr>
                             {% endfor %}
                             {% else %}
                             <p class="text-muted">{% trans "No comments yet!" %}</p>
                             {% endif %}
-                        </div>
+                        </section>
+
 
                     </div>
                 </div>
-            </div>
+            </article>
             {% empty %}
             <div class="col-md-6 text-center">
                 <p class="text-muted">{% trans "No testimonials yet!" %}</p>
@@ -106,7 +110,7 @@
                 class="btn btn-outline-primary btn-lg shadow">{% trans "Log in to share" %}</a>
             {% endif %}
         </div>
-    </div>
+    </section>
 </div>
 
 <!-- Add Comment Modal -->

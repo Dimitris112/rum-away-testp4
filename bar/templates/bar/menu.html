@@ -6,15 +6,18 @@
 {% block content %}
 <div class="container mt-5">
     <!-- Page Title -->
-    <h1 class="display-4 text-center mb-4 animate__animated animate__zoomIn animate__delay-1s">Explore Our Menu</h1>
-    <p class="lead text-center mb-5 animate__animated animate__fadeIn animate__delay-1s">
-        Discover our curated selection of drinks and find your new favorite.
-    </p>
+    <header class="text-center mb-4">
+        <h1 class="display-4 animate__animated animate__zoomIn animate__delay-1s">Explore Our Menu</h1>
+        <p class="lead animate__animated animate__fadeIn animate__delay-1s">
+            Discover our curated selection of drinks and find your new favorite.
+        </p>
+    </header>
 
     <!-- Menu Categories Section -->
-    <div class="text-center mb-5">
-        <h2 class="display-5 mb-4 animate__animated animate__fadeIn animate__delay-1s">Select a Category</h2>
-        <div class="btn-group mb-4" role="group" aria-label="Menu Categories">
+    <section class="mb-5">
+        <h2 class="display-5 text-center mb-4 animate__animated animate__fadeIn animate__delay-1s">Select a Category
+        </h2>
+        <div class="btn-group d-flex justify-content-center mb-4" role="group" aria-label="Menu Categories">
             {% for category in categories %}
             <button type="button"
                 class="btn btn-outline-primary btn-lg btn-category animate__animated animate__pulse animate__delay-0.5s"
@@ -23,7 +26,7 @@
             </button>
             {% endfor %}
         </div>
-    </div>
+    </section>
 
     <!-- Drinks Modal -->
     <div class="modal fade" id="drinksModal" tabindex="-1" aria-labelledby="drinksModalLabel" aria-hidden="true">
@@ -70,7 +73,8 @@
                 </div>
                 <div class="modal-body">
                     <div id="drink-details-container" class="d-flex align-items-center">
-                        <img id="drink-image" src="" alt="" class="img-fluid rounded me-4" style="max-width: 150px;">
+                        <img id="drink-image" src="" alt="Drink image" class="img-fluid rounded me-4"
+                            style="max-width: 150px;">
                         <div>
                             <h5 id="drink-name" class="mb-2"></h5>
                             <p id="drink-description" class="mb-3"></p>

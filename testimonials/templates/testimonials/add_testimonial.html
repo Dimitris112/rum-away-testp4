@@ -11,10 +11,10 @@
     <form method="post" action="{% url 'add_testimonial' %}" class="form-group bg-light p-4 rounded shadow-sm">
         {% csrf_token %}
 
-        <div class="form-group mb-3">
+        <div class="mb-3">
             <label for="{{ form.content.id_for_label }}" class="form-label">{{ form.content.label }}</label>
-            <input type="text" name="{{ form.content.name }}" id="{{ form.content.id_for_label }}"
-                value="{{ form.content.value }}" class="form-control">
+            <textarea name="{{ form.content.name }}" id="{{ form.content.id_for_label }}" class="form-control"
+                rows="3">{{ form.content.value }}</textarea>
             {% if form.content.errors %}
             <div class="text-danger">
                 {% for error in form.content.errors %}
@@ -24,7 +24,7 @@
             {% endif %}
         </div>
 
-        <div class="form-group mb-3">
+        <div class="mb-3">
             <label for="{{ form.rating.id_for_label }}" class="form-label">{{ form.rating.label }}</label>
             <select name="{{ form.rating.name }}" id="{{ form.rating.id_for_label }}" class="form-control">
                 {% for option in form.rating.field.choices %}

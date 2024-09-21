@@ -3,25 +3,28 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container text-center mt-5">
+<div class="container mt-5 text-center">
     <h1 class="display-4 mb-4">Upcoming Events</h1>
     <div class="row">
         {% for event in events %}
-        <div class="col-md-6 mb-4">
+        <article class="col-md-6 mb-4">
             <div class="card shadow-lg border-0">
                 {% if event.image %}
                 <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}">
                 {% else %}
-                <img src="{% static 'images/default_event.jpg' %}" class="card-img-top" alt="{{ event.title }}">
+                <img src="{% static 'images/default_event.jpg' %}" class="card-img-top"
+                    alt="Default image for {{ event.title }}">
                 {% endif %}
                 <div class="card-body text-center">
-                    <h5 class="card-title">{{ event.title }}</h5>
+                    <h2 class="card-title">{{ event.title }}</h2>
                     <p class="card-text">{{ event.description|truncatewords:20 }}</p>
                     <p class="text-muted">Date: {{ event.date|date:"F j, Y, g:i A" }}</p>
-                    <a href="{% url 'event_detail' event.id %}" class="btn btn-primary">Learn More</a>
+                    <footer>
+                        <a href="{% url 'event_detail' event.id %}" class="btn btn-primary">Learn More</a>
+                    </footer>
                 </div>
             </div>
-        </div>
+        </article>
         {% endfor %}
     </div>
 </div>

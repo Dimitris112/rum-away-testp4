@@ -12,41 +12,28 @@
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
             <div class="card profile-card">
-                <!-- Profile picture -->
                 <img src="{% if user.userprofile.featured_image %}{{ user.userprofile.featured_image.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}"
                     class="card-img-top profile-picture" alt="Profile Picture">
 
                 <div class="card-body">
-                    <!-- Username -->
                     <h5 class="card-title text-center">{{ user.username }}</h5>
-
-                    <!-- First name -->
-                    <p class="card-text text-center">First Name: {{ user.first_name }}</p>
-
-                    <!-- Last name -->
-                    <p class="card-text text-center">Last Name: {{ user.last_name }}</p>
-
-                    <!-- Email -->
-                    <p class="card-text text-center">Email: {{ user.email }}</p>
-
-                    <!-- Bio -->
-                    <p class="card-text text-center">Bio:
+                    <p class="card-text text-center"><strong>First Name:</strong> {{ user.first_name }}</p>
+                    <p class="card-text text-center"><strong>Last Name:</strong> {{ user.last_name }}</p>
+                    <p class="card-text text-center"><strong>Email:</strong> {{ user.email }}</p>
+                    <p class="card-text text-center"><strong>Bio:</strong>
                         {% if user.userprofile.bio %}
                         {{ user.userprofile.bio }}
                         {% else %}
                         No bio available
                         {% endif %}
                     </p>
-
-                    <!-- Member since -->
-                    <p class="card-text text-center">Member since: {{ user.date_joined|date:"F j, Y" }}</p>
+                    <p class="card-text text-center"><strong>Member since:</strong> {{ user.date_joined|date:"F j, Y" }}
+                    </p>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <!-- Profile update form -->
     <div class="row justify-content-center mt-4">
         <div class="col-md-8 col-lg-6">
             <form method="POST" enctype="multipart/form-data">
@@ -80,7 +67,6 @@
         </div>
     </div>
 
-    <!-- Upcoming Reservations Section -->
     <div class="row justify-content-center mt-4">
         <div class="col-md-8 col-lg-6">
             <h3 class="text-center">Upcoming Reservations</h3>

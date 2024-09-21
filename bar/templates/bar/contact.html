@@ -5,144 +5,133 @@
 {% block title %}Contact Us | Rum Away{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 id="contact-header" class="text-center mb-4">We'd Love to Hear From You!</h2>
+<main class="container mt-5">
+    <header>
+        <h2 id="contact-header" class="text-center mb-4">We'd Love to Hear From You!</h2>
+    </header>
 
     <!-- Contact Form -->
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-sm border-light mb-4">
-                <div class="card-body p-4">
-                    <h3 class="card-title text-center mb-4">Reach Out to Us</h3>
-                    <form method="post" class="animate__animated animate__fadeIn">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">Your Name</label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Enter your name" required aria-label="Your Name">
+    <section>
+        <div class="row justify-content-center">
+            <article class="col-md-6">
+                <div class="card shadow-sm border-light mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-center mb-4">Reach Out to Us</h3>
+                        <form method="post" class="animate__animated animate__fadeIn">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Enter your name" required aria-label="Your Name">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Your Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="Enter your email" required aria-label="Your Email Address">
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="email" class="form-label">Your Email Address</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="Enter your email" required aria-label="Your Email Address">
+                            <div class="mb-3">
+                                <label for="telephone" class="form-label">Phone Number (Optional)</label>
+                                <input type="tel" class="form-control" id="telephone" name="telephone"
+                                    placeholder="(123) 456-7890" aria-label="Phone Number">
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="telephone" class="form-label">Phone Number (Optional)</label>
-                            <input type="tel" class="form-control" id="telephone" name="telephone"
-                                placeholder="(123) 456-7890" aria-label="Phone Number">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Your Message</label>
-                            <textarea class="form-control" id="message" name="message" rows="4"
-                                placeholder="Type your message here..." required aria-label="Your Message"></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-lg px-5">Send Your Message</button>
-                        </div>
-                    </form>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Your Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="4"
+                                    placeholder="Type your message here..." required
+                                    aria-label="Your Message"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg px-5">Send Your Message</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </article>
         </div>
-    </div>
+    </section>
 
     <!-- Divider between sections -->
     <hr class="my-5" />
 
     <!-- Reservation Form -->
     {% if user.is_authenticated %}
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-6">
-            <div class="card shadow-sm border-light mb-4">
-                <div class="card-body p-4">
-                    <h3 class="card-title text-center mb-4">Reserve Your Spot</h3>
-                    <form method="post" class="animate__animated animate__fadeIn">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="res-date" class="form-label">Date of Reservation</label>
-                                <input type="date" class="form-control" id="res-date" name="res-date" required
-                                    aria-label="Date of Reservation">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="res-time" class="form-label">Time of Reservation</label>
-                                <div class="d-flex">
-                                    <select class="form-control me-2" id="res-hour" required>
-                                        <option value="" disabled selected>Hour</option>
-                                        <option value="16">16:00</option>
-                                        <option value="17">17:00</option>
-                                        <option value="18">18:00</option>
-                                        <option value="19">19:00</option>
-                                        <option value="20">20:00</option>
-                                        <option value="21">21:00</option>
-                                        <option value="22">22:00</option>
-                                        <option value="23">23:00</option>
-                                        <option value="24">00:00</option>
-                                        <option value="25">01:00</option>
-                                        <option value="26">02:00</option>
-                                    </select>
-                                    <select class="form-control" id="res-minute" required>
-                                        <option value="" disabled selected>Minute</option>
-                                        <option value="00">00</option>
-                                        <option value="05">05</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
-                                        <option value="20">20</option>
-                                        <option value="25">25</option>
-                                        <option value="30">30</option>
-                                        <option value="35">35</option>
-                                        <option value="40">40</option>
-                                        <option value="45">45</option>
-                                        <option value="50">50</option>
-                                        <option value="55">55</option>
-                                    </select>
+    <section>
+        <div class="row justify-content-center mt-5">
+            <article class="col-md-6">
+                <div class="card shadow-sm border-light mb-4">
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-center mb-4">Reserve Your Spot</h3>
+                        <form method="post" class="animate__animated animate__fadeIn">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="res-date" class="form-label">Date of Reservation</label>
+                                    <input type="date" class="form-control" id="res-date" name="res-date" required
+                                        aria-label="Date of Reservation">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="res-time" class="form-label">Time of Reservation</label>
+                                    <div class="d-flex">
+                                        <select class="form-control me-2" id="res-hour" required>
+                                            <option value="" disabled selected>Hour</option>
+                                            <!-- Hour options here -->
+                                        </select>
+                                        <select class="form-control" id="res-minute" required>
+                                            <option value="" disabled selected>Minute</option>
+                                            <!-- Minute options here -->
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="res-guests" class="form-label">Number of Guests</label>
-                            <input type="number" class="form-control" id="res-guests" name="res-guests" min="1" required
-                                aria-label="Number of Guests">
-                        </div>
-                        <div class="mb-3">
-                            <label for="res-location" class="form-label">Select Location</label>
-                            <select class="form-control" id="res-location" name="res-location" required>
-                                <option value="" disabled selected>Indoor or Outdoor</option>
-                                <option value="indoor">Indoor</option>
-                                <option value="outdoor">Outdoor</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="res-special-requests" class="form-label">Any Special Requests?</label>
-                            <textarea class="form-control" id="res-special-requests" name="res-special-requests"
-                                rows="3" placeholder="Enter any special requests here..."
-                                aria-label="Special Requests"></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-lg px-5">Submit Reservation</button>
-                        </div>
-                    </form>
+                            <div class="mb-3">
+                                <label for="res-guests" class="form-label">Number of Guests</label>
+                                <input type="number" class="form-control" id="res-guests" name="res-guests" min="1"
+                                    required aria-label="Number of Guests">
+                            </div>
+                            <div class="mb-3">
+                                <label for="res-location" class="form-label">Select Location</label>
+                                <select class="form-control" id="res-location" name="res-location" required>
+                                    <option value="" disabled selected>Indoor or Outdoor</option>
+                                    <option value="indoor">Indoor</option>
+                                    <option value="outdoor">Outdoor</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="res-special-requests" class="form-label">Any Special Requests?</label>
+                                <textarea class="form-control" id="res-special-requests" name="res-special-requests"
+                                    rows="3" placeholder="Enter any special requests here..."
+                                    aria-label="Special Requests"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg px-5">Submit Reservation</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </article>
         </div>
-    </div>
+    </section>
     {% else %}
-    <div class="alert alert-warning text-center mt-5">
-        <p><strong>You need to be logged in to make a reservation. Please <a href="{% url 'account_login' %}"
-                    class="btn btn-primary">Log In</a> to continue.</strong></p>
-    </div>
+    <section>
+        <div class="alert alert-warning text-center mt-5">
+            <p><strong>You need to be logged in to make a reservation. Please <a href="{% url 'account_login' %}"
+                        class="btn btn-primary">Log In</a> to continue.</strong></p>
+        </div>
+    </section>
     {% endif %}
 
+    <!-- Information about Halls -->
     <section class="mt-5 bg-light p-4">
         <div class="container text-center">
-            <h3 class="mb-4">Discover Our Warm and Inviting Halls</h3>
-            <p class="mb-4">Step into a world where comfort meets elegance. Whether you're planning an intimate
-                gathering or a grand celebration, our halls provide the perfect backdrop. Explore our indoor and outdoor
-                spaces to find the ideal setting for your special occasion.</p>
+            <header>
+                <h3 class="mb-4">Discover Our Warm and Inviting Halls</h3>
+                <p class="mb-4">Step into a world where comfort meets elegance. Whether you're planning an intimate
+                    gathering or a grand celebration, our halls provide the perfect backdrop.</p>
+            </header>
 
-            <!-- Indoor Hall -->
-            <div class="mb-4">
+            <article class="mb-4">
                 <h4 class="mb-3">Indoor Hall</h4>
                 <p class="mb-4">Immerse yourself in the cozy charm of our Indoor Hall. Featuring rich wood finishes and
                     plush seating, it’s designed for those who appreciate a sophisticated and intimate atmosphere.</p>
@@ -184,10 +173,9 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-            </div>
+            </article>
 
-            <!-- Outdoor Hall -->
-            <div>
+            <article>
                 <h4 class="mb-3">Outdoor Hall</h4>
                 <p class="mb-4">Experience the allure of the outdoors with our stunning Outdoor Hall. Ideal for sunny
                     days and warm evenings.</p>
@@ -229,36 +217,37 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-            </div>
+            </article>
         </div>
     </section>
 
     <!-- Contact Information -->
     <section class="mt-5 contact-section">
         <div class="container text-center">
-            <h3 class="mb-4">Find Us Here</h3>
-            <div class="row justify-content-center">
+            <header>
+                <h3 class="mb-4">Find Us Here</h3>
+            </header>
+            <address class="row justify-content-center">
                 <div class="col-lg-8 contact-info">
                     <p><i class="fas fa-phone-alt"></i> <strong>Phone:</strong> +123 456 7890</p>
                     <p><i class="fas fa-envelope"></i> <strong>Email:</strong> contact@rumaway.com</p>
                     <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Area 51, Nevada</p>
                 </div>
-            </div>
+            </address>
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-8">
                     <div class="map-container">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3307.3931382554314!2d-115.80477172417235!3d37.244046940593135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80b8e848d370a6ad%3A0x45b4fd223484c7ea!2sArea%2051!5e0!3m2!1sen!2sus!4v1637685259138!5m2!1sen!2sus"
+                        <iframe src="https://www.google.com/maps/embed?pb=..."
                             style="border:0; width: 100%; height: 400px;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
-            <div class="mt-4" id="top">
+            <div class="mt-4">
                 <h5>We'd Love to Hear From You!</h5>
                 <p>Feel free to reach out for any inquiries or reservations.</p>
                 <a href="#contact-header" class="btn btn-lg btn-primary" style="transition: all 0.5s;">Contact Us</a>
             </div>
         </div>
     </section>
-</div>
+</main>
 {% endblock %}

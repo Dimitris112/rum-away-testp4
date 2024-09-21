@@ -59,26 +59,18 @@ class ReservationForm(forms.ModelForm):
             'reservation_time': forms.DateTimeInput(attrs={
                 'class': 'form-control',
                 'type': 'datetime-local',
-                'min': timezone.now().isoformat()
             }),
             'special_requests': forms.Textarea(attrs={'rows': 3, 'class': 'form-control', 'placeholder': 'Any special requests?'}),
             'num_guests': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
             'hall': forms.Select(attrs={'class': 'form-control'}),
         }
 
+    def clean_reservation_time(self):
+        reservation_time = self.cleaned_data.get('reservation_time')
+        if reservation_time and reservation_time < timezone.now():
+            raise ValidationError('Reservation time cannot be in the past.')
+        return reservation_time
 
-# Form to add comments
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['content', 'rating']
-        widgets = {
-            'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Leave your comment here...'}),
-            'rating': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 5}),
-        }
-        help_texts = {
-            'rating': 'Please give a rating between 1 and 5.',
-        }
 
 # Form for creating or updating events
 class EventForm(forms.ModelForm):
