@@ -123,7 +123,8 @@
                     {% csrf_token %}
                     <input type="hidden" id="testimonialId">
                     <textarea id="commentContent" name="content" class="form-control" rows="3"
-                        placeholder="{% trans 'Add your comment...' %}"></textarea>
+                        placeholder="{% trans 'Add your comment...' %}" maxlength="50"></textarea>
+                    <div id="charCount">0 / 50 characters</div>
                     <button type="submit" class="btn btn-primary mt-2">{% trans "Submit" %}</button>
                 </form>
             </div>
@@ -144,7 +145,8 @@
                     {% csrf_token %}
                     <input type="hidden" id="editCommentId">
                     <textarea id="editCommentContent" class="form-control" rows="3"
-                        placeholder="{% trans 'Edit your comment...' %}"></textarea>
+                        placeholder="{% trans 'Edit your comment...' %}" maxlength="50"></textarea>
+                    <div id="editCharCount">0 / 50 characters</div>
                     <button type="submit" class="btn btn-primary mt-2">{% trans "Update Comment" %}</button>
                 </form>
             </div>

@@ -38,7 +38,8 @@ def edit_testimonial(request, pk):
     if request.method == 'POST':
         form = TestimonialForm(request.POST, instance=testimonial)
         if form.is_valid():
-            form.save()
+            testimonial = form.save(commit=False)
+            testimonial.was_edited = True
             testimonial.updated_at = timezone.now()
             testimonial.save()
             messages.success(request, 'Testimonial edited successfully!')
@@ -102,19 +103,33 @@ def add_comment(request, testimonial_id):
 
 # edit comment
 
-@method_decorator(login_required, name='dispatch')
 @require_POST
+@login_required
 def edit_comment(request, comment_id):
     try:
-        comment = Comment.objects.get(id=comment_id, user=request.user)
+        comment = get_object_or_404(Comment, id=comment_id, user=request.user)
         content = json.loads(request.body).get('content')
+
+        if not content:
+            return JsonResponse({'success': False, 'error': 'Comment content cannot be empty'}, status=400)
+
+        if len(content) > 50: 
+            return JsonResponse({'success': False, 'error': 'Comment cannot exceed 50 characters'}, status=400)
+
         comment.content = content
+        comment.was_edited = True
         comment.save()
-        return JsonResponse({'success': True, 'testimonial_id': comment.testimonial.id})
+
+        return JsonResponse({'success': True, 'testimonial_id': comment.testimonial.id, 'was_edited': comment.was_edited})
+
     except Comment.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Comment not found.'}, status=404)
+    except json.JSONDecodeError:
+        return JsonResponse({'success': False, 'error': 'Invalid JSON data'}, status=400)
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+
 
 
 # delete comment

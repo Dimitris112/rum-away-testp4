@@ -15,6 +15,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("testimonialId").value = testimonialId;
     document.getElementById("testimonialUserName").textContent = userName;
 
+    const commentInput = document.getElementById("commentContent");
+    const charCount = document.getElementById("charCount");
+    charCount.textContent = "0 / 50 characters";
+
+    commentInput.addEventListener("input", () => {
+      const currentLength = commentInput.value.length;
+      charCount.textContent = `${currentLength} / 50 characters`;
+      charCount.style.color = currentLength > 50 ? "red" : "black";
+    });
+
     const commentModal = new bootstrap.Modal(
       document.getElementById("commentModal")
     );
@@ -25,6 +35,16 @@ document.addEventListener("DOMContentLoaded", () => {
   function openEditCommentModal(commentId, commentContent) {
     document.getElementById("editCommentId").value = commentId;
     document.getElementById("editCommentContent").value = commentContent;
+
+    const editCommentInput = document.getElementById("editCommentContent");
+    const editCharCount = document.getElementById("editCharCount");
+    editCharCount.textContent = "0 / 50 characters";
+
+    editCommentInput.addEventListener("input", () => {
+      const currentLength = editCommentInput.value.length;
+      editCharCount.textContent = `${currentLength} / 50 characters`;
+      editCharCount.style.color = currentLength > 50 ? "red" : "black";
+    });
 
     const editCommentModal = new bootstrap.Modal(
       document.getElementById("editCommentModal")
@@ -60,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
           "memberSince"
         ).textContent = `Member Since: ${data.member_since}`;
         document.getElementById("userBio").textContent = data.bio;
-
         document.getElementById(
           "userInfoModalLabel"
         ).textContent = `${data.username} Info`;
@@ -129,19 +148,19 @@ document.addEventListener("DOMContentLoaded", () => {
             `.comment-section[data-testimonial-id="${testimonialId}"]`
           );
           const newCommentHTML = `
-                <div class="mt-2" data-comment-id="${data.comment_id}">
-                  <strong>${data.user_name}</strong>:
-                  <p>${commentContent}</p>
-                  <small class="text-muted">${data.created_at}</small>
-                  <div>
-                    <button class="btn btn-warning btn-sm me-2 edit-comment-button" data-comment-id="${data.comment_id}" data-comment-content="${commentContent}">
-                      Edit
-                    </button>
-                    <button class="btn btn-danger btn-sm delete-comment-button" data-comment-id="${data.comment_id}">
-                      Delete
-                    </button>
-                  </div>
-                </div>`;
+            <div class="mt-2" data-comment-id="${data.comment_id}">
+              <strong>${data.user_name}</strong>:
+              <p>${commentContent}</p>
+              <small class="text-muted">${data.created_at}</small>
+              <div>
+                <button class="btn btn-warning btn-sm me-2 edit-comment-button" data-comment-id="${data.comment_id}" data-comment-content="${commentContent}">
+                  Edit
+                </button>
+                <button class="btn btn-danger btn-sm delete-comment-button" data-comment-id="${data.comment_id}">
+                  Delete
+                </button>
+              </div>
+            </div>`;
           commentSection.insertAdjacentHTML("beforeend", newCommentHTML);
 
           const commentModal = bootstrap.Modal.getInstance(
@@ -156,9 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
       .catch((error) => {
-        console.error(
-          "An error occurred while adding your comment. Please try again."
-        );
+        console.error("An error occurred while adding your comment:", error);
       });
   });
 
@@ -193,7 +210,23 @@ document.addEventListener("DOMContentLoaded", () => {
             const commentElement = commentSection
               .querySelector(`[data-comment-id="${commentId}"]`)
               .closest(".mt-2");
-            commentElement.querySelector("p").textContent = commentContent;
+            const commentParagraph = commentElement.querySelector("p");
+            commentParagraph.textContent = commentContent;
+
+            // (Edited)
+            const editedText = document.createElement("span");
+            editedText.textContent = " (Edited)";
+            editedText.style.color = "rgba(33, 37, 41, 0.75)";
+            editedText.style.fontSize = "14px";
+
+            const existingEditedText =
+              commentElement.querySelector(".edited-text");
+            if (existingEditedText) {
+              existingEditedText.remove();
+            }
+
+            commentParagraph.appendChild(editedText);
+            editedText.classList.add("edited-text");
 
             const editCommentModal = bootstrap.Modal.getInstance(
               document.getElementById("editCommentModal")
@@ -207,9 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         })
         .catch((error) => {
-          console.error(
-            "An error occurred while editing your comment. Please try again."
-          );
+          console.error("An error occurred while editing your comment:", error);
         });
     });
 
@@ -257,9 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
       .catch((error) => {
-        console.error(
-          "An error occurred while deleting your comment. Please try again."
-        );
+        console.error("An error occurred while deleting your comment:", error);
       });
   });
 });
