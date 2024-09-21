@@ -13,6 +13,7 @@ from django.views.generic import TemplateView
 from django.http import JsonResponse
 from datetime import datetime
 
+# Sign Up
 class CustomSignupView(SignupView):
     def form_valid(self, form):
         password1 = form.cleaned_data.get('password1')
@@ -35,6 +36,7 @@ class CustomSignupView(SignupView):
         return self.render_to_response(self.get_context_data(form=form))
 
 
+# Sign In
 class CustomLoginView(LoginView):
     def form_valid(self, form):
         username = form.cleaned_data.get('username').lower()
@@ -49,6 +51,7 @@ class CustomLoginView(LoginView):
             return self.form_invalid(form)
 
 
+# Home
 
 def index(request):
     context = {
@@ -56,6 +59,8 @@ def index(request):
     }
     return render(request, 'bar/index.html', context)
 
+
+# Make reservation
 
 @login_required
 def reservations(request, reservation_id=None):
@@ -102,6 +107,7 @@ def reservations(request, reservation_id=None):
     return render(request, 'bar/reservations.html', context)
 
 
+# Edit reservation
 
 @login_required
 def edit_reservation(request, reservation_id):
@@ -110,6 +116,8 @@ def edit_reservation(request, reservation_id):
         form = ReservationForm(request.POST, instance=reservation)
         if form.is_valid():
             form.save()
+            reservation.edited = True
+            reservation.save()
             messages.success(request, "Your reservation has been updated successfully!")
             return redirect('profile')
     else:
@@ -122,6 +130,8 @@ def edit_reservation(request, reservation_id):
     }
     return render(request, 'bar/edit_reservation.html', context)
 
+
+# Delete reservation
 
 @login_required
 def delete_reservation(request, reservation_id):
@@ -159,6 +169,8 @@ def profile(request):
     return render(request, 'bar/profile.html', context)
 
 
+# Reset pfp
+
 @login_required
 @require_POST
 def reset_profile_picture(request):
@@ -167,6 +179,8 @@ def reset_profile_picture(request):
     profile.save()
     return redirect('profile')
 
+
+# Send contact msg
 
 def contact(request):
     form_data = {}
@@ -204,6 +218,8 @@ def contact(request):
     return render(request, 'bar/contact.html', context)
 
 
+# Events
+
 def event_list(request):
     now = timezone.now()
     events = Event.objects.filter(date__gte=now).order_by('date')
@@ -213,6 +229,9 @@ def event_list(request):
     }
     return render(request, 'bar/event_list.html', context)
 
+
+# Specific event
+
 def event_detail(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
     context = {
@@ -220,6 +239,9 @@ def event_detail(request, event_id):
         'event': event
     }
     return render(request, 'bar/event_detail.html', context)
+
+
+# Menu
 
 def menu(request):
     categories = ["Wines", "Beers", "Whiskey", "Vodka", "Rum", "Cocktails"]

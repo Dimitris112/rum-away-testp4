@@ -24,13 +24,14 @@ def validate_image_format(value):
     else:
         raise ValidationError('Unsupported file type.')
 
-
+# Reservation
 class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, null=True, blank=True)
     reservation_time = models.DateTimeField()
     special_requests = models.TextField(blank=True, null=True)
     num_guests = models.PositiveIntegerField(default=1)
+    edited = models.BooleanField(default=False)
     hall = models.CharField(max_length=10, choices=[('indoor', 'Indoor'), ('outdoor', 'Outdoor')], default='indoor')
 
     def clean(self):
@@ -54,6 +55,8 @@ class Comment(models.Model):
     def __str__(self):
         return f"Comment by {self.user.username} with rating {self.rating}"
 
+
+# Profile
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
@@ -78,6 +81,8 @@ class UserProfile(models.Model):
         if self.featured_image:
             validate_image_format(self.featured_image)
 
+
+# Sign up
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -87,6 +92,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
 
+# Events
 class Event(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -125,6 +131,8 @@ class Event(models.Model):
             return next_occurrence.replace(hour=20, minute=0, second=0, microsecond=0)
         return None
 
+
+# Contact (message)
 class ContactMessage(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -135,6 +143,8 @@ class ContactMessage(models.Model):
     def __str__(self):
         return f"Message from {self.name} ({self.email}) on {self.created_at}"
 
+
+# Category (menu)
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
