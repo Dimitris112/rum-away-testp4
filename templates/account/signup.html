@@ -1,86 +1,123 @@
 {% extends "base.html" %}
-{% load allauth i18n %}
-{% load socialaccount %}
+{% load i18n %}
 
 {% block head_title %}
 {% trans "Sign Up | Rum Away Bar" %}
 {% endblock head_title %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 offset-md-2 mt-4">
-            <h1 class="display-4 text-center">{% trans "Sign Up" %}</h1>
-            <p class="text-center mb-4">
-                {% trans "Already have an account? Please" %}
-                <a href="{{ login_url }}" class="btn btn-outline-primary btn-lg fw-bold rounded-pill px-4 py-2"
-                    style="background-color: transparent; color: #007bff; border: 2px solid #007bff; transition: background-color 0.3s ease, color 0.3s ease; box-shadow: none;"
-                    onmouseover="this.style.backgroundColor='#007bff'; this.style.color='white';"
-                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='#007bff';">
-                    {% trans "sign in" %}
-                </a>
-                {% trans "to your existing account." %}
-            </p>
+<div class="container auth-wrapper">
+    <div class="auth-container">
+        <h2>{% trans "Sign Up" %}</h2>
+        <p>
+            {% blocktrans %}Create an account to enjoy our reservation and ordering system. If you already have an
+            account, <a class="link text-primary" href="{{ login_url }}">sign in</a> instead.{% endblocktrans %}
+        </p>
 
-            {% if not SOCIALACCOUNT_ONLY %}
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <form method="post" action="{% url 'account_signup' %}" class="form-horizontal">
-                        {% csrf_token %}
-
-                        <div class="form-group mb-3">
-                            <label for="id_username" class="form-label">{% trans "Username:" %}</label>
-                            <input type="text" name="username" id="id_username" class="form-control form-control-lg"
-                                value="{{ form.username.value }}">
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="id_email" class="form-label">{% trans "Email (optional):" %}</label>
-                            <input type="email" name="email" id="id_email" class="form-control form-control-lg"
-                                value="{{ form.email.value }}">
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="id_password1" class="form-label">{% trans "Password:" %}</label>
-                            <input type="password" name="password1" id="id_password1"
-                                class="form-control form-control-lg" value="{{ form.password1.value }}">
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="id_password2" class="form-label">{% trans "Password (again):" %}</label>
-                            <input type="password" name="password2" id="id_password2"
-                                class="form-control form-control-lg" value="{{ form.password2.value }}">
-                        </div>
-
-                        <div class="form-group">
-                            <ul class="list-unstyled">
-                                <li class="mb-2">
-                                    <small
-                                        class="text-muted">{% trans "Your password can’t be too similar to your other personal information." %}</small>
-                                </li>
-                                <li class="mb-2">
-                                    <small
-                                        class="text-muted">{% trans "Your password must contain at least 8 characters." %}</small>
-                                </li>
-                                <li class="mb-2">
-                                    <small
-                                        class="text-muted">{% trans "Your password can’t be a commonly used password." %}</small>
-                                </li>
-                                <li class="mb-2">
-                                    <small
-                                        class="text-muted">{% trans "Your password can’t be entirely numeric." %}</small>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <button type="submit"
-                            class="btn btn-primary btn-lg btn-block mt-4">{% trans "Sign Up" %}</button>
-                    </form>
-                </div>
-            </div>
-            {% endif %}
-
+        {% if messages %}
+        <div class="alert alert-danger" role="alert" aria-live="assertive">
+            {% for message in messages %}
+            <div>{{ message }}</div>
+            {% endfor %}
         </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'account_signup' %}" class="signup">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="id_username" class="form-label">{% trans "Username:" %}</label>
+                <input type="text" name="username" id="id_username" class="form-control"
+                    value="{{ form.username.value|default:'' }}" placeholder="{% trans 'Enter your username' %}"
+                    required>
+                {% if form.username.errors %}
+                <div class="text-danger">
+                    {% for error in form.username.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_email" class="form-label">{% trans "Email (optional):" %}</label>
+                <input type="email" name="email" id="id_email" class="form-control"
+                    value="{{ form.email.value|default:'' }}" placeholder="{% trans 'Enter your email (optional)' %}">
+                {% if form.email.errors %}
+                <div class="text-danger">
+                    {% for error in form.email.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3 position-relative">
+                <label for="id_password1" class="form-label">{% trans "Password:" %}</label>
+                <input type="password" name="password1" id="id_password1" class="form-control" required
+                    placeholder="{% trans '********' %}">
+                <button type="button" onclick="togglePasswordVisibility('id_password1', this)"
+                    style="position: absolute; right: 10px; top: 38px; background: none; border: none; cursor: pointer;">
+                    🙈
+                </button>
+                {% if form.password1.errors %}
+                <div class="text-danger">
+                    {% for error in form.password1.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3 position-relative">
+                <label for="id_password2" class="form-label">{% trans "Confirm Password:" %}</label>
+                <input type="password" name="password2" id="id_password2" class="form-control" required
+                    placeholder="{% trans '********' %}">
+                <button type="button" onclick="togglePasswordVisibility('id_password2', this)"
+                    style="position: absolute; right: 10px; top: 38px; background: none; border: none; cursor: pointer;">
+                    🙈
+                </button>
+                {% if form.password2.errors %}
+                <div class="text-danger">
+                    {% for error in form.password2.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-text">
+                <ul class="list-unstyled">
+                    <li>{% trans "Your password can’t be too similar to your other personal information." %}</li>
+                    <li>{% trans "Your password must contain at least 8 characters." %}</li>
+                    <li>{% trans "Your password can’t be a commonly used password." %}</li>
+                    <li>{% trans "Your password can’t be entirely numeric." %}</li>
+                </ul>
+            </div>
+
+            <button class="btn btn-primary w-100" type="submit">{% trans "Sign Up" %}</button>
+        </form>
     </div>
 </div>
+
+<script>
+    function togglePasswordVisibility(inputId, button) {
+        const passwordInput = document.getElementById(inputId);
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+        button.textContent = isPassword ? '👁️' : '🙈';
+    }
+
+    function setInitialButtonStates() {
+        document.querySelectorAll('input[type="password"]').forEach(input => {
+            const button = input.nextElementSibling;
+            button.textContent = '🙈';
+        });
+    }
+
+    window.onload = setInitialButtonStates;
+</script>
+
+</script>
+
 {% endblock content %}

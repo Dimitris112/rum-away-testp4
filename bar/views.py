@@ -11,8 +11,25 @@ from django.contrib import messages
 
 class CustomSignupView(SignupView):
     def form_valid(self, form):
+        password1 = form.cleaned_data.get('password1')
+        password2 = form.cleaned_data.get('password2')
+
+        if password1 != password2:
+            messages.error(self.request, "Passwords do not match.")
+            return self.render_to_response(self.get_context_data(form=form))
+
         response = super().form_valid(form)
         return redirect(reverse_lazy('index'))
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Please correct the errors below.")
+        
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(self.request, f"{field.capitalize()}: {error}")
+
+        return self.render_to_response(self.get_context_data(form=form))
+
 
 def index(request):
     context = {
