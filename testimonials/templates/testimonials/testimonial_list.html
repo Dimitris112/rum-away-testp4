@@ -21,24 +21,25 @@
             <div class="col-md-6 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-header d-flex align-items-center">
-                        <img src="{{ testimonial.user.userprofile.get_profile_picture_url }}"
-                            alt="{{ testimonial.user.username }}'s profile picture" class="rounded-circle me-3"
-                            style="width: 50px; height: 50px;">
+                        <a href="#" class="user-profile-link" data-user-id="{{ testimonial.user.id }}">
+                            <img src="{{ testimonial.user.userprofile.get_profile_picture_url }}"
+                                alt="{{ testimonial.user.username }}'s profile picture" class="rounded-circle"
+                                style="width: 50px; height: 50px;">
+                        </a>
+
                         <h5 class="mb-0">{{ testimonial.name }}</h5>
                         {% if testimonial.was_edited %}
                         <span class="text-muted small ms-2">(Edited)</span>
                         {% endif %}
                     </div>
+
                     <div class="card-body">
                         <p class="text-muted">{{ testimonial.content }}</p>
-
                         <!-- Bar metric for rating -->
                         <div class="bar-rating-container">
                             <div class="bar-rating" data-rating="{{ testimonial.rating }}"></div>
                         </div>
-
                         <p class="text-muted">Submitted on: {{ testimonial.created_at }}</p>
-
                         {% if testimonial.updated_at > testimonial.created_at %}
                         <p class="text-muted">Last edited on: {{ testimonial.updated_at }}</p>
                         {% endif %}
@@ -71,9 +72,8 @@
                                     {% if user.is_authenticated %}
                                     {% if user.is_superuser or user == comment.user %}
                                     <button class="btn btn-warning btn-sm me-2 edit-comment-button"
-                                        data-comment-id="{{ comment.id }}" data-comment-content="{{ comment.content }}">
-                                        Edit
-                                    </button>
+                                        data-comment-id="{{ comment.id }}"
+                                        data-comment-content="{{ comment.content }}">Edit</button>
                                     <button class="btn btn-danger btn-sm delete-comment-button"
                                         data-comment-id="{{ comment.id }}">Delete</button>
                                     {% endif %}
@@ -98,14 +98,12 @@
 
         <div class="text-center mt-4">
             {% if user.is_authenticated %}
-            <a href="{% url 'add_testimonial' %}" class="btn btn-primary btn-lg shadow">
-                {% trans "Add your testimonial" %}
-            </a>
+            <a href="{% url 'add_testimonial' %}"
+                class="btn btn-primary btn-lg shadow">{% trans "Add your testimonial" %}</a>
             {% else %}
             <p class="lead text-secondary">{% trans "Want to share your experience?" %}</p>
-            <a href="{% url 'account_login' %}" class="btn btn-outline-primary btn-lg shadow">
-                {% trans "Log in to share" %}
-            </a>
+            <a href="{% url 'account_login' %}"
+                class="btn btn-outline-primary btn-lg shadow">{% trans "Log in to share" %}</a>
             {% endif %}
         </div>
     </div>
@@ -169,6 +167,25 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
                 <button type="button" class="btn btn-danger" id="confirmDelete">{% trans "Delete" %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- User Info Modal -->
+<div class="modal fade" id="userInfoModal" tabindex="-1" aria-labelledby="userInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userInfoModalLabel">{% trans "User Info" %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="userProfilePicture" src="" alt="Profile Picture" class="rounded-circle mb-3"
+                    style="width: 100px; height: 100px;">
+                <h5 id="userName"></h5>
+                <p id="memberSince"></p>
+                <p id="userBio"></p>
             </div>
         </div>
     </div>

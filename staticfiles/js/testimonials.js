@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     editCommentModal.show();
   }
 
+  // Opens delete confirmation modal
   function openDeleteConfirmModal(commentId) {
     document
       .getElementById("confirmDelete")
@@ -42,6 +43,49 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteModal.show();
   }
 
+  // Opens user info modal
+  function openUserInfoModal(userId, userName) {
+    fetch(`/api/users/${userId}/profile/`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        document.getElementById("userProfilePicture").src =
+          data.profile_picture;
+        document.getElementById("userName").textContent = data.username;
+        document.getElementById(
+          "memberSince"
+        ).textContent = `Member Since: ${data.member_since}`;
+        document.getElementById("userBio").textContent = data.bio;
+
+        document.getElementById(
+          "userInfoModalLabel"
+        ).textContent = `${data.username} Info`;
+
+        const userInfoModal = new bootstrap.Modal(
+          document.getElementById("userInfoModal")
+        );
+        userInfoModal.show();
+      })
+      .catch((error) => {
+        console.error("Error fetching user info:", error);
+      });
+  }
+
+  // Event listener to profile links
+  document.querySelectorAll(".user-profile-link").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const userId = link.getAttribute("data-user-id");
+      const userName = link.getAttribute("data-user-name");
+      openUserInfoModal(userId, userName);
+    });
+  });
+
+  // Event listener for comment button
   document.querySelectorAll(".comment-button").forEach((button) => {
     button.addEventListener("click", () => {
       const testimonialId = button.getAttribute("data-testimonial-id");
@@ -50,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Event listener for edit comment button
   document.querySelectorAll(".edit-comment-button").forEach((button) => {
     button.addEventListener("click", () => {
       const commentId = button.getAttribute("data-comment-id");

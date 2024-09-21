@@ -37,7 +37,11 @@
                         No bio available
                         {% endif %}
                     </p>
+
+                    <!-- Member since -->
+                    <p class="card-text text-center">Member since: {{ user.date_joined|date:"F j, Y" }}</p>
                 </div>
+
             </div>
         </div>
     </div>
