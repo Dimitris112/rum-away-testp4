@@ -160,7 +160,7 @@ def delete_comment(request, comment_id):
 
 def testimonial_detail(request, pk):
     testimonial = get_object_or_404(Testimonial, pk=pk)
-    comments = testimonial.comments.all()  # Fetch all comments
+    comments = testimonial.comments.all()
     return render(request, 'testimonials/testimonial_detail.html', {
         'testimonial': testimonial,
         'comments': comments,
