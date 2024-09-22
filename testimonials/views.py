@@ -35,6 +35,11 @@ def add_testimonial(request):
 @login_required
 def edit_testimonial(request, pk):
     testimonial = get_object_or_404(Testimonial, pk=pk)
+
+    if request.user != testimonial.user:
+        messages.error(request, 'You do not have permission to edit this testimonial.')
+        return redirect('testimonial_list')
+
     if request.method == 'POST':
         form = TestimonialForm(request.POST, instance=testimonial)
         if form.is_valid():
@@ -46,8 +51,9 @@ def edit_testimonial(request, pk):
             return redirect('testimonial_list')
     else:
         form = TestimonialForm(instance=testimonial)
-    
+
     return render(request, 'testimonials/edit_testimonial.html', {'form': form, 'testimonial': testimonial})
+
 
 
 # delete testimonial
@@ -66,6 +72,7 @@ def delete_testimonial(request, pk):
         return redirect('testimonial_list')
     
     return render(request, 'testimonials/delete_testimonial.html', {'testimonial': testimonial})
+
 
 
 #add comment

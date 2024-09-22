@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // Event listener to profile links
+  // Event listener for profile links
   document.querySelectorAll(".user-profile-link").forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();

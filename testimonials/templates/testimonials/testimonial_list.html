@@ -27,7 +27,6 @@
                                 alt="{{ testimonial.user.username }}'s profile picture" class="rounded-circle"
                                 style="width: 50px; height: 50px;">
                         </a>
-
                         <h5 class="mb-0">{{ testimonial.name }}</h5>
                         {% if testimonial.was_edited %}
                         <span class="text-muted small ms-2">(Edited)</span>
@@ -46,10 +45,13 @@
 
                         {% if user.is_authenticated %}
                         <div class="d-flex justify-content-end">
-                            {% if user.is_superuser or user == testimonial.user %}
+                            {% if user == testimonial.user %}
                             <a href="{% url 'edit_testimonial' testimonial.pk %}" class="btn btn-warning me-2">Edit</a>
-                            <button class="btn btn-danger me-2 delete-comment-button"
-                                data-testimonial-id="{{ testimonial.pk }}">Delete</button>
+                            <a href="{% url 'delete_testimonial' testimonial.pk %}"
+                                class="btn btn-danger me-2">Delete</a>
+                            {% elif user.is_superuser %}
+                            <a href="{% url 'delete_testimonial' testimonial.pk %}"
+                                class="btn btn-danger me-2">Delete</a>
                             {% endif %}
                             <button class="btn btn-success comment-button" data-testimonial-id="{{ testimonial.pk }}"
                                 data-user-name="{{ testimonial.user.username }}">
@@ -58,6 +60,8 @@
                         </div>
                         {% endif %}
 
+
+                        <!-- Comment section -->
                         <section class="comment-section" data-testimonial-id="{{ testimonial.pk }}">
                             {% if testimonial.comments.count > 0 %}
                             {% for comment in testimonial.comments.all %}
@@ -67,15 +71,18 @@
                                     <p>{{ comment.content }}</p>
                                     <small class="text-muted">{{ comment.created_at }}</small>
                                     {% if comment.was_edited %}
-                                    <span class="text-muted small ms-2">(Edited)</span>
+                                    <span class="text-muted small ms-2">(Edited on: {{ comment.updated_at }})</span>
                                     {% endif %}
                                 </div>
                                 <div>
                                     {% if user.is_authenticated %}
-                                    {% if user.is_superuser or user == comment.user %}
+                                    {% if user == comment.user %}
                                     <button class="btn btn-warning btn-sm me-2 edit-comment-button"
                                         data-comment-id="{{ comment.id }}"
                                         data-comment-content="{{ comment.content }}">Edit</button>
+                                    <button class="btn btn-danger btn-sm delete-comment-button"
+                                        data-comment-id="{{ comment.id }}">Delete</button>
+                                    {% elif user.is_superuser %}
                                     <button class="btn btn-danger btn-sm delete-comment-button"
                                         data-comment-id="{{ comment.id }}">Delete</button>
                                     {% endif %}
@@ -88,8 +95,6 @@
                             <p class="text-muted">{% trans "No comments yet!" %}</p>
                             {% endif %}
                         </section>
-
-
                     </div>
                 </div>
             </article>

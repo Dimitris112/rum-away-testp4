@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db.models import Count
 from .models import Testimonial, Comment
 
 class CommentInline(admin.TabularInline):
@@ -7,16 +8,25 @@ class CommentInline(admin.TabularInline):
     readonly_fields = ('user', 'created_at')
 
 class TestimonialAdmin(admin.ModelAdmin):
-    list_display = ('name', 'content', 'rating', 'created_at', 'updated_at', 'user')
+    list_display = ('name', 'content', 'rating', 'created_at', 'updated_at', 'user', 'comment_count')
     search_fields = ('name', 'content', 'user__username')
     list_filter = ('rating', 'created_at', 'updated_at')
     inlines = [CommentInline]
     readonly_fields = ('created_at', 'updated_at', 'user')
-    ordering = ('-created_at',)
 
     def save_model(self, request, obj, form, change):
         if not obj.user:
             obj.user = request.user
         super().save_model(request, obj, form, change)
+
+    def comment_count(self, obj):
+        return obj.comments.count()
+    comment_count.short_description = 'Amount of Comments'
+    comment_count.admin_order_field = 'comments_count'
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        queryset = queryset.annotate(comments_count=Count('comments'))
+        return queryset
 
 admin.site.register(Testimonial, TestimonialAdmin)
