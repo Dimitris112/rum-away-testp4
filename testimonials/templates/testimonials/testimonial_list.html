@@ -38,9 +38,9 @@
                         <div class="bar-rating-container">
                             <div class="bar-rating" data-rating="{{ testimonial.rating }}"></div>
                         </div>
-                        <p class="text-muted">Submitted on: {{ testimonial.created_at }}</p>
+                        <p class="text-muted"><span class="fs-6">Submitted on: {{ testimonial.created_at }}</span></p>
                         {% if testimonial.updated_at > testimonial.created_at %}
-                        <p class="text-muted">Last edited on: {{ testimonial.updated_at }}</p>
+                        <small class="text-muted">Last edited on: {{ testimonial.updated_at }}</small>
                         {% endif %}
 
                         {% if user.is_authenticated %}
@@ -57,14 +57,15 @@
                                 data-user-name="{{ testimonial.user.username }}">
                                 {% trans "Comment" %}
                             </button>
+                            <a href="{% url 'testimonial_detail' testimonial.pk %}" class="btn btn-info ms-2">
+                                {% trans "View Details & Comments" %}
+                            </a>
                         </div>
                         {% endif %}
-
-
                         <!-- Comment section -->
                         <section class="comment-section" data-testimonial-id="{{ testimonial.pk }}">
                             {% if testimonial.comments.count > 0 %}
-                            {% for comment in testimonial.comments.all %}
+                            {% for comment in testimonial.comments.all|slice:":2" %}
                             <div class="mt-2 d-flex justify-content-between align-items-center">
                                 <div>
                                     <strong>{{ comment.user.username }}</strong>:
@@ -91,6 +92,10 @@
                             </div>
                             <hr>
                             {% endfor %}
+
+                            {% if testimonial.comments.count > 2 %}
+                            <div class="text-muted">......</div>
+                            {% endif %}
                             {% else %}
                             <p class="text-muted">{% trans "No comments yet!" %}</p>
                             {% endif %}

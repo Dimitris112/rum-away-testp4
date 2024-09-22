@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Testimonial Details | Rum Away{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center text-secondary">{{ testimonial.name }}</h1>
+    <p>{{ testimonial.content }}</p>
+    <p class="text-muted"><span class="fs-6">Submitted on: {{ testimonial.created_at }}</span></p>
+    <small class="text-muted">Last edited on: {{ testimonial.updated_at }}</small>
+
+    <h2 class="mt-4">{% trans "Comments" %}</h2>
+    <section class="comment-section">
+        {% if comments.count > 0 %}
+        {% for comment in comments %}
+        <div class="mt-2 d-flex justify-content-between align-items-center">
+            <div>
+                <strong>{{ comment.user.username }}</strong>:
+                <p>{{ comment.content }}</p>
+                <small class="text-muted">{{ comment.created_at }}</small>
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                {% if user == comment.user %}
+                <button class="btn btn-warning btn-sm me-2 edit-comment-button" data-comment-id="{{ comment.id }}"
+                    data-comment-content="{{ comment.content }}">Edit</button>
+                <button class="btn btn-danger btn-sm delete-comment-button"
+                    data-comment-id="{{ comment.id }}">Delete</button>
+                {% elif user.is_superuser %}
+                <button class="btn btn-danger btn-sm delete-comment-button"
+                    data-comment-id="{{ comment.id }}">Delete</button>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+        {% else %}
+        <p class="text-muted">{% trans "No comments yet!" %}</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

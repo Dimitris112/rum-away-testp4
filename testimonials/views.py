@@ -152,3 +152,34 @@ def delete_comment(request, comment_id):
         return JsonResponse({'success': True})
     else:
         return JsonResponse({'success': False, 'error': 'You do not have permission to delete this comment.'}, status=403)
+
+
+
+# T E S T 
+
+
+def testimonial_detail(request, pk):
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+    comments = testimonial.comments.all()  # Fetch all comments
+    return render(request, 'testimonials/testimonial_detail.html', {
+        'testimonial': testimonial,
+        'comments': comments,
+    })
+
+@login_required
+def load_more_comments(request, testimonial_id):
+    if request.method == 'GET':
+        testimonial = get_object_or_404(Testimonial, id=testimonial_id)
+        offset = int(request.GET.get('offset', 3))
+        comments = testimonial.comments.all()[offset:offset + 3]
+
+        return JsonResponse({
+            'comments': [
+                {
+                    'user_name': comment.user.username,
+                    'content': comment.content,
+                    'created_at': comment.created_at.strftime('%Y-%m-%d %H:%M:%S')
+                } for comment in comments
+            ],
+            'total_count': testimonial.comments.count()
+        })
