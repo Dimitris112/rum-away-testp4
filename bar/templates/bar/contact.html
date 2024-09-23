@@ -71,7 +71,7 @@
                     <div class="card-body p-4">
                         <h3 class="card-title text-center mb-4">Reserve Your Spot</h3>
                         <div id="alert-container" class="mt-3"></div> <!-- Alert Container -->
-                        <form method="post" action="{% url 'reservations' %}" class="animate__animated animate__fadeIn">
+                        <form method="post" action="{% url 'reservations_list' %}" class="animate__animated animate__fadeIn">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-3">

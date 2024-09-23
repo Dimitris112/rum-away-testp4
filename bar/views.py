@@ -126,14 +126,28 @@ def reservations(request, reservation_id=None):
 @login_required
 def edit_reservation(request, reservation_id):
     reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+
     if request.method == 'POST':
         form = ReservationForm(request.POST, instance=reservation)
         if form.is_valid():
-            form.save()
+            reservation = form.save(commit=False)
+
+            reservation_date = form.cleaned_data.get('reservation_date')
+            reservation_hour = int(form.cleaned_data.get('reservation_hour'))
+            reservation_minute = int(form.cleaned_data.get('reservation_minute'))
+
+            # Combine date and time
+            reservation_time = timezone.make_aware(
+                datetime.combine(reservation_date, time(reservation_hour, reservation_minute))
+            )
+
+            reservation.reservation_time = reservation_time
             reservation.edited = True
             reservation.save()
             messages.success(request, "Your reservation has been updated successfully!")
             return redirect('profile')
+        else:
+            messages.error(request, "There were errors in your form. Please correct them and try again.")
     else:
         form = ReservationForm(instance=reservation)
 
@@ -141,8 +155,14 @@ def edit_reservation(request, reservation_id):
         'form': form,
         'reservation': reservation,
         'page_title': 'Edit Reservation',
+        'minutes': list(range(0, 60, 5)),
     }
     return render(request, 'bar/edit_reservation.html', context)
+
+
+
+
+
 
 
 # Delete reservation

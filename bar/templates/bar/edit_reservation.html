@@ -7,26 +7,78 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="text-center mb-4">{{ page_title }}</h2>
-    <form method="POST">
+    <div id="alert-container" class="mt-3"></div> <!-- Alert Container -->
+
+    <!-- Display form errors -->
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field in form %}
+            {% for error in field.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'edit_reservation' reservation.id %}" class="animate__animated animate__fadeIn">
         {% csrf_token %}
-        <div class="mb-3">
-            <label for="id_reservation_time" class="form-label">Date and Time of Reservation</label>
-            {{ form.reservation_time }}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="res-date" class="form-label">Date of Reservation</label>
+                <input type="date" class="form-control" id="res-date" name="reservation_date"
+                    value="{{ form.reservation_date.value }}" required aria-label="Date of Reservation">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="res-time" class="form-label">Time of Reservation</label>
+                <div class="d-flex">
+                    <select class="form-control me-2" id="res-hour" name="reservation_hour" required>
+                        <option value="" disabled>Select Hour</option>
+                        {% for hour in hours %}
+                        <option value="{{ hour }}"
+                            {% if hour|stringformat:"d" == form.reservation_hour.value %}selected{% endif %}>
+                            {{ hour|stringformat:"02d" }}:00</option>
+                        {% endfor %}
+                    </select>
+
+                    <select class="form-control" id="res-minute" name="reservation_minute" required>
+                        <option value="" disabled>Select Minute</option>
+                        {% for minute in minutes %}
+                        <option value="{{ minute }}"
+                            {% if minute|stringformat:"d" == form.reservation_minute.value %}selected{% endif %}>
+                            {{ minute }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="mb-3">
-            <label for="id_num_guests" class="form-label">Number of Guests</label>
-            {{ form.num_guests }}
+            <label for="res-guests" class="form-label">Number of Guests</label>
+            <input type="number" class="form-control" id="res-guests" name="num_guests"
+                value="{{ form.num_guests.value }}" min="1" required aria-label="Number of Guests">
         </div>
         <div class="mb-3">
-            <label for="id_hall" class="form-label">Select Location</label>
-            {{ form.hall }}
-            <div id="available-spots" class="mt-2"></div> <!-- Placeholder for available spots -->
+            <label for="res-location" class="form-label">Select Location</label>
+            <select class="form-control" id="res-location" name="hall" required>
+                <option value="" disabled selected>Indoor or Outdoor</option>
+                <option value="indoor" {% if form.hall.value == 'indoor' %}selected{% endif %}>Indoor</option>
+                <option value="outdoor" {% if form.hall.value == 'outdoor' %}selected{% endif %}>Outdoor</option>
+            </select>
         </div>
+        <div id="available-spots" class="mt-3"></div> <!-- Display Available Spots -->
         <div class="mb-3">
-            <label for="id_special_requests" class="form-label">Any Special Requests?</label>
-            {{ form.special_requests }}
+            <label for="res-special-requests" class="form-label">Any Special Requests?</label>
+            <textarea class="form-control" id="res-special-requests" name="special_requests" rows="3"
+                placeholder="Enter any special requests here..."
+                aria-label="Special Requests">{{ form.special_requests.value }}</textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Update Reservation</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg px-5">Update Reservation</button>
+        </div>
     </form>
 </div>
 {% endblock %}

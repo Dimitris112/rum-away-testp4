@@ -6,30 +6,38 @@ document.addEventListener("DOMContentLoaded", function () {
   const availableSpotsDisplay = document.getElementById("available-spots");
   const reservationDateInput = document.getElementById("res-date");
 
-  // Populate hour options
-  for (let i = 16; i <= 26; i++) {
-    const option = document.createElement("option");
-    option.value = i > 24 ? i - 24 : i;
-    option.textContent = (i > 24 ? i - 24 : i) + ":00";
-    hourSelect.appendChild(option);
+  // Hour options
+  function populateHourOptions() {
+    hourSelect.innerHTML = "";
+    for (let i = 16; i <= 26; i++) {
+      const option = document.createElement("option");
+      const hourValue = i > 24 ? i - 24 : i; // Adjust for 24 hour format
+      option.value = hourValue;
+      option.textContent = (hourValue < 10 ? "0" : "") + hourValue + ":00"; // Format for display
+      hourSelect.appendChild(option);
+    }
   }
 
-  hourSelect.addEventListener("change", updateMinuteOptions);
-  hallSelect.addEventListener("change", updateAvailableSpots);
-  guestsInput.addEventListener("input", updateAvailableSpots);
-  minuteSelect.addEventListener("change", updateAvailableSpots);
-  reservationDateInput.addEventListener("change", updateAvailableSpots);
-
-  function updateMinuteOptions() {
+  // Minute options
+  function populateMinuteOptions() {
     minuteSelect.innerHTML = "";
     for (let minute = 0; minute < 60; minute += 5) {
       const option = document.createElement("option");
-      option.value = minute < 10 ? "0" + minute : minute;
-      option.textContent = option.value;
+      option.value = minute;
+      option.textContent = minute < 10 ? "0" + minute : minute;
       minuteSelect.appendChild(option);
     }
-    updateAvailableSpots();
   }
+
+  populateHourOptions();
+  populateMinuteOptions();
+
+  // Event listeners for updates
+  hourSelect.addEventListener("change", updateAvailableSpots);
+  minuteSelect.addEventListener("change", updateAvailableSpots);
+  hallSelect.addEventListener("change", updateAvailableSpots);
+  guestsInput.addEventListener("input", updateAvailableSpots);
+  reservationDateInput.addEventListener("change", updateAvailableSpots);
 
   async function updateAvailableSpots() {
     const hall = hallSelect.value;
@@ -39,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (hall && !isNaN(hour) && !isNaN(minute) && reservationDate) {
       const reservationTime = new Date(reservationDate);
-      reservationTime.setHours(hour, minute, 0); // Set hours - minutes to user selection
+      reservationTime.setHours(hour, minute, 0); // Set hours and minutes
 
       try {
         const response = await fetch(
@@ -49,9 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!response.ok) throw new Error("Network response was not ok");
 
         const data = await response.json();
-        console.log("API Response:", data);
         const numGuests = parseInt(guestsInput.value) || 0;
-
         const spotsLeft =
           (data.spots_left ? parseInt(data.spots_left) : 0) - numGuests;
 
@@ -74,10 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentDate = new Date();
     const maxReservationDate = new Date(currentDate);
     maxReservationDate.setMonth(currentDate.getMonth() + 6); // Max 6 months in advance
-
-    hourSelect.addEventListener("change", checkFutureTime);
-    minuteSelect.addEventListener("change", checkFutureTime);
-    reservationDateInput.addEventListener("change", checkFutureTime);
 
     function checkFutureTime() {
       const selectedHour = parseInt(hourSelect.value);
@@ -104,9 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Object to compare time
+      // Set reservation time
       const reservationDateTime = new Date(selectedDate);
-      reservationDateTime.setHours(selectedHour, selectedMinute, 0); // Set time
+      reservationDateTime.setHours(selectedHour, selectedMinute, 0);
 
       if (reservationDateTime < currentDate) {
         showAlert(
@@ -117,6 +119,10 @@ document.addEventListener("DOMContentLoaded", function () {
         minuteSelect.value = "";
       }
     }
+
+    hourSelect.addEventListener("change", checkFutureTime);
+    minuteSelect.addEventListener("change", checkFutureTime);
+    reservationDateInput.addEventListener("change", checkFutureTime);
   }
 
   function showAlert(message, type) {

@@ -34,6 +34,7 @@ class Reservation(models.Model):
     reservation_time = models.DateTimeField()
     special_requests = models.TextField(blank=True, null=True)
     num_guests = models.PositiveIntegerField(default=1)
+    edited = models.BooleanField(default=False)
     hall = models.CharField(max_length=10, choices=[('indoor', 'Indoor'), ('outdoor', 'Outdoor')], default='indoor')
 
     def clean(self):
