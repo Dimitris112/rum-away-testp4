@@ -155,6 +155,8 @@ def delete_reservation(request, reservation_id):
     return redirect('profile')
 
 
+# Profile
+
 @login_required
 def profile(request):
     profile = UserProfile.objects.get(user=request.user)
@@ -172,13 +174,24 @@ def profile(request):
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=profile)
 
+    # Widgets for styling
+    
+    user_form.fields['first_name'].widget.attrs.update({'class': 'form-control shadow-sm', 'placeholder': 'First Name'})
+    user_form.fields['last_name'].widget.attrs.update({'class': 'form-control shadow-sm', 'placeholder': 'Last Name'})
+    user_form.fields['email'].widget.attrs.update({'class': 'form-control shadow-sm', 'placeholder': 'Email'})
+
+    profile_form.fields['featured_image'].widget.attrs.update({'class': 'form-control shadow-sm'})
+    profile_form.fields['bio'].widget.attrs.update({'class': 'form-control shadow-sm', 'placeholder': 'Tell us about yourself...'})
+
     upcoming_reservations = Reservation.objects.filter(user=request.user, reservation_time__gte=timezone.now()).order_by('reservation_time')
+    ratings_range = range(1, 6)
 
     context = {
         'page_title': 'Profile',
         'user_form': user_form,
         'profile_form': profile_form,
         'upcoming_reservations': upcoming_reservations,
+        'ratings_range': ratings_range,
     }
     return render(request, 'bar/profile.html', context)
 

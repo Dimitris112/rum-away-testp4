@@ -9,10 +9,11 @@
     <h1 class="text-center mb-4">{{ page_title }}</h1>
 
     {% if user.is_authenticated %}
+
     <!-- User Profile Section -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-6">
         <div class="col-md-6 col-lg-4">
-            <div class="card profile-card">
+            <div class="card profile-card shadow-lg rounded">
                 <img src="{% if user.userprofile.featured_image %}{{ user.userprofile.featured_image.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}"
                     class="card-img-top profile-picture" alt="Profile Picture">
                 <div class="card-body">
@@ -29,54 +30,92 @@
                     </p>
                     <p class="card-text text-center"><strong>Member since:</strong> {{ user.date_joined|date:"F j, Y" }}
                     </p>
+                    <!-- <button class="btn btn-primary btn-lg mt-3 w-75 shadow-sm hover-effect">View More Details</button> -->
                 </div>
             </div>
         </div>
     </div>
 
+
     <!-- User Information Update Form Section -->
-    <div class="row justify-content-center mt-4">
+    <div class="row justify-content-center mt-4 mb-6">
         <div class="col-md-8 col-lg-6">
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="mb-3">
-                    {{ user_form.first_name.label_tag }}
-                    {{ user_form.first_name }}
+            <div class="card p-4 shadow-lg rounded fancy-card">
+                <h4 class="text-center text-primary mb-4 fancy-title">My Information</h4>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="{{ user_form.first_name.id_for_label }}" class="form-label">First Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            {{ user_form.first_name }}
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="{{ user_form.last_name.id_for_label }}" class="form-label">Last Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            {{ user_form.last_name }}
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="{{ user_form.email.id_for_label }}" class="form-label">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            {{ user_form.email }}
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="{{ profile_form.featured_image.id_for_label }}" class="form-label">Profile
+                            Image</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-image"></i></span>
+                            {{ profile_form.featured_image }}
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="{{ profile_form.bio.id_for_label }}" class="form-label">Bio</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                            {{ profile_form.bio }}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary d-inline-block shadow-sm hover-effect">Save
+                            Changes</button>
+                    </div>
+                </form>
+                <div class="text-center mt-3">
+                    <form method="POST" action="{% url 'reset_profile_picture' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger d-inline-block shadow-sm hover-effect">Reset Your
+                            Profile Picture</button>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    {{ user_form.last_name.label_tag }}
-                    {{ user_form.last_name }}
+                <div class="text-center mt-4">
+                    <small>Need help? <a href="{% url 'contact' %}#contact-form"
+                            class="text-primary font-weight-bold">Contact support</a></small>
                 </div>
-                <div class="mb-3">
-                    {{ user_form.email.label_tag }}
-                    {{ user_form.email }}
-                </div>
-                <div class="mb-3">
-                    {{ profile_form.featured_image.label_tag }}
-                    {{ profile_form.featured_image }}
-                </div>
-                <div class="mb-3">
-                    {{ profile_form.bio.label_tag }}
-                    {{ profile_form.bio }}
-                </div>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </form>
-            <form method="POST" action="{% url 'reset_profile_picture' %}">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-secondary mt-3">Reset your profile picture</button>
-            </form>
+            </div>
         </div>
     </div>
 
     <!-- User Testimonials Section -->
-    <div class="row justify-content-center mt-4">
+    <div class="row justify-content-center mt-4 mb-6">
         <div class="col-md-10">
-            <h3 class="text-center mb-4">My Testimonials</h3>
+            <h3 class="text-center mb-4 fancy-heading">My Testimonials</h3>
+
+            {% if deleted %}
+            <div class="alert alert-success text-center" role="alert">
+                Testimonial deleted successfully!
+            </div>
+            {% endif %}
+
             {% if user.testimonials.count > 0 %}
             <div class="row">
                 {% for testimonial in user.testimonials.all %}
                 <div class="col-md-6 mb-4">
-                    <div class="card border-primary shadow-sm">
+                    <div class="card testimonial-card">
                         <div class="card-body">
                             <h5 class="card-title text-primary">{{ testimonial.content|truncatewords:10 }}</h5>
                             <p class="card-text">
@@ -89,9 +128,25 @@
                                 {% endif %}
                             </p>
                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                <a href="{% url 'testimonial_detail' testimonial.pk %}"
-                                    class="btn btn-outline-primary">View Full Testimonial</a>
-                                <span class="badge bg-secondary">{{ testimonial.rating }} ⭐</span>
+                                <div class="rating">
+                                    {% for i in ratings_range %}
+                                    {% if i <= testimonial.rating %}
+                                    <i class="fas fa-star star filled"></i>
+                                    {% else %}
+                                    <i class="fas fa-star star"></i>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <a href="{% url 'testimonial_detail' testimonial.pk %}"
+                                        class="btn btn-outline-primary btn-sm">View Full Testimonial</a>
+                                    <form method="POST" action="{% url 'delete_testimonial' testimonial.pk %}"
+                                        style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete this testimonial?');">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -100,14 +155,22 @@
             </div>
             {% else %}
             <div class="alert alert-info text-center mt-3" role="alert">
-                No testimonials yet.
+                No testimonials yet. Share your experiences to inspire others!
             </div>
             {% endif %}
+
+            <!-- CTA testimonial -->
+            <div class="text-center mt-4 fancy-call-to-action mb-6">
+                <h4 class="text-primary mb-3">Share Your Experience!</h4>
+                <p class="text-muted mb-4">Your voice matters! Each testimonial helps create a welcoming atmosphere for
+                    new guests.</p>
+                <a href="{% url 'add_testimonial' %}" class="btn btn-success btn-lg">Add Your Testimonial</a>
+            </div>
         </div>
     </div>
 
     <!-- Upcoming Reservations -->
-    <div class="row justify-content-center mt-4">
+    <div class="row justify-content-center mt-4 mb-6">
         <div class="col-md-10">
             <h3 class="text-center mb-4">Upcoming Reservations</h3>
             {% if upcoming_reservations %}
