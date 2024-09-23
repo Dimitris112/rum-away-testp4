@@ -61,21 +61,22 @@
         </div>
     </section>
 
-    <!-- Divider between sections -->
     <hr class="my-5" />
 
+    <!-- Reservation Section -->
     <section id="reserve-spot">
         <div class="row justify-content-center mt-5">
             <article class="col-md-6">
                 <div class="card shadow-sm border-light mb-4">
                     <div class="card-body p-4">
                         <h3 class="card-title text-center mb-4">Reserve Your Spot</h3>
+                        <div id="alert-container" class="mt-3"></div> <!-- Alert Container -->
                         <form method="post" action="{% url 'reservations' %}" class="animate__animated animate__fadeIn">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="res-date" class="form-label">Date of Reservation</label>
-                                    <input type="date" class="form-control" id="res-date" name="reservation_time"
+                                    <input type="date" class="form-control" id="res-date" name="reservation_date"
                                         required aria-label="Date of Reservation">
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -104,6 +105,7 @@
                                     <option value="outdoor">Outdoor</option>
                                 </select>
                             </div>
+                            <div id="available-spots" class="mt-3"></div> <!-- Display Available Spots -->
                             <div class="mb-3">
                                 <label for="res-special-requests" class="form-label">Any Special Requests?</label>
                                 <textarea class="form-control" id="res-special-requests" name="special_requests"
@@ -120,7 +122,6 @@
         </div>
     </section>
 
-
     <!-- Information about Halls -->
     <section class="mt-5 bg-light p-4">
         <div class="container text-center">
@@ -129,7 +130,7 @@
                 <p class="mb-4">Step into a world where comfort meets elegance. Whether you're planning an intimate
                     gathering or a grand celebration, our halls provide the perfect backdrop.</p>
             </header>
-
+            <!-- Indoor -->
             <article class="mb-4">
                 <h4 class="mb-3">Indoor Hall</h4>
                 <p class="mb-4">Immerse yourself in the cozy charm of our Indoor Hall. Featuring rich wood finishes and
@@ -173,7 +174,7 @@
                     </button>
                 </div>
             </article>
-
+            <!-- Outdoor -->
             <article>
                 <h4 class="mb-3">Outdoor Hall</h4>
                 <p class="mb-4">Experience the allure of the outdoors with our stunning Outdoor Hall. Ideal for sunny

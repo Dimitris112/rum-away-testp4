@@ -11,7 +11,9 @@ from django.utils import timezone
 from django.contrib import messages
 from django.views.generic import TemplateView
 from django.http import JsonResponse
-from datetime import datetime
+from datetime import datetime, time
+from django.db.models import Sum
+
 
 # Sign Up
 class CustomSignupView(SignupView):
@@ -37,6 +39,7 @@ class CustomSignupView(SignupView):
 
 
 # Sign In
+
 class CustomLoginView(LoginView):
     def form_valid(self, form):
         username = form.cleaned_data.get('username').lower()
@@ -67,25 +70,38 @@ def reservations(request, reservation_id=None):
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
-            reservation_date = request.POST.get('reservation_time').split("T")[0]
-            reservation_hour = int(request.POST.get('reservation_hour'))
-            reservation_minute = int(request.POST.get('reservation_minute'))
+            reservation_date = form.cleaned_data.get('reservation_date')
+            reservation_hour = form.cleaned_data.get('reservation_hour')
+            reservation_minute = form.cleaned_data.get('reservation_minute')
 
-            if reservation_hour == 24:
-                reservation_hour = 0
-                reservation_date = (timezone.datetime.strptime(reservation_date, '%Y-%m-%d') + timezone.timedelta(days=1)).date()
+            try:
+                reservation_hour = int(reservation_hour)
+                reservation_minute = int(reservation_minute)
+            except (ValueError, TypeError) as e:
+                messages.error(request, f"Error converting time: {e}")
+                return render(request, 'bar/reservations.html', {'form': form})
 
-            reservation_time = f"{reservation_date} {reservation_hour}:{reservation_minute}"
-            reservation_time = timezone.make_aware(datetime.strptime(reservation_time, '%Y-%m-%d %H:%M'))
+            if reservation_date and reservation_hour is not None and reservation_minute is not None:
+                reservation_time = timezone.make_aware(
+                    datetime.combine(
+                        reservation_date,
+                        time(reservation_hour, reservation_minute)
+                    )
+                )
 
-            reservation = form.save(commit=False)
-            reservation.user = request.user
-            reservation.reservation_time = reservation_time
-            reservation.save()
+                if reservation_time < timezone.now():
+                    messages.error(request, "Reservation time cannot be in the past.")
+                    return render(request, 'bar/reservations.html', {'form': form})
 
-            messages.success(request, "Your reservation has been made successfully!")
-            return redirect('reservations_with_id', reservation_id=reservation.id)
+                reservation = form.save(commit=False)
+                reservation.user = request.user
+                reservation.reservation_time = reservation_time
+                reservation.save()
 
+                messages.success(request, "Your reservation has been made successfully!")
+                return render(request, 'bar/reservations.html', {'reservation': reservation})
+            else:
+                messages.error(request, "Please select a valid date and time.")
     else:
         form = ReservationForm()
 
@@ -93,10 +109,7 @@ def reservations(request, reservation_id=None):
 
     reservation = None
     if reservation_id:
-        try:
-            reservation = Reservation.objects.get(id=reservation_id, user=request.user)
-        except Reservation.DoesNotExist:
-            messages.error(request, "Reservation not found.")
+        reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
 
     context = {
         'page_title': 'Reservations',
@@ -105,6 +118,7 @@ def reservations(request, reservation_id=None):
         'reservation': reservation,
     }
     return render(request, 'bar/reservations.html', context)
+
 
 
 # Edit reservation
@@ -251,19 +265,47 @@ def menu(request):
     }
     return render(request, 'bar/menu.html', context)
 
+
 # spots available
 
-@login_required
+def calculate_spots_left(hall, reservation_datetime):
+    max_capacity = 70 if hall == 'indoor' else 120
+
+    reservations = Reservation.objects.filter(
+        hall=hall,
+        reservation_time__date=reservation_datetime.date(),
+        reservation_time__hour=reservation_datetime.hour,
+    )
+
+    total_guests = sum(reservation.num_guests for reservation in reservations)
+    spots_left = max_capacity - total_guests
+
+    return spots_left, max_capacity
+
+
+
 def get_availability(request):
     hall = request.GET.get('hall')
     reservation_time = request.GET.get('reservation_time')
 
-    reserved_count = Reservation.objects.filter(
-        hall=hall,
-        reservation_time=reservation_time
-    ).aggregate(Sum('num_guests'))['num_guests__sum'] or 0
+    if not hall or not reservation_time:
+        return JsonResponse({'error': 'Missing hall or reservation_time parameter'}, status=400)
 
-    max_capacity = 70 if hall == 'indoor' else 120
-    spots_left = max_capacity - reserved_count
+    try:
+        reservation_datetime = timezone.datetime.fromisoformat(reservation_time)
+    except ValueError:
+        return JsonResponse({'error': 'Invalid date format'}, status=400)
 
-    return JsonResponse({'spots_left': spots_left, 'max_capacity': max_capacity})
+    if hall == 'indoor':
+        max_capacity = 70
+    elif hall == 'outdoor':
+        max_capacity = 120
+    else:
+        return JsonResponse({'error': 'Invalid hall type'}, status=400)
+
+    spots_left = calculate_spots_left(hall, reservation_datetime)
+
+    return JsonResponse({
+        'spots_left': spots_left,
+        'max_capacity': max_capacity
+    })

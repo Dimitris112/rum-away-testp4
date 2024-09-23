@@ -2,6 +2,7 @@ from django import forms
 from .models import Reservation, Comment, UserProfile, Event, User
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+import datetime
 
 
 # Validation for image formats
@@ -22,6 +23,7 @@ def validate_image_format(value):
 
 
 # Form to handle profile update
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
@@ -39,6 +41,7 @@ class UserProfileForm(forms.ModelForm):
 
 
 # Form to handle user data update
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
@@ -49,30 +52,70 @@ class UserForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
         }
 
+
 # Form for making a reservation
+
 class ReservationForm(forms.ModelForm):
+    reservation_date = forms.DateField(
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        label="Date of Reservation"
+    )
+    reservation_hour = forms.ChoiceField(
+        choices=[(str(i), f"{i:02d}") for i in range(24)],
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="Hour of Reservation"
+    )
+    reservation_minute = forms.ChoiceField(
+        choices=[(str(i), f"{i:02d}") for i in range(0, 60, 5)],
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="Minute of Reservation"
+    )
+
     class Meta:
         model = Reservation
-        fields = ['name', 'reservation_time', 'special_requests', 'num_guests', 'hall']
+        fields = ['name', 'special_requests', 'num_guests', 'hall']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your name'}),
-            'reservation_time': forms.DateTimeInput(attrs={
-                'class': 'form-control',
-                'type': 'datetime-local',
-            }),
             'special_requests': forms.Textarea(attrs={'rows': 3, 'class': 'form-control', 'placeholder': 'Any special requests?'}),
             'num_guests': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
             'hall': forms.Select(attrs={'class': 'form-control'}),
         }
 
-    def clean_reservation_time(self):
-        reservation_time = self.cleaned_data.get('reservation_time')
-        if reservation_time and reservation_time < timezone.now():
-            raise ValidationError('Reservation time cannot be in the past.')
-        return reservation_time
+    def clean(self):
+        cleaned_data = super().clean()
+
+        reservation_date = cleaned_data.get('reservation_date')
+        reservation_hour = cleaned_data.get('reservation_hour')
+        reservation_minute = cleaned_data.get('reservation_minute')
+
+        if not reservation_hour or not reservation_minute:
+            raise ValidationError('Please select both the hour and minute for the reservation.')
+
+        try:
+            reservation_hour = int(reservation_hour)
+            reservation_minute = int(reservation_minute)
+        except (ValueError, TypeError):
+            raise ValidationError('Invalid hour or minute selected.')
+
+        if reservation_date:
+            reservation_time = timezone.make_aware(
+                datetime.datetime.combine(
+                    reservation_date,
+                    datetime.time(reservation_hour, reservation_minute)
+                )
+            )
+
+            if reservation_time < timezone.now():
+                self.add_error('reservation_date', 'Reservation time cannot be in the past.')
+
+            cleaned_data['reservation_time'] = reservation_time
+
+        return cleaned_data
+
 
 
 # Form for creating or updating events
+
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event

@@ -7,7 +7,9 @@ from django.templatetags.static import static
 from cloudinary.models import CloudinaryField
 from django.core.exceptions import ValidationError
 
+
 # Validation for image formats
+
 def validate_image_format(value):
     valid_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp']
     
@@ -25,13 +27,13 @@ def validate_image_format(value):
         raise ValidationError('Unsupported file type.')
 
 # Reservation
+
 class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, null=True, blank=True)
     reservation_time = models.DateTimeField()
     special_requests = models.TextField(blank=True, null=True)
     num_guests = models.PositiveIntegerField(default=1)
-    edited = models.BooleanField(default=False)
     hall = models.CharField(max_length=10, choices=[('indoor', 'Indoor'), ('outdoor', 'Outdoor')], default='indoor')
 
     def clean(self):
@@ -57,6 +59,7 @@ class Comment(models.Model):
 
 
 # Profile
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
@@ -83,6 +86,7 @@ class UserProfile(models.Model):
 
 
 # Sign up
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -133,6 +137,7 @@ class Event(models.Model):
 
 
 # Contact (message)
+
 class ContactMessage(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -145,6 +150,7 @@ class ContactMessage(models.Model):
 
 
 # Category (menu)
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
