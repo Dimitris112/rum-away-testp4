@@ -7,13 +7,34 @@ from .forms import TestimonialForm, CommentForm
 from .models import Testimonial, Comment
 from django.utils import timezone
 from django.utils.decorators import method_decorator
+from django.db.models import Count
 import json
+
 
 # all testimonials
 
 def testimonial_list(request):
-    testimonials = Testimonial.objects.all()
+    sort_option = request.GET.get('sort', 'date')
+    
+    if sort_option == 'views':
+        testimonials = Testimonial.objects.annotate(
+            num_comments=Count('comments')
+        ).order_by('-views_count', '-num_comments', '-rating')
+    elif sort_option == 'comments':
+        testimonials = Testimonial.objects.annotate(
+            num_comments=Count('comments')
+        ).order_by('-num_comments', '-views_count', '-rating')
+    elif sort_option == 'rating':
+        testimonials = Testimonial.objects.annotate(
+            num_comments=Count('comments')
+        ).order_by('-rating', '-views_count', '-num_comments')
+    else:  # Default sorting by date
+        testimonials = Testimonial.objects.annotate(
+            num_comments=Count('comments')
+        ).order_by('-created_at', '-views_count', '-num_comments', '-rating')
+
     return render(request, 'testimonials/testimonial_list.html', {'testimonials': testimonials})
+
 
 # add testimonial
 
@@ -154,17 +175,21 @@ def delete_comment(request, comment_id):
         return JsonResponse({'success': False, 'error': 'You do not have permission to delete this comment.'}, status=403)
 
 
-
-# T E S T 
-
-
+# view testimonial
+ 
 def testimonial_detail(request, pk):
     testimonial = get_object_or_404(Testimonial, pk=pk)
+    testimonial.views_count += 1
+    testimonial.save(update_fields=['views_count'])
+    
     comments = testimonial.comments.all()
     return render(request, 'testimonials/testimonial_detail.html', {
         'testimonial': testimonial,
         'comments': comments,
     })
+
+
+#  T E S T - load more comments
 
 @login_required
 def load_more_comments(request, testimonial_id):

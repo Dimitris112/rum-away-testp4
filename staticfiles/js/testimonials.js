@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   }
 
-  // Opens comment modal
+  // Modal Functions
   function openCommentModal(testimonialId, userName) {
     document.getElementById("testimonialId").value = testimonialId;
     document.getElementById("testimonialUserName").textContent = userName;
@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
     commentModal.show();
   }
 
-  // Opens edit comment modal
   function openEditCommentModal(commentId, commentContent) {
     document.getElementById("editCommentId").value = commentId;
     document.getElementById("editCommentContent").value = commentContent;
@@ -52,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
     editCommentModal.show();
   }
 
-  // Opens delete confirmation modal
   function openDeleteConfirmModal(commentId) {
     document
       .getElementById("confirmDelete")
@@ -63,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteModal.show();
   }
 
-  // Opens user info modal
   function openUserInfoModal(userId, userName) {
     fetch(`/api/users/${userId}/profile/`)
       .then((response) => {
@@ -94,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // Event listener to profile links
+  // Event Listeners
   document.querySelectorAll(".user-profile-link").forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
@@ -104,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Event listener for comment button
   document.querySelectorAll(".comment-button").forEach((button) => {
     button.addEventListener("click", () => {
       const testimonialId = button.getAttribute("data-testimonial-id");
@@ -113,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Event listener for edit comment button
   document.querySelectorAll(".edit-comment-button").forEach((button) => {
     button.addEventListener("click", () => {
       const commentId = button.getAttribute("data-comment-id");
@@ -213,7 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const commentParagraph = commentElement.querySelector("p");
             commentParagraph.textContent = commentContent;
 
-            // (Edited)
             const editedText = document.createElement("span");
             editedText.textContent = " (Edited)";
             editedText.style.color = "rgba(33, 37, 41, 0.75)";
@@ -291,4 +285,52 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("An error occurred while deleting your comment:", error);
       });
   });
+
+  // Sort testimonials
+  function sortTestimonials(event) {
+    event.preventDefault();
+
+    const sortValue = document.getElementById("sortOptions").value;
+    window.history.replaceState(null, "", "?sort=" + sortValue);
+
+    const testimonialList = document.querySelector(
+      ".testimonial-container .row"
+    );
+    const testimonials = Array.from(testimonialList.children);
+
+    testimonials.sort((a, b) => {
+      let aValue, bValue;
+
+      switch (sortValue) {
+        case "views":
+          aValue = parseInt(a.getAttribute("data-views"), 10);
+          bValue = parseInt(b.getAttribute("data-views"), 10);
+          return bValue - aValue; // Sort descend
+        case "comments":
+          aValue = parseInt(a.getAttribute("data-comments"), 10);
+          bValue = parseInt(b.getAttribute("data-comments"), 10);
+          return bValue - aValue;
+        case "rating":
+          aValue = parseFloat(a.getAttribute("data-rating"));
+          bValue = parseFloat(b.getAttribute("data-rating"));
+          return bValue - aValue;
+        case "date":
+        default:
+          aValue = new Date(a.getAttribute("data-date"));
+          bValue = new Date(b.getAttribute("data-date"));
+          return bValue - aValue;
+      }
+    });
+
+    // Clear the current list and append next testimonials
+    testimonialList.innerHTML = "";
+    testimonials.forEach((testimonial) => {
+      testimonialList.appendChild(testimonial);
+    });
+  }
+
+  // Event listener for the sort select
+  document
+    .getElementById("sortOptions")
+    .addEventListener("change", sortTestimonials);
 });

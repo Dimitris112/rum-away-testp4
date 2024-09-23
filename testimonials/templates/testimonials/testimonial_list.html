@@ -16,10 +16,23 @@
         </div>
     </div>
 
+    <!-- Sort Options -->
+    <div class="mb-3 text-center">
+        <label for="sortOptions" class="form-label">{% trans "Sort by:" %}</label>
+        <select id="sortOptions" class="form-select mb-4" onchange="sortTestimonials()">
+            <option value="date" {% if request.GET.sort == "date" %}selected{% endif %}>Date</option>
+            <option value="views" {% if request.GET.sort == "views" %}selected{% endif %}>Views</option>
+            <option value="comments" {% if request.GET.sort == "comments" %}selected{% endif %}>Comments</option>
+            <option value="rating" {% if request.GET.sort == "rating" %}selected{% endif %}>Rating</option>
+        </select>
+    </div>
+
     <section class="testimonial-container">
         <div class="row justify-content-center">
             {% for testimonial in testimonials %}
-            <article class="col-md-6 mb-4">
+            <article class="col-md-6 mb-4 testimonial-card" data-views="{{ testimonial.views_count }}"
+                data-comments="{{ testimonial.comments.count }}" data-rating="{{ testimonial.rating }}"
+                data-date="{{ testimonial.created_at }}">
                 <div class="card shadow-sm">
                     <header class="card-header d-flex align-items-center">
                         <a href="#" class="user-profile-link" data-user-id="{{ testimonial.user.id }}">
@@ -39,6 +52,7 @@
                             <div class="bar-rating" data-rating="{{ testimonial.rating }}"></div>
                         </div>
                         <p class="text-muted"><span class="fs-6">Submitted on: {{ testimonial.created_at }}</span></p>
+                        <p>{{ testimonial.views_count }} views</p>
                         {% if testimonial.updated_at > testimonial.created_at %}
                         <small class="text-muted">Last edited on: {{ testimonial.updated_at }}</small>
                         {% endif %}
