@@ -9,8 +9,9 @@
     <h1 class="mb-4 text-center text-secondary">{{ testimonial.name }}</h1>
     <p>{{ testimonial.content }}</p>
     <p class="text-muted"><span class="fs-6">Submitted on: {{ testimonial.created_at }}</span></p>
+    {% if testimonial.updated_at and testimonial.updated_at != testimonial.created_at %}
     <small class="text-muted">Last edited on: {{ testimonial.updated_at }}</small>
-
+    {% endif %}
     <h2 class="mt-4">{% trans "Comments" %}</h2>
     <section class="comment-section">
         <!-- Comment Form -->

@@ -8,6 +8,7 @@ from .models import Testimonial, Comment
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.db.models import Count
+from django.core.paginator import Paginator
 import json
 
 
@@ -15,25 +16,45 @@ import json
 
 def testimonial_list(request):
     sort_option = request.GET.get('sort', 'date')
-    
-    if sort_option == 'views':
-        testimonials = Testimonial.objects.annotate(
-            num_comments=Count('comments')
-        ).order_by('-views_count', '-num_comments', '-rating')
-    elif sort_option == 'comments':
-        testimonials = Testimonial.objects.annotate(
-            num_comments=Count('comments')
-        ).order_by('-num_comments', '-views_count', '-rating')
-    elif sort_option == 'rating':
-        testimonials = Testimonial.objects.annotate(
-            num_comments=Count('comments')
-        ).order_by('-rating', '-views_count', '-num_comments')
-    else:  # Default sorting by date
-        testimonials = Testimonial.objects.annotate(
-            num_comments=Count('comments')
-        ).order_by('-created_at', '-views_count', '-num_comments', '-rating')
+    offset = int(request.GET.get('offset', 4))  # Default to 4 testimonials
+    testimonials = Testimonial.objects.annotate(num_comments=Count('comments'))
 
-    return render(request, 'testimonials/testimonial_list.html', {'testimonials': testimonials})
+    if sort_option == 'views':
+        testimonials = testimonials.order_by('-views_count', '-num_comments', '-rating')
+    elif sort_option == 'comments':
+        testimonials = testimonials.order_by('-num_comments', '-views_count', '-rating')
+    elif sort_option == 'rating':
+        testimonials = testimonials.order_by('-rating', '-views_count', '-num_comments')
+    else:  # Default sorting by date
+        testimonials = testimonials.order_by('-created_at', '-views_count', '-num_comments', '-rating')
+
+    testimonials = testimonials[:offset]
+
+    total_count = Testimonial.objects.count()
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({
+            'testimonials': [
+                {
+                    'id': testimonial.id,
+                    'name': testimonial.name,
+                    'content': testimonial.content,
+                    'views_count': testimonial.views_count,
+                    'comments_count': testimonial.comments.count(),
+                    'rating': testimonial.rating,
+                    'created_at': testimonial.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                }
+                for testimonial in testimonials
+            ],
+            'total_count': total_count,
+        })
+
+    return render(request, 'testimonials/testimonial_list.html', {
+        'testimonials': testimonials,
+        'offset': offset,
+        'total_count': total_count,
+    })
+
 
 
 # add testimonial

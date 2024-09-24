@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function openUserInfoModal(userId, userName) {
-    fetch(`/api/users/${userId}/profile/`)
+    fetch(`/api/v1/users/${userId}/profile/`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -286,51 +286,204 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
-  // Sort testimonials
-  function sortTestimonials(event) {
-    event.preventDefault();
 
-    const sortValue = document.getElementById("sortOptions").value;
-    window.history.replaceState(null, "", "?sort=" + sortValue);
 
-    const testimonialList = document.querySelector(
-      ".testimonial-container .row"
-    );
-    const testimonials = Array.from(testimonialList.children);
 
-    testimonials.sort((a, b) => {
-      let aValue, bValue;
 
-      switch (sortValue) {
-        case "views":
-          aValue = parseInt(a.getAttribute("data-views"), 10);
-          bValue = parseInt(b.getAttribute("data-views"), 10);
-          return bValue - aValue; // Sort descend
-        case "comments":
-          aValue = parseInt(a.getAttribute("data-comments"), 10);
-          bValue = parseInt(b.getAttribute("data-comments"), 10);
-          return bValue - aValue;
-        case "rating":
-          aValue = parseFloat(a.getAttribute("data-rating"));
-          bValue = parseFloat(b.getAttribute("data-rating"));
-          return bValue - aValue;
-        case "date":
-        default:
-          aValue = new Date(a.getAttribute("data-date"));
-          bValue = new Date(b.getAttribute("data-date"));
-          return bValue - aValue;
-      }
-    });
 
-    // Clear the current list and append next testimonials
-    testimonialList.innerHTML = "";
-    testimonials.forEach((testimonial) => {
+
+
+
+
+
+
+
+
+// Sort testimonials
+function sortTestimonials(event) {
+  event.preventDefault();
+
+  const sortValue = document.querySelector('.custom-select .selected').getAttribute('data-value');
+  const sortOrder = document.querySelector('input[name="sortOrder"]:checked').value; // Ascending or Descending
+  window.history.replaceState(null, "", "?sort=" + sortValue + "&order=" + sortOrder);
+
+  const testimonialList = document.querySelector(".testimonial-container .row");
+  const testimonials = Array.from(testimonialList.children);
+
+  const sortedTestimonials = sortByCriteria(testimonials, sortValue, sortOrder);
+
+  // Clear the current list and append sorted testimonials
+  testimonialList.innerHTML = "";
+  sortedTestimonials.forEach((testimonial) => {
       testimonialList.appendChild(testimonial);
-    });
-  }
+  });
+}
 
-  // Event listener for the sort select
-  document
-    .getElementById("sortOptions")
-    .addEventListener("change", sortTestimonials);
+// Function to get the value for sorting based on the selected criteria
+function getValue(testimonial, sortValue) {
+  switch (sortValue) {
+      case 'views':
+          return parseInt(testimonial.getAttribute('data-views'), 10);
+      case 'comments':
+          return parseInt(testimonial.getAttribute('data-comments'), 10);
+      case 'rating':
+          return parseFloat(testimonial.getAttribute('data-rating'));
+      case 'date':
+      default:
+          return new Date(testimonial.getAttribute('data-date')).getTime();
+  }
+}
+
+// Function to sort testimonials based on selected criteria
+function sortByCriteria(testimonials, sortValue, sortOrder) {
+  return testimonials.sort((a, b) => {
+      let aValue = getValue(a, sortValue);
+      let bValue = getValue(b, sortValue);
+
+      // Sort based on order (ascending or descending)
+      return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+  });
+}
+
+// Event listener for sorting options
+document.querySelectorAll('.option').forEach(option => {
+  option.addEventListener('click', function() {
+      const selected = document.querySelector('.custom-select .selected');
+      selected.setAttribute('data-value', this.getAttribute('data-value'));
+      selected.querySelector('#selectedOption').textContent = this.textContent; // Update displayed text
+      sortTestimonials(event); // Call sort function
+  });
+});
+
+document.querySelectorAll('input[name="sortOrder"]').forEach(input => {
+  input.addEventListener('change', sortTestimonials);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    function loadMoreTestimonials(event) {
+      event.preventDefault(); // Prevent the default anchor click behavior
+    
+      const loadMoreButton = document.querySelector(".load-more-button");
+      const offset = parseInt(loadMoreButton.getAttribute("data-offset")); // Get the current offset
+      const sort = document.querySelector("#sortOptions").value; // Get the selected sort option
+      const testimonialsContainer = document.querySelector(".testimonial-container .row");
+    
+      // Show loading state
+      loadMoreButton.textContent = "Loading...";
+      loadMoreButton.setAttribute("disabled", true);
+    
+      // Make the AJAX request to fetch more testimonials
+      fetch(`/testimonials/?offset=${offset}&sort=${sort}`, {
+        method: "GET",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest", // Indicate that the request is AJAX
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json(); // Parse the JSON response
+        })
+        .then((data) => {
+          // Check if any testimonials were returned
+          if (data.testimonials.length > 0) {
+            // Append each testimonial to the container
+            data.testimonials.forEach((testimonial) => {
+              const testimonialCard = `
+                <article class="col-md-6 mb-4 testimonial-card">
+                  <div class="card shadow-sm">
+                    <header class="card-header d-flex align-items-center">
+                      <img src="${testimonial.profile_picture_url}" alt="${testimonial.name}'s profile picture" class="rounded-circle me-2" style="width: 50px; height: 50px;">
+                      <h5 class="mb-0">${testimonial.name}</h5>
+                    </header>
+                    <div class="card-body">
+                      <p class="text-muted">${testimonial.content}</p>
+                      <div class="d-flex justify-content-between mt-2">
+                        <span class="text-muted">${testimonial.views_count} <strong>views</strong></span>
+                        <span class="text-muted">${testimonial.comments_count} <strong>comments</strong></span>
+                      </div>
+                      <small class="text-muted">Submitted on: ${testimonial.created_at}</small>
+                    </div>
+                  </div>
+                </article>
+              `;
+              testimonialsContainer.insertAdjacentHTML("beforeend", testimonialCard); // Insert the testimonial card into the container
+            });
+    
+            // Update the offset for the next load
+            loadMoreButton.setAttribute("data-offset", offset + data.testimonials.length); // Increment offset by the number of testimonials loaded
+    
+            // Hide the button if all testimonials have been loaded
+            if (data.total_count <= offset + data.testimonials.length) {
+              loadMoreButton.style.display = "none"; // Hide button if no more testimonials are available
+            }
+          } else {
+            loadMoreButton.style.display = "none"; // Hide button if no testimonials were returned
+          }
+        })
+        .catch((error) => {
+          console.error("Error loading testimonials:", error);
+          alert("Failed to load testimonials. Please try again later."); // User feedback on error
+        })
+        .finally(() => {
+          // Reset loading state
+          loadMoreButton.textContent = "Load More Testimonials";
+          loadMoreButton.removeAttribute("disabled");
+        });
+    }
+    
+    // Attach the loadMoreTestimonials function to your button click event
+    document
+      .querySelector(".load-more-button")
+      .addEventListener("click", loadMoreTestimonials);
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });

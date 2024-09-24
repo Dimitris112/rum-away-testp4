@@ -8,64 +8,121 @@
 <div class="container mt-5">
     <h1 class="mb-4 text-center text-secondary">{% trans "Testimonials" %}</h1>
 
-    <div class="alert alert-info text-center" role="alert">
-        <span class="fw-bold">Rate Your Experience:</span>
+    <div class="alert alert-info text-center" role="alert" aria-live="polite">
+        <span class="fw-bold">{% trans "Rate Your Experience:" %}</span>
         <div class="alert alert-info mb-4" role="note">
             <p>{% trans "Curious about our ratings? 🍺 Red means 'Room for Improvement', yellow is 'Good, but Could Be Better', and green signifies 'Top-Notch Experience!' 🍺" %}
             </p>
         </div>
     </div>
 
+
+
     <!-- Sort Options -->
-    <div class="mb-3 text-center">
-        <label for="sortOptions" class="form-label">{% trans "Sort by:" %}</label>
-        <select id="sortOptions" class="form-select mb-4" onchange="sortTestimonials()">
-            <option value="date" {% if request.GET.sort == "date" %}selected{% endif %}>Date</option>
-            <option value="views" {% if request.GET.sort == "views" %}selected{% endif %}>Views</option>
-            <option value="comments" {% if request.GET.sort == "comments" %}selected{% endif %}>Comments</option>
-            <option value="rating" {% if request.GET.sort == "rating" %}selected{% endif %}>Rating</option>
-        </select>
+    <div class="mb-4 text-center fancy-sort">
+        <label for="sortOptions" class="sort-label mb-3">
+            {% trans "Sort by:" %}
+        </label>
+        <div class="sort-container">
+            <div class="custom-select" tabindex="0" aria-haspopup="true" aria-expanded="false" role="combobox"
+                aria-labelledby="sortOptionsLabel">
+                <div class="selected" aria-label="{% trans 'Sort testimonials' %}" id="sortOptionsLabel">
+                    <span id="selectedOption">{% trans "Select an option" %}</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="options" id="sortOptions" role="listbox">
+                    <div class="option" data-value="date" role="option" aria-selected="false">
+                        <i class="fas fa-calendar-alt"></i> {% trans "Date" %}
+                    </div>
+                    <div class="option" data-value="views" role="option" aria-selected="false">
+                        <i class="fas fa-eye"></i> {% trans "Views" %}
+                    </div>
+                    <div class="option" data-value="comments" role="option" aria-selected="false">
+                        <i class="fas fa-comment-dots"></i> {% trans "Comments" %}
+                    </div>
+                    <div class="option" data-value="rating" role="option" aria-selected="false">
+                        <i class="fas fa-star"></i> {% trans "Rating" %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sort Order -->
+            <div class="sort-order mt-3">
+                <span class="sort-order-label">{% trans "Sort Order:" %}</span>
+                <div class="sort-options">
+                    <label class="sort-option">
+                        <input type="radio" name="sortOrder" value="asc" checked>
+                        <i class="fas fa-arrow-up"></i> <!-- Ascending arrow -->
+                    </label>
+                    <label class="sort-option">
+                        <input type="radio" name="sortOrder" value="desc">
+                        <i class="fas fa-arrow-down"></i> <!-- Descending arrow -->
+                    </label>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <section class="testimonial-container">
+
+
+
+
+
+    <!-- Testimonials -->
+    <section class="testimonial-container" aria-labelledby="testimonial-section">
         <div class="row justify-content-center">
             {% for testimonial in testimonials %}
             <article class="col-md-6 mb-4 testimonial-card" data-views="{{ testimonial.views_count }}"
                 data-comments="{{ testimonial.comments.count }}" data-rating="{{ testimonial.rating }}"
-                data-date="{{ testimonial.created_at }}">
+                data-date="{{ testimonial.created_at }}" role="article">
                 <div class="card shadow-sm">
                     <header class="card-header d-flex align-items-center">
-                        <a href="#" class="user-profile-link" data-user-id="{{ testimonial.user.id }}">
+                        <a href="#" class="user-profile-link" data-user-id="{{ testimonial.user.id }}"
+                            aria-label="{% trans 'Profile of' %} {{ testimonial.user.username }}">
                             <img src="{{ testimonial.user.userprofile.get_profile_picture_url }}"
-                                alt="{{ testimonial.user.username }}'s profile picture" class="rounded-circle"
-                                style="width: 50px; height: 50px;">
+                                alt="{{ testimonial.user.username }}'s profile picture" class="rounded-circle me-2"
+                                style="width: 50px; height: 50px;" loading="lazy">
                         </a>
                         <h5 class="mb-0">{{ testimonial.name }}</h5>
                         {% if testimonial.was_edited %}
-                        <span class="text-muted small ms-2">(Edited)</span>
+                        <span class="text-muted small ms-2">({% trans "Edited" %})</span>
                         {% endif %}
                     </header>
 
                     <div class="card-body">
                         <p class="text-muted">{{ testimonial.content }}</p>
-                        <div class="bar-rating-container">
+                        <div class="bar-rating-container mb-3" role="img"
+                            aria-label="{% trans 'Rating' %} {{ testimonial.rating }}">
                             <div class="bar-rating" data-rating="{{ testimonial.rating }}"></div>
                         </div>
-                        <p class="text-muted"><span class="fs-6">Submitted on: {{ testimonial.created_at }}</span></p>
-                        <p>{{ testimonial.views_count }} views</p>
+                        <p class="text-muted">
+                            <span class="fs-6">{% trans "Submitted on" %}: {{ testimonial.created_at }}</span>
+                        </p>
+
+                        <div class="d-flex justify-content-between mt-2">
+                            <span class="text-muted">{{ testimonial.views_count }}
+                                <strong>{% trans "views" %}</strong></span>
+                            {% if testimonial.comments.count > 0 %}
+                            <span class="text-muted">{{ testimonial.comments.count }}
+                                <strong>{% trans "comments" %}</strong></span>
+                            {% endif %}
+                        </div>
+
                         {% if testimonial.updated_at > testimonial.created_at %}
-                        <small class="text-muted">Last edited on: {{ testimonial.updated_at }}</small>
+                        <small class="text-muted">{% trans "Last edited on" %}: {{ testimonial.updated_at }}</small>
                         {% endif %}
 
                         {% if user.is_authenticated %}
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-end mt-3">
                             {% if user == testimonial.user %}
-                            <a href="{% url 'edit_testimonial' testimonial.pk %}" class="btn btn-warning me-2">Edit</a>
+                            <a href="{% url 'edit_testimonial' testimonial.pk %}"
+                                class="btn btn-warning me-2">{% trans "Edit" %}</a>
                             <a href="{% url 'delete_testimonial' testimonial.pk %}"
-                                class="btn btn-danger me-2">Delete</a>
+                                class="btn btn-danger me-2">{% trans "Delete" %}</a>
                             {% elif user.is_superuser %}
                             <a href="{% url 'delete_testimonial' testimonial.pk %}"
-                                class="btn btn-danger me-2">Delete</a>
+                                class="btn btn-danger me-2">{% trans "Delete" %}</a>
                             {% endif %}
                             <button class="btn btn-success comment-button" data-testimonial-id="{{ testimonial.pk }}"
                                 data-user-name="{{ testimonial.user.username }}">
@@ -76,44 +133,6 @@
                             </a>
                         </div>
                         {% endif %}
-                        <!-- Comment section -->
-                        <section class="comment-section" data-testimonial-id="{{ testimonial.pk }}">
-                            {% if testimonial.comments.count > 0 %}
-                            {% for comment in testimonial.comments.all|slice:":2" %}
-                            <div class="mt-2 d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>{{ comment.user.username }}</strong>:
-                                    <p>{{ comment.content }}</p>
-                                    <small class="text-muted">{{ comment.created_at }}</small>
-                                    {% if comment.was_edited %}
-                                    <span class="text-muted small ms-2">(Edited on: {{ comment.updated_at }})</span>
-                                    {% endif %}
-                                </div>
-                                <div>
-                                    {% if user.is_authenticated %}
-                                    {% if user == comment.user %}
-                                    <button class="btn btn-warning btn-sm me-2 edit-comment-button"
-                                        data-comment-id="{{ comment.id }}"
-                                        data-comment-content="{{ comment.content }}">Edit</button>
-                                    <button class="btn btn-danger btn-sm delete-comment-button"
-                                        data-comment-id="{{ comment.id }}">Delete</button>
-                                    {% elif user.is_superuser %}
-                                    <button class="btn btn-danger btn-sm delete-comment-button"
-                                        data-comment-id="{{ comment.id }}">Delete</button>
-                                    {% endif %}
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <hr>
-                            {% endfor %}
-
-                            {% if testimonial.comments.count > 2 %}
-                            <div class="text-muted">......</div>
-                            {% endif %}
-                            {% else %}
-                            <p class="text-muted">{% trans "No comments yet!" %}</p>
-                            {% endif %}
-                        </section>
                     </div>
                 </div>
             </article>
@@ -123,6 +142,16 @@
             </div>
             {% endfor %}
         </div>
+
+        <!-- Load More Button (testimonials) -->
+        <div class="text-center mt-4">
+            {% if total_count > offset %}
+            <a href="#" class="btn btn-primary load-more-button" data-offset="{{ offset }}">Load More Testimonials
+            </a>
+            {% endif %}
+        </div>
+
+
 
         <div class="text-center mt-4">
             {% if user.is_authenticated %}
@@ -135,6 +164,7 @@
             {% endif %}
         </div>
     </section>
+
 </div>
 
 <!-- Add Comment Modal -->
@@ -144,15 +174,16 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="commentModalLabel">{% trans "Comment on" %} <span
                         id="testimonialUserName"></span></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="{% trans 'Close' %}"></button>
             </div>
             <div class="modal-body">
-                <form id="commentForm">
+                <form id="commentForm" aria-labelledby="commentModalLabel">
                     {% csrf_token %}
                     <input type="hidden" id="testimonialId">
                     <textarea id="commentContent" name="content" class="form-control" rows="3"
-                        placeholder="{% trans 'Add your comment...' %}" maxlength="50"></textarea>
-                    <div id="charCount">0 / 50 characters</div>
+                        placeholder="{% trans 'Add your comment...' %}" maxlength="50" required></textarea>
+                    <div id="charCount">0 / 50 {% trans "characters" %}</div>
                     <button type="submit" class="btn btn-primary mt-2">{% trans "Submit" %}</button>
                 </form>
             </div>
@@ -166,15 +197,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editCommentModalLabel">{% trans "Edit Comment" %}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="{% trans 'Close' %}"></button>
             </div>
             <div class="modal-body">
-                <form id="editCommentForm">
+                <form id="editCommentForm" aria-labelledby="editCommentModalLabel">
                     {% csrf_token %}
                     <input type="hidden" id="editCommentId">
                     <textarea id="editCommentContent" class="form-control" rows="3"
-                        placeholder="{% trans 'Edit your comment...' %}" maxlength="50"></textarea>
-                    <div id="editCharCount">0 / 50 characters</div>
+                        placeholder="{% trans 'Edit your comment...' %}" maxlength="50" required></textarea>
+                    <div id="editCharCount">0 / 50 {% trans "characters" %}</div>
                     <button type="submit" class="btn btn-primary mt-2">{% trans "Update Comment" %}</button>
                 </form>
             </div>
@@ -189,7 +221,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteCommentModalLabel">{% trans "Confirm Deletion" %}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="{% trans 'Close' %}"></button>
             </div>
             <div class="modal-body">
                 {% trans "Are you sure you want to delete this comment?" %}
@@ -208,11 +241,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="userInfoModalLabel">{% trans "User Info" %}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="{% trans 'Close' %}"></button>
             </div>
             <div class="modal-body text-center">
-                <img id="userProfilePicture" src="" alt="Profile Picture" class="rounded-circle mb-3"
-                    style="width: 100px; height: 100px;">
+                <img id="userProfilePicture" src="" alt="{% trans 'Profile Picture' %}" class="rounded-circle mb-3"
+                    style="width: 100px; height: 100px;" loading="lazy">
                 <h5 id="userName"></h5>
                 <p id="memberSince"></p>
                 <p id="userBio"></p>

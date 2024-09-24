@@ -13,6 +13,7 @@ class Testimonial(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='testimonials', null=True, blank=True)
     was_edited = models.BooleanField(default=False)
     views_count = models.PositiveIntegerField(default=0)
+    comments_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.name}: {self.content[:20]}..."

@@ -11,3 +11,4 @@ creds.json
 db.sqlite3
 logs/
 /profile_pics/
+locale/
