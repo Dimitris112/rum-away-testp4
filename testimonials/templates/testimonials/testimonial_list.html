@@ -20,54 +20,49 @@
 
     <!-- Sort Options -->
     <div class="mb-4 text-center fancy-sort">
-        <label for="sortOptions" class="sort-label mb-3">
+        <label for="sortOptions" class="sort-label mb-3 fs-5 fw-bold">
             {% trans "Sort by:" %}
         </label>
         <div class="sort-container">
             <div class="custom-select" tabindex="0" aria-haspopup="true" aria-expanded="false" role="combobox"
                 aria-labelledby="sortOptionsLabel">
-                <div class="selected" aria-label="{% trans 'Sort testimonials' %}" id="sortOptionsLabel">
-                    <span id="selectedOption">{% trans "Select an option" %}</span>
+                <div class="selected d-flex align-items-center" aria-label="{% trans 'Sort testimonials' %}"
+                    id="sortOptionsLabel">
+                    <span id="selectedOption" class="me-2">{% trans "Select an option" %}</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="options" id="sortOptions" role="listbox">
                     <div class="option" data-value="date" role="option" aria-selected="false">
-                        <i class="fas fa-calendar-alt"></i> {% trans "Date" %}
+                        <i class="fas fa-calendar-alt me-2"></i> {% trans "Date" %}
                     </div>
                     <div class="option" data-value="views" role="option" aria-selected="false">
-                        <i class="fas fa-eye"></i> {% trans "Views" %}
+                        <i class="fas fa-eye me-2"></i> {% trans "Views" %}
                     </div>
                     <div class="option" data-value="comments" role="option" aria-selected="false">
-                        <i class="fas fa-comment-dots"></i> {% trans "Comments" %}
+                        <i class="fas fa-comment-dots me-2"></i> {% trans "Comments" %}
                     </div>
                     <div class="option" data-value="rating" role="option" aria-selected="false">
-                        <i class="fas fa-star"></i> {% trans "Rating" %}
+                        <i class="fas fa-star me-2"></i> {% trans "Rating" %}
                     </div>
                 </div>
             </div>
 
             <!-- Sort Order -->
-            <div class="sort-order mt-3">
-                <span class="sort-order-label">{% trans "Sort Order:" %}</span>
-                <div class="sort-options">
-                    <label class="sort-option">
-                        <input type="radio" name="sortOrder" value="asc" checked>
+            <div class="sort-order mt-4 d-flex justify-content-center align-items-center">
+                <span class="sort-order-label me-3 fw-semibold">{% trans "Sort Order:" %}</span>
+                <div class="sort-options d-flex">
+                    <label class="sort-option me-3 d-flex align-items-center">
+                        <input type="radio" name="sortOrder" value="asc" checked class="me-1">
                         <i class="fas fa-arrow-up"></i> <!-- Ascending arrow -->
                     </label>
-                    <label class="sort-option">
-                        <input type="radio" name="sortOrder" value="desc">
+                    <label class="sort-option d-flex align-items-center">
+                        <input type="radio" name="sortOrder" value="desc" class="me-1">
                         <i class="fas fa-arrow-down"></i> <!-- Descending arrow -->
                     </label>
                 </div>
             </div>
-
         </div>
     </div>
-
-
-
-
-
 
     <!-- Testimonials -->
     <section class="testimonial-container" aria-labelledby="testimonial-section">
