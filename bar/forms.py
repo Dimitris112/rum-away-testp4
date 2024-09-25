@@ -4,25 +4,18 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 import datetime
 
-
 # Validation for image formats
 def validate_image_format(value):
     valid_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp']
-    
     if hasattr(value, 'name'):
         if not any(value.name.lower().endswith(ext) for ext in valid_extensions):
             raise ValidationError('Unsupported file extension. Allowed extensions are: png, jpg, jpeg, gif, webp.')
-    
     elif hasattr(value, 'url'):
         file_url = value.url.lower()
         if not any(file_url.endswith(ext) for ext in valid_extensions):
             raise ValidationError('Unsupported file extension. Allowed extensions are: png, jpg, jpeg, gif, webp.')
-    
     else:
         raise ValidationError('Unsupported file type.')
-
-
-# Form to handle profile update
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -38,10 +31,6 @@ class UserProfileForm(forms.ModelForm):
             validate_image_format(image)
         return image
 
-
-
-# Form to handle user data update
-
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
@@ -51,9 +40,6 @@ class UserForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
         }
-
-
-# Form for making a reservation
 
 class ReservationForm(forms.ModelForm):
     reservation_date = forms.DateField(
@@ -73,7 +59,7 @@ class ReservationForm(forms.ModelForm):
 
     class Meta:
         model = Reservation
-        fields = ['name', 'special_requests', 'num_guests', 'hall']
+        fields = ['name', 'special_requests', 'num_guests', 'hall', 'reservation_date', 'reservation_hour', 'reservation_minute']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your name'}),
             'special_requests': forms.Textarea(attrs={'rows': 3, 'class': 'form-control', 'placeholder': 'Any special requests?'}),
@@ -112,10 +98,6 @@ class ReservationForm(forms.ModelForm):
 
         return cleaned_data
 
-
-
-# Form for creating or updating events
-
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
@@ -128,3 +110,29 @@ class EventForm(forms.ModelForm):
             'recurrence': forms.Select(attrs={'class': 'form-control'}),
             'recurrence_day': forms.Select(attrs={'class': 'form-control'}),
         }
+
+    RECURRENCE_CHOICES = [
+        ('never', 'Never'),
+        ('daily', 'Daily'),
+        ('weekly', 'Weekly'),
+        ('monthly', 'Monthly'),
+    ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['recurrence'].choices = self.RECURRENCE_CHOICES
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Leave a comment...'}),  # Update 'text' to 'content'
+        }
+
+    def clean_content(self):
+        content = self.cleaned_data.get('content')
+        if not content:
+            raise ValidationError('Comment cannot be empty.')
+        return content

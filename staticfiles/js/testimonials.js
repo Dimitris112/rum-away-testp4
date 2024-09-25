@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   }
 
-  // Modal Functions
+  // Modal functions
   function openCommentModal(testimonialId, userName) {
     document.getElementById("testimonialId").value = testimonialId;
     document.getElementById("testimonialUserName").textContent = userName;
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // Event Listeners
+  // Event Listeners - modals and buttons
   document.querySelectorAll(".user-profile-link").forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Add comment
+  // Add a comment
   document.getElementById("commentForm").addEventListener("submit", (event) => {
     event.preventDefault();
     const testimonialId = document.getElementById("testimonialId").value;
@@ -138,43 +138,54 @@ document.addEventListener("DOMContentLoaded", () => {
         return response.json();
       })
       .then((data) => {
-        if (data.success) {
-          const commentSection = document.querySelector(
-            `.comment-section[data-testimonial-id="${testimonialId}"]`
-          );
-          const newCommentHTML = `
-            <div class="mt-2" data-comment-id="${data.comment_id}">
-              <strong>${data.user_name}</strong>:
-              <p>${commentContent}</p>
-              <small class="text-muted">${data.created_at}</small>
-              <div>
-                <button class="btn btn-warning btn-sm me-2 edit-comment-button" data-comment-id="${data.comment_id}" data-comment-content="${commentContent}">
-                  Edit
-                </button>
-                <button class="btn btn-danger btn-sm delete-comment-button" data-comment-id="${data.comment_id}">
-                  Delete
-                </button>
-              </div>
-            </div>`;
-          commentSection.insertAdjacentHTML("beforeend", newCommentHTML);
+        const commentSection = document.querySelector(
+          `.comment-section[data-testimonial-id="${testimonialId}"]`
+        );
 
-          const commentModal = bootstrap.Modal.getInstance(
-            document.getElementById("commentModal")
-          );
-          commentModal.hide();
-          document.getElementById("commentForm").reset();
+        if (data.success) {
+          const newCommentHTML = `
+              <div class="mt-2" data-comment-id="${data.comment_id}">
+                  <strong>${data.user_name}</strong>:
+                  <p>${commentContent}</p>
+                  <small class="text-muted">${data.created_at}</small>
+                  <div>
+                      <button class="btn btn-warning btn-sm me-2 edit-comment-button" data-comment-id="${data.comment_id}" data-comment-content="${commentContent}">Edit</button>
+                      <button class="btn btn-danger btn-sm delete-comment-button" data-comment-id="${data.comment_id}">Delete</button>
+                  </div>
+              </div>`;
+          commentSection.insertAdjacentHTML("beforeend", newCommentHTML);
+          showBootstrapAlert("Comment added successfully!", "success");
         } else {
-          console.error(
-            data.error || "Failed to add comment. Please try again."
+          showBootstrapAlert(
+            data.error || "Failed to add comment. Please try again.",
+            "danger"
           );
         }
+
+        // Reset the form and character count
+        document.getElementById("commentForm").reset();
+        document.getElementById("charCount").textContent = "0 / 50 characters";
       })
       .catch((error) => {
         console.error("An error occurred while adding your comment:", error);
+        showBootstrapAlert(
+          "An error occurred while adding your comment. Please try again.",
+          "danger"
+        );
       });
   });
 
-  // Edit comment
+  function showBootstrapAlert(message, type) {
+    const alertHTML = `
+      <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>`;
+    const alertContainer = document.querySelector(".comment-section");
+    alertContainer.insertAdjacentHTML("afterbegin", alertHTML);
+  }
+
+  // Edit a comment
   document
     .getElementById("editCommentForm")
     .addEventListener("submit", (event) => {
@@ -238,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-  // Delete comment
+  // Delete a comment
   document.addEventListener("click", (event) => {
     if (event.target.classList.contains("delete-comment-button")) {
       const commentId = event.target.getAttribute("data-comment-id");
@@ -270,11 +281,11 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then((data) => {
         if (data.success) {
-          commentElement.remove();
-          const deleteModal = bootstrap.Modal.getInstance(
+          commentElement.closest(".mt-2").remove();
+          const deleteCommentModal = bootstrap.Modal.getInstance(
             document.getElementById("deleteCommentModal")
           );
-          deleteModal.hide();
+          deleteCommentModal.hide();
         } else {
           console.error(
             data.error || "Failed to delete comment. Please try again."
@@ -282,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
       .catch((error) => {
-        console.error("An error occurred while deleting your comment:", error);
+        console.error("An error occurred while deleting the comment:", error);
       });
   });
 
@@ -356,85 +367,4 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('input[name="sortOrder"]').forEach((input) => {
     input.addEventListener("change", sortTestimonials);
   });
-
-  function loadMoreTestimonials(event) {
-    event.preventDefault();
-
-    const loadMoreButton = document.querySelector(".load-more-button");
-    const offset = parseInt(loadMoreButton.getAttribute("data-offset"));
-    const sort = document.querySelector("#sortOptions").value;
-    const testimonialsContainer = document.querySelector(
-      ".testimonial-container .row"
-    );
-
-    loadMoreButton.textContent = "Loading...";
-    loadMoreButton.setAttribute("disabled", true);
-
-    // AJAX to fetch more testimonials
-    fetch(`/testimonials/?offset=${offset}&sort=${sort}`, {
-      method: "GET",
-      headers: {
-        "X-Requested-With": "XMLHttpRequest",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Check if any testimonials returned
-        if (data.testimonials.length > 0) {
-          data.testimonials.forEach((testimonial) => {
-            const testimonialCard = `
-                <article class="col-md-6 mb-4 testimonial-card">
-                  <div class="card shadow-sm">
-                    <header class="card-header d-flex align-items-center">
-                      <img src="${testimonial.profile_picture_url}" alt="${testimonial.name}'s profile picture" class="rounded-circle me-2" style="width: 50px; height: 50px;">
-                      <h5 class="mb-0">${testimonial.name}</h5>
-                    </header>
-                    <div class="card-body">
-                      <p class="text-muted">${testimonial.content}</p>
-                      <div class="d-flex justify-content-between mt-2">
-                        <span class="text-muted">${testimonial.views_count} <strong>views</strong></span>
-                        <span class="text-muted">${testimonial.comments_count} <strong>comments</strong></span>
-                      </div>
-                      <small class="text-muted">Submitted on: ${testimonial.created_at}</small>
-                    </div>
-                  </div>
-                </article>
-              `;
-            testimonialsContainer.insertAdjacentHTML(
-              "beforeend",
-              testimonialCard
-            );
-          });
-
-          loadMoreButton.setAttribute(
-            "data-offset",
-            offset + data.testimonials.length
-          ); // Offset +4 8 12 ...
-
-          if (data.total_count <= offset + data.testimonials.length) {
-            loadMoreButton.style.display = "none";
-          }
-        } else {
-          loadMoreButton.style.display = "none";
-        }
-      })
-      .catch((error) => {
-        console.error("Error loading testimonials:", error);
-        alert("Failed to load testimonials. Please try again later.");
-      })
-      .finally(() => {
-        // Reset loading state
-        loadMoreButton.textContent = "Load More Testimonials";
-        loadMoreButton.removeAttribute("disabled");
-      });
-  }
-
-  document
-    .querySelector(".load-more-button")
-    .addEventListener("click", loadMoreTestimonials);
 });

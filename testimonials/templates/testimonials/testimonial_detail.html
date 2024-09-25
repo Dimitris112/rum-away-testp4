@@ -13,15 +13,19 @@
     <small class="text-muted">Last edited on: {{ testimonial.updated_at }}</small>
     {% endif %}
     <h2 class="mt-4">{% trans "Comments" %}</h2>
-    <section class="comment-section">
+    <section class="comment-section" data-testimonial-id="{{ testimonial.id }}">
+        <div id="alertContainer"></div>
         <!-- Comment Form -->
         <form id="commentForm" class="mt-4">
             {% csrf_token %}
+            <input type="hidden" id="testimonialId" value="{{ testimonial.id }}">
             <textarea id="commentContent" class="form-control" rows="3" placeholder="{% trans 'Leave a comment...' %}"
                 maxlength="50"></textarea>
             <div id="charCount">0 / 50 characters</div>
             <button type="submit" class="btn btn-primary mt-2">{% trans "Add Comment" %}</button>
         </form>
+
+
         {% if comments.count > 0 %}
         {% for comment in comments %}
         <div class="mt-2 d-flex justify-content-between align-items-center">
@@ -53,6 +57,7 @@
         <p class="text-muted">{% trans "No comments yet!" %}</p>
         {% endif %}
     </section>
+
 </div>
 
 <!-- Edit Comment Modal -->

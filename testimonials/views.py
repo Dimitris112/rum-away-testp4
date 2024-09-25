@@ -8,7 +8,6 @@ from .models import Testimonial, Comment
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.db.models import Count
-from django.core.paginator import Paginator
 import json
 
 
@@ -102,6 +101,7 @@ def delete_testimonial(request, pk):
 
 #add comment
 
+
 @require_POST
 @login_required
 def add_comment(request, testimonial_id):
@@ -123,6 +123,7 @@ def add_comment(request, testimonial_id):
 
         return JsonResponse({
             'success': True,
+            'comment_id': comment.id,  # Add this to use in JavaScript
             'user_name': request.user.username,
             'created_at': comment.created_at.strftime('%Y-%m-%d %H:%M:%S')
         })
@@ -152,7 +153,14 @@ def edit_comment(request, comment_id):
         comment.was_edited = True
         comment.save()
 
-        return JsonResponse({'success': True, 'testimonial_id': comment.testimonial.id, 'was_edited': comment.was_edited})
+        return JsonResponse({
+            'success': True, 
+            'comment_id': comment.id, 
+            'testimonial_id': comment.testimonial.id, 
+            'user_name': comment.user.username, 
+            'updated_at': comment.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'was_edited': comment.was_edited
+        })
 
     except Comment.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Comment not found.'}, status=404)
@@ -160,6 +168,7 @@ def edit_comment(request, comment_id):
         return JsonResponse({'success': False, 'error': 'Invalid JSON data'}, status=400)
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
 
 
 
