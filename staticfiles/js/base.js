@@ -62,4 +62,43 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.addEventListener("scroll", debounce(handleScroll, 100));
+
+  // Zigzag animation trigger
+  const zigzagElements = document.querySelectorAll(".zigzag");
+  let resetTimeout;
+
+  // Observer to trigger animations when elements come into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const index = Array.from(zigzagElements).indexOf(entry.target);
+        entry.target.classList.add("visible");
+
+        if (index % 2 === 0) {
+          entry.target.classList.add("slide-in-left");
+        } else {
+          entry.target.classList.add("slide-in-right");
+        }
+
+        // Stop observing once the element is visible
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+
+  // Observe each zigzag element for visibility
+  zigzagElements.forEach((el) => observer.observe(el));
+
+  const resetZigzagAnimations = () => {
+    clearTimeout(resetTimeout);
+
+    resetTimeout = setTimeout(() => {
+      zigzagElements.forEach((el) => {
+        if (el.classList.contains("visible")) {
+          el.classList.remove("visible", "slide-in-left", "slide-in-right");
+          observer.observe(el); // Re observe the element for future animations
+        }
+      });
+    }, 250);
+  };
 });

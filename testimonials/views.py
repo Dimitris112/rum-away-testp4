@@ -65,6 +65,7 @@ def add_testimonial(request):
         form = TestimonialForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
+            messages.success(request, "Your testimonial has been added successfully!")
             return redirect('testimonial_list')
     else:
         form = TestimonialForm(user=request.user)

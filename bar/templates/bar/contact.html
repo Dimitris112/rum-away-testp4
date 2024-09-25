@@ -7,11 +7,11 @@
 {% block content %}
 <main class="container mt-5">
     <header>
-        <h2 id="contact-header" class="text-center mb-4">We'd Love to Hear From You!</h2>
+        <h2 id="contact-header" class="text-center mb-4 zigzag">We'd Love to Hear From You!</h2>
     </header>
 
     <!-- Contact Form -->
-    <section id="contact-form">
+    <section id="contact-form" class="zigzag">
         <div class="row justify-content-center">
             <article class="col-md-6">
                 <div class="card shadow-sm border-light mb-4">
@@ -51,7 +51,7 @@
                         {% if messages %}
                         <div class="mt-3">
                             {% for message in messages %}
-                            <div class="alert alert-danger">{{ message }}</div>
+                            <div class="alert alert-success">{{ message }}</div>
                             {% endfor %}
                         </div>
                         {% endif %}
@@ -64,14 +64,15 @@
     <hr class="my-5" />
 
     <!-- Reservation Section -->
-    <section id="reserve-spot">
+    <section id="reserve-spot" class="zigzag">
         <div class="row justify-content-center mt-5">
             <article class="col-md-6">
                 <div class="card shadow-sm border-light mb-4">
                     <div class="card-body p-4">
                         <h3 class="card-title text-center mb-4">Reserve Your Spot</h3>
                         <div id="alert-container" class="mt-3"></div> <!-- Alert Container -->
-                        <form method="post" action="{% url 'reservations_list' %}" class="animate__animated animate__fadeIn">
+                        <form method="post" action="{% url 'reservations_list' %}"
+                            class="animate__animated animate__fadeIn">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -123,7 +124,7 @@
     </section>
 
     <!-- Information about Halls -->
-    <section class="mt-5 bg-light p-4">
+    <section class="mt-5 bg-light p-4 zigzag">
         <div class="container text-center">
             <header>
                 <h3 class="mb-4">Discover Our Warm and Inviting Halls</h3>
@@ -131,7 +132,7 @@
                     gathering or a grand celebration, our halls provide the perfect backdrop.</p>
             </header>
             <!-- Indoor -->
-            <article class="mb-4">
+            <article class="mb-4 zigzag">
                 <h4 class="mb-3">Indoor Hall</h4>
                 <p class="mb-4">Immerse yourself in the cozy charm of our Indoor Hall. Featuring rich wood finishes and
                     plush seating, it’s designed for those who appreciate a sophisticated and intimate atmosphere.</p>
@@ -175,7 +176,7 @@
                 </div>
             </article>
             <!-- Outdoor -->
-            <article>
+            <article class="zigzag">
                 <h4 class="mb-3">Outdoor Hall</h4>
                 <p class="mb-4">Experience the allure of the outdoors with our stunning Outdoor Hall. Ideal for sunny
                     days and warm evenings.</p>
@@ -222,7 +223,7 @@
     </section>
 
     <!-- Contact Information -->
-    <section class="mt-5 contact-section">
+    <section class="mt-5 contact-section zigzag">
         <div class="container text-center">
             <header>
                 <h3 class="mb-4">Find Us Here</h3>
