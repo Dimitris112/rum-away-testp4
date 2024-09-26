@@ -18,6 +18,10 @@
     --box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
     --border-radius: 30px;
     --box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    --scrollbar-track-bg: linear-gradient(135deg, #ff7e5f, #feb47b);
+    --scrollbar-thumb-bg: linear-gradient(135deg, #ff6a00, #ee0979);
+    --scrollbar-thumb-hover-bg: linear-gradient(135deg, #ffcc00, #ff007f);
+    --scrollbar-thumb-active-bg: #ff0;
 }
 
 body {
@@ -195,6 +199,16 @@ p {
 
     50% {
         opacity: 0.5;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.2);
     }
 }
 
@@ -1168,6 +1182,37 @@ h4 {
     text-align: center;
     margin: 0 10px;
     vertical-align: top;
+}
+
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 18px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    border-radius: 10px;
+    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    animation: spin 3s infinite linear, flicker 1.5s infinite;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #ffcc00, #ff007f);
+    animation: bounceIn 0.5s ease-in-out, slide-in-right 0.5s;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #ff0;
+    animation: pulse 0.5s infinite, fadeIn 0.5s;
 }
 
 

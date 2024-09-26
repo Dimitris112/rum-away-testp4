@@ -6,20 +6,20 @@
 {% block content %}
 <main class="custom-404-page base-wrapper">
     <div class="custom-content text-center p-3">
-        <h1 class="custom-404-title display-2 mb-4 animated fadeIn">We're Out of Stock!</h1>
-        <p class="custom-404-paragraph-1 lead mb-3 animated fadeIn">Looks like we’ve run out of your drinks.</p>
-        <p class="custom-404-paragraph-2 mb-4 animated fadeIn">No worries, we have plenty of other drinks waiting for you.</p>
+        <h1 class="custom-404-title display-2 mb-4 animated fadeIn">Stock Alert: We're Out!</h1>
+        <p class="custom-404-paragraph-1 lead mb-3 animated fadeIn">It appears we’ve run out of your favorite beverages.</p>
+        <p class="custom-404-paragraph-2 mb-4 animated fadeIn">But don’t fret there are plenty of other refreshing options available!</p>
 
         <div class="mt-4 button-container">
             <a href="{% url 'index' %}" class="custom-btn-404 custom-btn-danger"
-                aria-label="Go back to the main bar page">🍹 Back to the Bar</a>
+                aria-label="Go back to the main bar page">🍹 Return to the Bar</a>
             <a href="{% url 'testimonial_list' %}" class="custom-btn-404 custom-btn-warning"
-                aria-label="View testimonials">🌟 Check Our Stories</a>
+                aria-label="View testimonials">🌟 Explore Our Stories</a>
         </div>
 
-        <p class="custom-404-paragraph-3 mt-4 fw-bold animated fadeIn">Grab a drink and join us for another round!</p>
+        <p class="custom-404-paragraph-3 mt-4 fw-bold animated fadeIn">Find a new favorite drink and let’s celebrate together!</p>
 
-        <small class="custom-pun text-muted mt-3">We do not guarantee we have enough drinks for you.</small>
+        <small class="custom-pun text-muted mt-3">Please note, we can’t promise we have enough drinks for everyone.</small>
     </div>
 </main>
 {% endblock %}
