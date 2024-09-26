@@ -1,0 +1,127 @@
+.custom-404-page {
+    position: relative;
+    min-height: 100vh;
+    background: url('/static/images/404.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+ /* only this path works - settings are correct */
+    
+
+/* .custom-404-page {
+    position: relative;
+    min-height: 100vh;
+    background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+} */
+
+
+/* .custom-404-page {
+    background: url("{% static 'images/404.jpg' %}") no-repeat center center fixed;
+    background-size: cover;
+} */
+
+
+/* .custom-404-page {
+    background: url("https://8000-dimitris112-rumawaytest-vwtc52qqsyb.ws.codeinstitute-ide.net/static/images/404.jpg") no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+} */
+
+
+
+.custom-content {
+    position: relative;
+    z-index: 2;
+    padding: 40px;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 6px 40px rgba(0, 0, 0, 0.7);
+    transition: transform 0.5s;
+}
+
+.custom-content:hover {
+    transform: scale(1.02);
+}
+
+.custom-404-title {
+    font-size: 4.5rem;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
+    animation: flicker 1.5s infinite;
+    letter-spacing: 2px;
+}
+
+.custom-404-paragraph-1,
+.custom-404-paragraph-2,
+.custom-404-paragraph-3 {
+    font-size: 1.6rem;
+    margin: 15px 0;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+    line-height: 1.5;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.custom-btn-404 {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1.3rem;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-btn-danger {
+    background-color: #ff4d4d;
+}
+
+.custom-btn-warning {
+    background-color: #ffcc00;
+}
+
+.custom-btn-404:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-btn-404::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s;
+}
+
+.custom-btn-404:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}

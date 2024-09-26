@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Rum...Aw...404{% endblock %}
+
+{% block content %}
+<main class="custom-404-page base-wrapper">
+    <div class="custom-content text-center p-3">
+        <h1 class="custom-404-title display-2 mb-4 animated fadeIn">We're Out of Stock!</h1>
+        <p class="custom-404-paragraph-1 lead mb-3 animated fadeIn">Looks like we’ve run out of your drinks.</p>
+        <p class="custom-404-paragraph-2 mb-4 animated fadeIn">No worries, we have plenty of other drinks waiting for you.</p>
+
+        <div class="mt-4 button-container">
+            <a href="{% url 'index' %}" class="custom-btn-404 custom-btn-danger"
+                aria-label="Go back to the main bar page">🍹 Back to the Bar</a>
+            <a href="{% url 'testimonial_list' %}" class="custom-btn-404 custom-btn-warning"
+                aria-label="View testimonials">🌟 Check Our Stories</a>
+        </div>
+
+        <p class="custom-404-paragraph-3 mt-4 fw-bold animated fadeIn">Grab a drink and join us for another round!</p>
+
+        <small class="custom-pun text-muted mt-3">We do not guarantee we have enough drinks for you.</small>
+    </div>
+</main>
+{% endblock %}

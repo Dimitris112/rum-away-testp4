@@ -22,7 +22,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
-    # path('404/', TemplateView.as_view(template_name='404.html'), name='404'),
+    path('404/', TemplateView.as_view(template_name='404.html'), name='404'),
     path('testimonials/', include('testimonials.urls')),
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),

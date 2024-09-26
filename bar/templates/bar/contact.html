@@ -28,9 +28,15 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="contact-email" class="form-label">Your Email Address</label>
-                                    <input type="email" class="form-control" id="contact-email" name="email"
-                                        placeholder="Enter your email" required aria-label="Your Email Address"
-                                        value="{{ form_data.email|default:'' }}">
+                                    <input type="email"
+                                        class="form-control {{ user_form.email.errors|yesno:'is-invalid,' }}"
+                                        id="contact-email" name="email" placeholder="Enter your email" required
+                                        aria-label="Your Email Address" value="{{ form_data.email|default:'' }}">
+                                    {% if user_form.email.errors %}
+                                    <div class="text-danger">
+                                        {{ user_form.email.errors }}
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="mb-3">

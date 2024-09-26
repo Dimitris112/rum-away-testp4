@@ -52,21 +52,39 @@
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 {{ user_form.first_name }}
                             </div>
+                            {% if user_form.first_name.errors %}
+                            <div class="text-danger">
+                                {{ user_form.first_name.errors }}
+                            </div>
+                            {% endif %}
                         </div>
+
                         <div class="mb-4">
                             <label for="{{ user_form.last_name.id_for_label }}" class="form-label">Last Name</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 {{ user_form.last_name }}
                             </div>
+                            {% if user_form.last_name.errors %}
+                            <div class="text-danger">
+                                {{ user_form.last_name.errors }}
+                            </div>
+                            {% endif %}
                         </div>
+
                         <div class="mb-4">
                             <label for="{{ user_form.email.id_for_label }}" class="form-label">Email</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                 {{ user_form.email }}
                             </div>
+                            {% if user_form.email.errors %}
+                            <div class="text-danger">
+                                {{ user_form.email.errors }}
+                            </div>
+                            {% endif %}
                         </div>
+
                         <div class="mb-4">
                             <label for="{{ profile_form.featured_image.id_for_label }}" class="form-label">Profile
                                 Image</label>
@@ -74,25 +92,40 @@
                                 <span class="input-group-text"><i class="fas fa-image"></i></span>
                                 {{ profile_form.featured_image }}
                             </div>
+                            <small class="d-block">Max: 8 MB</small>
+                            <small class="d-block">Allowed formats: PNG, JPG, JPEG, GIF, WEBP</small>
+                            {% if profile_form.featured_image.errors %}
+                            <div class="text-danger">
+                                {{ profile_form.featured_image.errors }}
+                            </div>
+                            {% endif %}
                         </div>
+
                         <div class="mb-4">
                             <label for="{{ profile_form.bio.id_for_label }}" class="form-label">Bio</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
                                 {{ profile_form.bio }}
                             </div>
+                            <small id="bio-count" class="d-block">0 / 50</small>
+                            {% if profile_form.bio.errors %}
+                            <div class="text-danger">
+                                {{ profile_form.bio.errors }}
+                            </div>
+                            {% endif %}
                         </div>
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary d-inline-block shadow-sm hover-effect">Save
                                 Changes</button>
                         </div>
                     </form>
+
                     <div class="text-center mt-3">
                         <form method="POST" action="{% url 'reset_profile_picture' %}">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger d-inline-block shadow-sm hover-effect">Reset
-                                Your
-                                Profile Picture</button>
+                                Your Profile Picture</button>
                         </form>
                     </div>
                     <div class="text-center mt-4">
@@ -103,6 +136,7 @@
             </div>
         </section>
     </div>
+
 
     <!-- User Testimonials Section -->
     <div class="zigzag">
@@ -250,4 +284,13 @@
     <p class="text-center">{% trans "You need to be logged in to view this page." %}</p>
     {% endif %}
 </div>
+
+<script>
+    function updateBioCount(textarea) {
+        const maxLength = 50;
+        const currentLength = textarea.value.length;
+
+        document.getElementById("bio-count").innerText = `${currentLength} / ${maxLength}`;
+    }
+</script>
 {% endblock %}

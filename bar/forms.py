@@ -1,6 +1,7 @@
 from django import forms
 from .models import Reservation, Comment, UserProfile, Event, User
 from django.core.exceptions import ValidationError
+from django.core.validators import EmailValidator
 from django.utils import timezone
 import datetime
 
@@ -28,6 +29,12 @@ def validate_image_format(value):
 
 class UserProfileForm(forms.ModelForm):
     """Form for user profile data including bio and featured image."""
+    bio = forms.CharField(max_length=50, required=False, widget=forms.Textarea(attrs={
+        'class': 'form-control shadow-sm',
+        'placeholder': 'Tell us about yourself...',
+        'oninput': 'updateBioCount(this)',
+        'maxlength': 50
+    }))
 
     class Meta:
         model = UserProfile
@@ -48,15 +55,29 @@ class UserProfileForm(forms.ModelForm):
                 if image.format.lower() not in valid_formats:
                     raise forms.ValidationError("Unsupported file type.")
             else:
-                if image.content_type not in ['image/jpeg', 'image/png', 'image/webp']:
+                if image.content_type not in ['image/jpeg', 'image/png', 'image/gif', 'image/webp']:
                     raise forms.ValidationError("Unsupported file type.")
 
         return image
 
 
-
 class UserForm(forms.ModelForm):
     """Form for user data including first name, last name, and email."""
+    first_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={
+        'class': 'form-control shadow-sm',
+        'placeholder': 'First Name',
+        'maxlength': 30
+    }))
+    last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={
+        'class': 'form-control shadow-sm',
+        'placeholder': 'Last Name',
+        'maxlength': 30
+    }))
+    email = forms.EmailField(max_length=35, widget=forms.EmailInput(attrs={
+        'class': 'form-control shadow-sm',
+        'placeholder': 'Email',
+        'maxlength': 35
+    }))
 
     class Meta:
         model = User
@@ -68,25 +89,33 @@ class UserForm(forms.ModelForm):
         }
 
     def clean_first_name(self):
-        """Validate that the first name is not empty."""
+        """Validate that the first name is not empty and does not exceed 30 characters."""
         first_name = self.cleaned_data.get('first_name')
         if not first_name:
             raise forms.ValidationError("This field is required.")
         return first_name
 
     def clean_last_name(self):
-        """Validate that the last name is not empty."""
+        """Validate that the last name is not empty and does not exceed 30 characters."""
         last_name = self.cleaned_data.get('last_name')
         if not last_name:
             raise forms.ValidationError("This field is required.")
         return last_name
 
     def clean_email(self):
-        """Validate that the email is not empty."""
+        """Validate that the email is not empty and does not exceed 35 characters."""
         email = self.cleaned_data.get('email')
+        email_validator = EmailValidator()
+
         if not email:
             raise forms.ValidationError("This field is required.")
+        try:
+            email_validator(email)
+        except ValidationError:
+            raise forms.ValidationError("Enter a valid email.")
+        
         return email
+    
 
 
 class ReservationForm(forms.ModelForm):

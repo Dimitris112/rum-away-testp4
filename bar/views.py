@@ -13,6 +13,7 @@ from django.views.generic import TemplateView
 from django.http import JsonResponse
 from datetime import datetime, time
 from django.db.models import Sum
+from django.core.exceptions import ValidationError
 
 
 # Sign Up
@@ -175,8 +176,6 @@ def delete_reservation(request, reservation_id):
     return redirect('profile')
 
 
-# Profile
-
 @login_required
 def profile(request):
     profile = UserProfile.objects.get(user=request.user)
@@ -184,7 +183,13 @@ def profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
-        
+
+        if request.FILES.get('featured_image'):
+            image = request.FILES['featured_image']
+            if image.size > 8 * 1024 * 1024:  # 8 MB limit
+                messages.error(request, "The profile picture must not exceed 8 MB.")
+                return redirect('profile')
+
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -194,8 +199,7 @@ def profile(request):
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=profile)
 
-    # Widgets for styling
-    
+    # Widgets for styling    
     user_form.fields['first_name'].widget.attrs.update({'class': 'form-control shadow-sm', 'placeholder': 'First Name'})
     user_form.fields['last_name'].widget.attrs.update({'class': 'form-control shadow-sm', 'placeholder': 'Last Name'})
     user_form.fields['email'].widget.attrs.update({'class': 'form-control shadow-sm', 'placeholder': 'Email'})
@@ -214,6 +218,7 @@ def profile(request):
         'ratings_range': ratings_range,
     }
     return render(request, 'bar/profile.html', context)
+
 
 
 # Reset pfp
