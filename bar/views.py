@@ -94,6 +94,16 @@ def reservations(request, reservation_id=None):
                     messages.error(request, "Reservation time cannot be in the past.")
                     return render(request, 'bar/reservations.html', {'form': form})
 
+                # Check if the user already has a reservation on that date
+                existing_reservation = Reservation.objects.filter(
+                    user=request.user,
+                    reservation_time__date=reservation_date
+                ).exists()
+
+                if existing_reservation:
+                    messages.error(request, "You already have a reservation on this date.")
+                    return render(request, 'bar/contact.html', {'form': form})
+
                 reservation = form.save(commit=False)
                 reservation.user = request.user
                 reservation.reservation_time = reservation_time
@@ -122,6 +132,7 @@ def reservations(request, reservation_id=None):
 
 
 
+
 # Edit reservation
 
 @login_required
@@ -131,16 +142,23 @@ def edit_reservation(request, reservation_id):
     if request.method == 'POST':
         form = ReservationForm(request.POST, instance=reservation)
         if form.is_valid():
-            reservation = form.save(commit=False)
-
             reservation_date = form.cleaned_data.get('reservation_date')
             reservation_hour = int(form.cleaned_data.get('reservation_hour'))
             reservation_minute = int(form.cleaned_data.get('reservation_minute'))
 
-            # Combine date and time
             reservation_time = timezone.make_aware(
                 datetime.combine(reservation_date, time(reservation_hour, reservation_minute))
             )
+
+            # Check for other reservations on the same date
+            same_day_reservations = Reservation.objects.filter(
+                user=request.user,
+                reservation_time__date=reservation_date
+            ).exclude(id=reservation_id)
+
+            if same_day_reservations.exists():
+                messages.error(request, "You already have a reservation on this date.")
+                return render(request, 'bar/edit_reservation.html', {'form': form, 'reservation': reservation})
 
             reservation.reservation_time = reservation_time
             reservation.edited = True

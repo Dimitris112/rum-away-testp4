@@ -148,11 +148,9 @@ class ReservationForm(forms.ModelForm):
 
     def clean(self):
         """
-        Validate the reservation details including time.
-
+        Validate the reservation details and check for existing reservations.
         Raises:
-            ValidationError: If the reservation time is in the past or if 
-                             hour and minute are not selected.
+            ValidationError: If the user already has a reservation on the same date.
         """
         cleaned_data = super().clean()
 
@@ -163,26 +161,21 @@ class ReservationForm(forms.ModelForm):
         if not reservation_hour or not reservation_minute:
             raise ValidationError('Please select both the hour and minute for the reservation.')
 
-        try:
-            reservation_hour = int(reservation_hour)
-            reservation_minute = int(reservation_minute)
-        except (ValueError, TypeError):
-            raise ValidationError('Invalid hour or minute selected.')
-
         if reservation_date:
-            reservation_time = timezone.make_aware(
-                datetime.datetime.combine(
-                    reservation_date,
-                    datetime.time(reservation_hour, reservation_minute)
-                )
-            )
+            # Get the user for new reservations
+            user = self.instance.user if self.instance.pk else None
+            
+            if user:
+                same_day_reservations = Reservation.objects.filter(
+                    user=user,
+                    reservation_time__date=reservation_date  # Check for the same date
+                ).exclude(pk=self.instance.pk)  # Ignore if reservation edit
 
-            if reservation_time < timezone.now():
-                self.add_error('reservation_date', 'Reservation time cannot be in the past.')
-
-            cleaned_data['reservation_time'] = reservation_time
+                if same_day_reservations.exists():
+                    raise ValidationError("You already have a reservation on this date.")
 
         return cleaned_data
+
 
 
 class EventForm(forms.ModelForm):
