@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Rum...Aw...500{% endblock %}
+
+{% block content %}
+<main class="custom-404-page base-wrapper">
+    <div class="custom-content text-center p-3">
+        <h1 class="custom-404-title display-2 mb-4 animated fadeIn">Oops! We've Spilled the Rum!</h1>
+        <p class="custom-404-paragraph-1 lead mb-3 animated fadeIn">Something went wrong on our end, and the drinks are
+            off the menu.</p>
+        <p class="custom-404-paragraph-2 mb-4 animated fadeIn">But don't worry, we'll clean up this mess soon. Hang
+            tight!</p>
+
+        <div class="mt-4 button-container">
+            <a href="{% url 'index' %}" class="custom-btn-404 custom-btn-danger"
+                aria-label="Go back to the main bar page">🍹 Back to the Bar</a>
+            <a href="{% url 'testimonial_list' %}" class="custom-btn-404 custom-btn-warning"
+                aria-label="View testimonials">🌟 Explore Our Stories</a>
+        </div>
+
+        <p class="custom-404-paragraph-3 mt-4 fw-bold animated fadeIn">We’ll be up and running soon, so come back for
+            more fun!</p>
+
+        <small class="custom-pun text-muted mt-3">Note: We promise no actual drinks were spilled in the making of this
+            error.</small>
+    </div>
+</main>
+{% endblock %}

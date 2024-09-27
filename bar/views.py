@@ -10,7 +10,7 @@ from django.templatetags.static import static
 from django.utils import timezone
 from django.contrib import messages
 from django.views.generic import TemplateView
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseServerError
 from datetime import datetime, time
 from django.db.models import Sum
 from django.core.exceptions import ValidationError

@@ -20,9 +20,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
+# Test to trigger a 500 error
+def trigger_error(request):
+    return HttpResponseServerError("Deliberate 500 error")
+
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('404/', TemplateView.as_view(template_name='404.html'), name='404'),
+    path('error-test/', trigger_error, name='error_test'),
     path('testimonials/', include('testimonials.urls')),
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
