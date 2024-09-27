@@ -12,9 +12,9 @@
         <article class="col-12 col-md-6 mb-4">
             <div class="card shadow-lg border-0">
                 {% if event.image %}
-                <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}" loading="lazy">
+                <img src="{{ event.image.url }}" class="card-img-top img-fluid" alt="{{ event.title }}" loading="lazy">
                 {% else %}
-                <img src="{% static 'images/default_event.jpg' %}" class="card-img-top"
+                <img src="{% static 'images/default_event.jpg' %}" class="card-img-top img-fluid"
                     alt="{% trans 'Default image for' %} {{ event.title }}" loading="lazy">
                 {% endif %}
                 <div class="card-body text-center">
@@ -24,17 +24,17 @@
                         {% trans "Date" %}: {{ event.date|date:"F j, Y" }}<br>
                         {% trans "Time" %}: {{ event.start_time|time:"g:i A" }} - {{ event.end_time|time:"g:i A" }}
                     </p>
-                    <footer>
-                        <a href="{% url 'event_detail' event.id %}"
-                            class="btn btn-primary btn-lg">{% trans "Learn More" %}</a>
-                    </footer>
                 </div>
+                <footer class="card-footer text-center">
+                    <a href="{% url 'event_detail' event.id %}"
+                        class="btn btn-primary btn-lg">{% trans "Learn More" %}</a>
+                </footer>
             </div>
         </article>
         {% endfor %}
     </div>
     {% else %}
-    <div class="alert alert-info text-center">
+    <div class="alert alert-info text-center" role="alert">
         {% trans "No upcoming events at the moment. Check back soon!" %}
     </div>
     {% endif %}

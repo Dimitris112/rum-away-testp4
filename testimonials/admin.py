@@ -8,7 +8,7 @@ class CommentInline(admin.TabularInline):
     readonly_fields = ('user', 'created_at')
 
 class TestimonialAdmin(admin.ModelAdmin):
-    list_display = ('name', 'content', 'rating', 'created_at', 'updated_at', 'user', 'comment_count')
+    list_display = ('name', 'content', 'rating', 'created_at', 'updated_at', 'user', 'total_comments_count')
     search_fields = ('name', 'content', 'user__username')
     list_filter = ('rating', 'created_at', 'updated_at')
     inlines = [CommentInline]
@@ -19,14 +19,14 @@ class TestimonialAdmin(admin.ModelAdmin):
             obj.user = request.user
         super().save_model(request, obj, form, change)
 
-    def comment_count(self, obj):
+    def total_comments_count(self, obj):
         return obj.comments.count()
-    comment_count.short_description = 'Amount of Comments'
-    comment_count.admin_order_field = 'comments_count'
+    total_comments_count.short_description = 'Amount of Comments'
+    total_comments_count.admin_order_field = 'comments_count'
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        queryset = queryset.annotate(comments_count=Count('comments'))
+        queryset = queryset.annotate(total_comments_count=Count('comments'))
         return queryset
 
 admin.site.register(Testimonial, TestimonialAdmin)

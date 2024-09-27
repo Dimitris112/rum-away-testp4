@@ -186,17 +186,13 @@ class EventForm(forms.ModelForm):
         fields = ['title', 'description', 'date', 'start_time', 'end_time', 'recurrence', 'recurrence_day', 'image']
     
     def clean_image(self):
-        """
-        Validate the event image.
-
-        Raises:
-            ValidationError: If the image type is unsupported.
-        """
+        """Validate the event image."""
         image = self.cleaned_data.get('image')
         if image:
-            if not image.content_type in ['image/jpeg', 'image/png']:
+            if image.content_type not in ['image/jpeg', 'image/png']:
                 raise forms.ValidationError("Unsupported file type.")
         return image
+
 
 
 class CommentForm(forms.ModelForm):
