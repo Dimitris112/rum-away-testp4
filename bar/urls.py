@@ -8,6 +8,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
     
     path('profile/', views.profile, name='profile'),
+    path('accounts/delete/', views.delete_account, name='delete_account'),
     path('profile/reset-picture/', views.reset_profile_picture, name='reset_profile_picture'),
 
     path('reservations/', views.reservations, name='reservations_list'),

@@ -55,6 +55,15 @@ class CustomLoginView(LoginView):
             return self.form_invalid(form)
 
 
+# Delete account
+
+@login_required
+def delete_account(request):
+    user = request.user
+    user.delete()
+    messages.success(request, "Your account has been deleted successfully.")
+    return redirect('index')
+
 # Home
 
 def index(request):
