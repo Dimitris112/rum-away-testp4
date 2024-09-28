@@ -9,31 +9,34 @@
 <section id="hero-slider" class="py-5 zigzag" aria-label="Hero Slider">
     <div class="container">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel"
-            aria-labelledby="carousel-title">
+            aria-labelledby="carousel-title" role="region" aria-live="polite">
             <h2 id="carousel-title" class="visually-hidden">Featured Promotions</h2>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active" role="option" aria-hidden="false">
                     <img src="{% static 'images/slider1.jpg' %}" alt="Featured Cocktail" class="d-block w-100">
                     <div class="carousel-caption d-none d-md-block">
                         <h3 class="display-4">Featured Cocktail</h3>
                         <p>Try our special cocktail of the month!</p>
-                        <a href="{% url 'menu' %}" class="btn btn-light btn-lg">Discover More</a>
+                        <a href="{% url 'menu' %}" class="btn btn-light btn-lg"
+                            aria-label="Discover More about our menu">Discover More</a>
                     </div>
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item" role="option" aria-hidden="true">
                     <img src="{% static 'images/slider2.jpg' %}" alt="Weekend Special" class="d-block w-100">
                     <div class="carousel-caption d-none d-md-block">
                         <h3 class="display-4">Weekend Special</h3>
                         <p>Enjoy our weekend specials with friends.</p>
-                        <a href="{% url 'event_list' %}" class="btn btn-light btn-lg">See Specials</a>
+                        <a href="{% url 'event_list' %}" class="btn btn-light btn-lg"
+                            aria-label="See Weekend Specials">See Specials</a>
                     </div>
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item" role="option" aria-hidden="true">
                     <img src="{% static 'images/slider3.jpg' %}" alt="Happy Hour" class="d-block w-100">
                     <div class="carousel-caption d-none d-md-block">
                         <h3 class="display-4">Happy Hour</h3>
                         <p>Join us for happy hour every evening!</p>
-                        <a href="{% url 'event_detail' event_id=4 %}" class="btn btn-light btn-lg">Join Us</a>
+                        <a href="{% url 'event_detail' event_id=4 %}" class="btn btn-light btn-lg"
+                            aria-label="Join Us for Happy Hour">Join Us</a>
                     </div>
                 </div>
             </div>
@@ -58,72 +61,78 @@
         class="img-fluid rounded shadow-lg animate__animated animate__fadeIn animate__delay-2s"
         alt="Interior of Rum Away Bar">
     <div class="mt-4">
-        <a href="{% url 'menu' %}"
-            class="btn btn-primary btn-lg animate__animated animate__fadeIn animate__delay-3s">View Our Menu</a>
+        <a href="{% url 'menu' %}" class="btn btn-primary btn-lg animate__animated animate__fadeIn animate__delay-3s"
+            aria-label="View Our Menu">View Our Menu</a>
         <a href="{% url 'contact' %}"
-            class="btn btn-secondary btn-lg ms-2 animate__animated animate__fadeIn animate__delay-3s">Contact Us</a>
+            class="btn btn-secondary btn-lg ms-2 animate__animated animate__fadeIn animate__delay-3s"
+            aria-label="Contact Us">Contact Us</a>
     </div>
 
     <!-- Testimonial Section -->
-    <section class="mt-4 zigzag">
-        <h2 class="display-5 mt-5 animate__animated animate__fadeIn">Share Your Experience!</h2>
+    <section class="mt-4 zigzag" aria-labelledby="testimonial-section">
+        <h2 class="display-5 mt-5 animate__animated animate__fadeIn" id="testimonial-section">Share Your Experience!
+        </h2>
         <p class="lead animate__animated animate__fadeIn animate__delay-1s">We'd love to hear from you. Let us know how
             we’re doing and help us make your experience even better.</p>
         <a href="{% url 'testimonial_list' %}"
-            class="btn btn-primary btn-lg animate__animated animate__fadeIn animate__delay-2s">Read Testimonials</a>
+            class="btn btn-primary btn-lg animate__animated animate__fadeIn animate__delay-2s"
+            aria-label="Read Testimonials">Read Testimonials</a>
     </section>
 </main>
 
 <!-- Special Events Section -->
-<section id="events" class="bg-light py-5 zigzag" aria-labelledby="events">
+<section id="events" class="bg-light py-5 zigzag" aria-labelledby="events-heading">
     <div class="container text-center">
-        <h2 class="display-5 text-warm">Upcoming Events</h2>
+        <h2 class="display-5 text-warm" id="events-heading">Upcoming Events</h2>
         <p class="lead">Join us for our exciting events and live performances.</p>
-        <div class="row">
-            <article class="col-md-6 mb-4">
+        <div class="row" role="list">
+            <article class="col-md-6 mb-4" role="listitem">
                 <div class="card shadow-lg border-0">
                     <img src="{% static 'images/event3.jpg' %}" class="card-img-top" alt="Live Music Night">
                     <div class="card-body text-center">
                         <h5 class="card-title">Live Music Night</h5>
                         <p class="card-text">Enjoy live performances every Friday night.</p>
                         <p class="text-muted">Date: Every Friday, 8 PM</p>
-                        <a href="{% url 'event_detail' event_id=3 %}" class="btn btn-primary">Learn More</a>
+                        <a href="{% url 'event_detail' event_id=3 %}" class="btn btn-primary"
+                            aria-label="Learn More about Live Music Night">Learn More</a>
                     </div>
                 </div>
             </article>
-            <article class="col-md-6 mb-4">
+            <article class="col-md-6 mb-4" role="listitem">
                 <div class="card shadow-lg border-0">
                     <img src="{% static 'images/event4.jpg' %}" class="card-img-top" alt="Happy Hour">
                     <div class="card-body text-center">
                         <h5 class="card-title">Happy Hour</h5>
                         <p class="card-text">Join us for discounted drinks and great company.</p>
                         <p class="text-muted">Date: Daily, 5-7 PM</p>
-                        <a href="{% url 'event_detail' event_id=4 %}" class="btn btn-primary">Learn More</a>
+                        <a href="{% url 'event_detail' event_id=4 %}" class="btn btn-primary"
+                            aria-label="Learn More about Happy Hour">Learn More</a>
                     </div>
                 </div>
             </article>
         </div>
         <a href="{% url 'event_list' %}"
-            class="btn btn-secondary btn-lg ms-2 animate__animated animate__fadeIn animate__delay-1s">View All
+            class="btn btn-secondary btn-lg ms-2 animate__animated animate__fadeIn animate__delay-1s"
+            aria-label="View All Events">View All
             Events</a>
     </div>
 </section>
 
 <!-- Menu Section -->
-<section id="menu" class="bg-light py-5 zigzag" aria-labelledby="menu">
+<section id="menu" class="bg-light py-5 zigzag" aria-labelledby="menu-heading">
     <div class="container text-center">
-        <h2 class="display-5 text-warm">Our Menu</h2>
+        <h2 class="display-5 text-warm" id="menu-heading">Our Menu</h2>
         <p class="lead">Explore our delicious offerings and find your new favorite.</p>
-        <a href="{% url 'menu' %}" class="btn btn-primary">View Full Menu</a>
+        <a href="{% url 'menu' %}" class="btn btn-primary" aria-label="View Full Menu">View Full Menu</a>
     </div>
 </section>
 
 <!-- Contact Section -->
-<section id="contact" class="py-5 zigzag" aria-labelledby="contact">
+<section id="contact" class="py-5 zigzag" aria-labelledby="contact-heading">
     <div class="container text-center">
-        <h2 class="display-5 text-warm">Contact Us</h2>
+        <h2 class="display-5 text-warm" id="contact-heading">Contact Us</h2>
         <p class="lead">Have questions? Reach out and reserve your spot today!</p>
-        <a href="{% url 'contact' %}" class="btn btn-primary">Contact</a>
+        <a href="{% url 'contact' %}" class="btn btn-primary" aria-label="Contact Us">Contact</a>
     </div>
 </section>
 
