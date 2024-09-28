@@ -2,13 +2,18 @@ from django.contrib import admin
 from django.db.models import Count
 from .models import Testimonial, Comment
 
+
 class CommentInline(admin.TabularInline):
     model = Comment
     extra = 1
     readonly_fields = ('user', 'created_at')
 
+
 class TestimonialAdmin(admin.ModelAdmin):
-    list_display = ('name', 'content', 'rating', 'created_at', 'updated_at', 'user', 'total_comments_count')
+    list_display = (
+        'name', 'content', 'rating', 'created_at',
+        'updated_at', 'user', 'total_comments_count'
+    )
     search_fields = ('name', 'content', 'user__username')
     list_filter = ('rating', 'created_at', 'updated_at')
     inlines = [CommentInline]
@@ -28,5 +33,6 @@ class TestimonialAdmin(admin.ModelAdmin):
         queryset = super().get_queryset(request)
         queryset = queryset.annotate(total_comments_count=Count('comments'))
         return queryset
+
 
 admin.site.register(Testimonial, TestimonialAdmin)
