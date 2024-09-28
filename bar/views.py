@@ -31,7 +31,7 @@ class CustomSignupView(SignupView):
 
     def form_invalid(self, form):
         messages.error(self.request, "Please correct the errors below.")
-        
+
         for field, errors in form.errors.items():
             for error in errors:
                 messages.error(self.request, f"{field.capitalize()}: {error}")
@@ -66,6 +66,7 @@ def delete_account(request):
 
 # Home
 
+
 def index(request):
     context = {
         'page_title': 'Home',
@@ -91,7 +92,9 @@ def reservations(request, reservation_id=None):
                 messages.error(request, f"Error converting time: {e}")
                 return render(request, 'bar/reservations.html', {'form': form})
 
-            if reservation_date and reservation_hour is not None and reservation_minute is not None:
+            if (reservation_date and
+                    reservation_hour is not None and
+                    reservation_minute is not None):
                 reservation_time = timezone.make_aware(
                     datetime.combine(
                         reservation_date,
@@ -100,8 +103,10 @@ def reservations(request, reservation_id=None):
                 )
 
                 if reservation_time < timezone.now():
-                    messages.error(request, "Reservation time cannot be in the past.")
-                    return render(request, 'bar/reservations.html', {'form': form})
+                    messages.error(request,
+                                   "Reservation time cannot be in the past.")
+                    return render(request, 'bar/reservations.html',
+                                  {'form': form})
 
                 # Check if the user already has a reservation on that date
                 existing_reservation = Reservation.objects.filter(
@@ -110,26 +115,40 @@ def reservations(request, reservation_id=None):
                 ).exists()
 
                 if existing_reservation:
-                    messages.error(request, "You already have a reservation on this date.")
-                    return render(request, 'bar/contact.html', {'form': form})
+                    messages.error(request,
+                                   "You already have a reservation on "
+                                   "this date.")
+                    return render(request, 'bar/contact.html',
+                                  {'form': form})
 
                 reservation = form.save(commit=False)
                 reservation.user = request.user
                 reservation.reservation_time = reservation_time
                 reservation.save()
 
-                messages.success(request, "Your reservation has been made successfully!")
-                return render(request, 'bar/reservations.html', {'reservation': reservation})
+                messages.success(request,
+                                 "Your reservation has been made "
+                                 "successfully!")
+                return render(request, 'bar/reservations.html',
+                              {'reservation': reservation})
             else:
-                messages.error(request, "Please select a valid date and time.")
+                messages.error(request,
+                               "Please select a valid date and time.")
     else:
         form = ReservationForm()
 
-    upcoming_reservations = Reservation.objects.filter(user=request.user, reservation_time__gte=timezone.now()).order_by('reservation_time')
+    upcoming_reservations = Reservation.objects.filter(
+        user=request.user,
+        reservation_time__gte=timezone.now()
+    ).order_by('reservation_time')
 
     reservation = None
     if reservation_id:
-        reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+        reservation = get_object_or_404(
+            Reservation,
+            id=reservation_id,
+            user=request.user
+        )
 
     context = {
         'page_title': 'Reservations',
@@ -140,23 +159,28 @@ def reservations(request, reservation_id=None):
     return render(request, 'bar/reservations.html', context)
 
 
-
-
 # Edit reservation
 
 @login_required
 def edit_reservation(request, reservation_id):
-    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+    reservation = get_object_or_404(
+        Reservation,
+        id=reservation_id,
+        user=request.user
+    )
 
     if request.method == 'POST':
         form = ReservationForm(request.POST, instance=reservation)
         if form.is_valid():
             reservation_date = form.cleaned_data.get('reservation_date')
             reservation_hour = int(form.cleaned_data.get('reservation_hour'))
-            reservation_minute = int(form.cleaned_data.get('reservation_minute'))
+            reservation_minute = int(
+                form.cleaned_data.get('reservation_minute')
+            )
 
             reservation_time = timezone.make_aware(
-                datetime.combine(reservation_date, time(reservation_hour, reservation_minute))
+                datetime.combine(reservation_date,
+                                 time(reservation_hour, reservation_minute))
             )
 
             # Check for other reservations on the same date
@@ -166,16 +190,21 @@ def edit_reservation(request, reservation_id):
             ).exclude(id=reservation_id)
 
             if same_day_reservations.exists():
-                messages.error(request, "You already have a reservation on this date.")
-                return render(request, 'bar/edit_reservation.html', {'form': form, 'reservation': reservation})
+                messages.error(request,
+                               "You already have a reservation on this date.")
+                return render(request, 'bar/edit_reservation.html',
+                              {'form': form, 'reservation': reservation})
 
             reservation.reservation_time = reservation_time
             reservation.edited = True
             reservation.save()
-            messages.success(request, "Your reservation has been updated successfully!")
+            messages.success(request,
+                             "Your reservation has been updated successfully!")
             return redirect('profile')
         else:
-            messages.error(request, "There were errors in your form. Please correct them and try again.")
+            messages.error(request,
+                           "There were errors in your form. Please correct "
+                           "them and try again.")
     else:
         form = ReservationForm(instance=reservation)
 
@@ -187,21 +216,23 @@ def edit_reservation(request, reservation_id):
     }
     return render(request, 'bar/edit_reservation.html', context)
 
-
-
-
-
-
-
 # Delete reservation
+
 
 @login_required
 def delete_reservation(request, reservation_id):
-    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+    reservation = get_object_or_404(
+        Reservation,
+        id=reservation_id,
+        user=request.user
+    )
     reservation.delete()
-    messages.success(request, "Your reservation has been deleted successfully!")
+    messages.success(request,
+                     "Your reservation has been deleted successfully!")
     return redirect('profile')
 
+
+# Profile
 
 @login_required
 def profile(request):
@@ -209,32 +240,56 @@ def profile(request):
 
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        profile_form = UserProfileForm(
+            request.POST,
+            request.FILES,
+            instance=profile
+        )
 
         if request.FILES.get('featured_image'):
             image = request.FILES['featured_image']
             if image.size > 8 * 1024 * 1024:  # 8 MB limit
-                messages.error(request, "The profile picture must not exceed 8 MB.")
+                messages.error(request,
+                               "The profile picture must not exceed 8 MB.")
                 return redirect('profile')
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, "Your profile has been updated successfully!")
+            messages.success(request,
+                             "Your profile has been updated successfully!")
             return redirect('profile')
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=profile)
 
-    # Widgets for styling    
-    user_form.fields['first_name'].widget.attrs.update({'class': 'form-control shadow-sm', 'placeholder': 'First Name'})
-    user_form.fields['last_name'].widget.attrs.update({'class': 'form-control shadow-sm', 'placeholder': 'Last Name'})
-    user_form.fields['email'].widget.attrs.update({'class': 'form-control shadow-sm', 'placeholder': 'Email'})
+    # Widgets for styling
+    user_form.fields['first_name'].widget.attrs.update({
+        'class': 'form-control shadow-sm',
+        'placeholder': 'First Name'
+    })
+    user_form.fields['last_name'].widget.attrs.update({
+        'class': 'form-control shadow-sm',
+        'placeholder': 'Last Name'
+    })
+    user_form.fields['email'].widget.attrs.update({
+        'class': 'form-control shadow-sm',
+        'placeholder': 'Email'
+    })
 
-    profile_form.fields['featured_image'].widget.attrs.update({'class': 'form-control shadow-sm'})
-    profile_form.fields['bio'].widget.attrs.update({'class': 'form-control shadow-sm', 'placeholder': 'Tell us about yourself...'})
+    profile_form.fields['featured_image'].widget.attrs.update({
+        'class': 'form-control shadow-sm'
+    })
+    profile_form.fields['bio'].widget.attrs.update({
+        'class': 'form-control shadow-sm',
+        'placeholder': 'Tell us about yourself...'
+    })
 
-    upcoming_reservations = Reservation.objects.filter(user=request.user, reservation_time__gte=timezone.now()).order_by('reservation_time')
+    upcoming_reservations = Reservation.objects.filter(
+        user=request.user,
+        reservation_time__gte=timezone.now()
+    ).order_by('reservation_time')
+
     ratings_range = range(1, 6)
 
     context = {
@@ -245,7 +300,6 @@ def profile(request):
         'ratings_range': ratings_range,
     }
     return render(request, 'bar/profile.html', context)
-
 
 
 # Reset pfp
@@ -281,7 +335,8 @@ def contact(request):
                 email=email,
                 message=message_content
             )
-            messages.success(request, "Your message has been sent successfully!")
+            messages.success(request,
+                             "Your message has been sent successfully!")
             return redirect('contact')
 
         form_data = {
@@ -348,16 +403,20 @@ def calculate_spots_left(hall, reservation_datetime):
     return spots_left, max_capacity
 
 
-
 def get_availability(request):
     hall = request.GET.get('hall')
     reservation_time = request.GET.get('reservation_time')
 
     if not hall or not reservation_time:
-        return JsonResponse({'error': 'Missing hall or reservation_time parameter'}, status=400)
+        return JsonResponse(
+            {'error': 'Missing hall or reservation_time parameter'},
+            status=400
+        )
 
     try:
-        reservation_datetime = timezone.datetime.fromisoformat(reservation_time)
+        reservation_datetime = timezone.datetime.fromisoformat(
+            reservation_time
+        )
     except ValueError:
         return JsonResponse({'error': 'Invalid date format'}, status=400)
 

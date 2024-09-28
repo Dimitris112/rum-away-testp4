@@ -16,6 +16,7 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from PIL import Image
 from io import BytesIO
 
+
 class ValidateImageFormatTests(TestCase):
     """Test cases for the validate_image_format function."""
 
@@ -30,7 +31,9 @@ class ValidateImageFormatTests(TestCase):
         ]
         for file_name in valid_files:
             with self.subTest(file_name=file_name):
-                validate_image_format(type('File', (object,), {'name': file_name})())
+                validate_image_format(
+                    type('File', (object,), {'name': file_name})()
+                )
 
     def test_invalid_image_format(self):
         """Test that invalid image formats raise ValidationError."""
@@ -42,7 +45,9 @@ class ValidateImageFormatTests(TestCase):
         for file_name in invalid_files:
             with self.subTest(file_name=file_name):
                 with self.assertRaises(ValidationError):
-                    validate_image_format(type('File', (object,), {'name': file_name})())
+                    validate_image_format(
+                        type('File', (object,), {'name': file_name})()
+                    )
 
 
 class ReservationModelTests(TestCase):
@@ -60,7 +65,11 @@ class ReservationModelTests(TestCase):
             num_guests=5,
             hall='indoor'
         )
-        self.assertEqual(str(reservation), f"Reservation for {self.user.username} at {reservation.reservation_time} in the {reservation.hall} area")
+        self.assertEqual(
+            str(reservation),
+            f"Reservation for {self.user.username} at "
+            f"{reservation.reservation_time} in the {reservation.hall} area"
+        )
 
     def test_clean_indoor_capacity_exceeded(self):
         """Test that exceeding indoor capacity raises ValidationError."""
@@ -70,7 +79,11 @@ class ReservationModelTests(TestCase):
 
     def test_clean_outdoor_capacity_exceeded(self):
         """Test that exceeding outdoor capacity raises ValidationError."""
-        reservation = Reservation(user=self.user, num_guests=130, hall='outdoor')
+        reservation = Reservation(
+            user=self.user,
+            num_guests=130,
+            hall='outdoor'
+        )
         with self.assertRaises(ValidationError):
             reservation.clean()
 
@@ -84,8 +97,15 @@ class CommentModelTests(TestCase):
 
     def test_comment_creation(self):
         """Test creating a comment and its string representation."""
-        comment = Comment.objects.create(user=self.user, content='Great service!', rating=5)
-        self.assertEqual(str(comment), f"Comment by {self.user.username} with rating {comment.rating}")
+        comment = Comment.objects.create(
+            user=self.user,
+            content='Great service!',
+            rating=5
+        )
+        self.assertEqual(
+            str(comment),
+            f"Comment by {self.user.username} with rating {comment.rating}"
+        )
 
 
 class UserProfileModelTests(TestCase):
@@ -94,7 +114,9 @@ class UserProfileModelTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         """Set up a User and UserProfile instance for use in the tests."""
-        cls.user = User.objects.create_user(username='testuser', password='testpass')
+        cls.user = User.objects.create_user(
+            username='testuser', password='testpass'
+        )
         cls.profile, created = UserProfile.objects.get_or_create(
             user=cls.user,
             defaults={'bio': 'Hello!', 'featured_image': None}
@@ -106,7 +128,6 @@ class UserProfileModelTests(TestCase):
 
     def test_get_profile_picture_url_with_image(self):
         """Test retrieving the profile picture URL when an image is present."""
-        
         image = Image.new('RGB', (100, 100), color='red')
         image_file = BytesIO()
         image.save(image_file, format='JPEG')
@@ -132,9 +153,12 @@ class UserProfileModelTests(TestCase):
 
     def test_clean_invalid_image_format(self):
         """Test that setting an invalid image format raises ValidationError."""
-        self.profile.featured_image = type('File', (object,), {'name': 'image.bmp'})()
+        self.profile.featured_image = type('File', (object,), {
+            'name': 'image.bmp'
+        })()
         with self.assertRaises(ValidationError):
             self.profile.clean()
+
 
 class EventModelTests(TestCase):
     """Test cases for the Event model."""
@@ -184,7 +208,11 @@ class ContactMessageModelTests(TestCase):
             telephone='1234567890',
             message='Hello!'
         )
-        self.assertEqual(str(contact_message), f"Message from {contact_message.name} ({contact_message.email}) on {contact_message.created_at}")
+        self.assertEqual(
+            str(contact_message),
+            f"Message from {contact_message.name} "
+            f"({contact_message.email}) on {contact_message.created_at}"
+        )
 
 
 class CategoryModelTests(TestCase):
@@ -192,5 +220,8 @@ class CategoryModelTests(TestCase):
 
     def test_category_creation(self):
         """Test creating a category and its string representation."""
-        category = Category.objects.create(name='Drinks', description='All kinds of drinks.')
+        category = Category.objects.create(
+            name='Drinks',
+            description='All kinds of drinks.'
+        )
         self.assertEqual(str(category), category.name)

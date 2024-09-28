@@ -1,5 +1,12 @@
 from django.test import TestCase
-from bar.forms import UserProfileForm, ReservationForm, EventForm, CommentForm, UserForm
+from bar.forms import (
+    UserProfileForm,
+    ReservationForm,
+    EventForm,
+    CommentForm,
+    UserForm,
+)
+
 from bar.models import User, Reservation, Event, Comment
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
@@ -14,23 +21,54 @@ class ValidateImageFormatTest(TestCase):
     def test_valid_image_format(self):
         """Test that valid image formats do not raise a ValidationError."""
         valid_files = [
-            SimpleUploadedFile(name='test_image.png', content=b'file_content', content_type='image/png'),
-            SimpleUploadedFile(name='test_image.jpg', content=b'file_content', content_type='image/jpeg'),
-            SimpleUploadedFile(name='test_image.jpeg', content=b'file_content', content_type='image/jpeg'),
-            SimpleUploadedFile(name='test_image.gif', content=b'file_content', content_type='image/gif'),
-            SimpleUploadedFile(name='test_image.webp', content=b'file_content', content_type='image/webp'),
+            SimpleUploadedFile(
+                name='test_image.png',
+                content=b'file_content',
+                content_type='image/png'
+            ),
+            SimpleUploadedFile(
+                name='test_image.jpg',
+                content=b'file_content',
+                content_type='image/jpeg'
+            ),
+            SimpleUploadedFile(
+                name='test_image.jpeg',
+                content=b'file_content',
+                content_type='image/jpeg'
+            ),
+            SimpleUploadedFile(
+                name='test_image.gif',
+                content=b'file_content',
+                content_type='image/gif'
+            ),
+            SimpleUploadedFile(
+                name='test_image.webp',
+                content=b'file_content',
+                content_type='image/webp'
+            ),
         ]
         for file in valid_files:
             try:
                 validate_image_format(file)
             except ValidationError:
-                self.fail(f"validate_image_format raised ValidationError for valid file: {file.name}")
+                self.fail(
+                    f"validate_image_format raised ValidationError for valid "
+                    f"file: {file.name}"
+                )
 
     def test_invalid_image_format(self):
         """Test that invalid image formats raise a ValidationError."""
         invalid_files = [
-            SimpleUploadedFile(name='test_image.txt', content=b'file_content', content_type='text/plain'),
-            SimpleUploadedFile(name='test_image.pdf', content=b'file_content', content_type='application/pdf'),
+            SimpleUploadedFile(
+                name='test_image.txt',
+                content=b'file_content',
+                content_type='text/plain'
+            ),
+            SimpleUploadedFile(
+                name='test_image.pdf',
+                content=b'file_content',
+                content_type='application/pdf'
+            ),
         ]
         for file in invalid_files:
             with self.assertRaises(ValidationError):
@@ -39,7 +77,8 @@ class ValidateImageFormatTest(TestCase):
     def test_no_file_attribute(self):
         """Test that a value without name or url raises a ValidationError."""
         with self.assertRaises(ValidationError):
-            validate_image_format(None) 
+            validate_image_format(None)
+
 
 class UserProfileFormTest(TestCase):
     """Test cases for the UserProfileForm."""
@@ -47,7 +86,7 @@ class UserProfileFormTest(TestCase):
     def test_user_profile_form_valid(self):
         """
         Test that the UserProfileForm is valid with proper data.
-        
+
         This test creates a SimpleUploadedFile to simulate an image upload
         and checks if the form is valid with the provided bio and image.
         """
@@ -70,8 +109,8 @@ class UserFormTest(TestCase):
     def test_valid_user_form(self):
         """
         Test that the UserForm is valid with proper data.
-        
-        This test checks if the form is valid when provided with a first name, 
+
+        This checks if the form is valid when provided with a first name,
         last name, and email.
         """
         form_data = {
@@ -85,8 +124,8 @@ class UserFormTest(TestCase):
     def test_invalid_user_form_empty_fields(self):
         """
         Test that the UserForm is invalid with empty fields.
-        
-        This test verifies that the form is invalid when no data is provided.
+
+        This verifies that the form is invalid when no data is provided.
         """
         form_data = {
             'first_name': '',
@@ -101,9 +140,11 @@ class UserFormTest(TestCase):
 
     def test_invalid_user_form_invalid_email(self):
         """
-        Test that the UserForm is invalid with an improperly formatted email.
-        
-        This test verifies that the form is invalid when an invalid email format is provided.
+        Test that the UserForm is invalid with an improperly
+        formatted email.
+
+        This verifies that the form is invalid when an invalid email
+        format is provided.
         """
         form_data = {
             'first_name': 'Jane',
@@ -114,23 +155,28 @@ class UserFormTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('email', form.errors)
 
+
 class ReservationFormTest(TestCase):
     """Test cases for the ReservationForm."""
 
     def setUp(self):
         """
         Set up a user and hall for the reservation tests.
-        
-        Creates a test user and defines a hall type for use in reservation form tests.
+
+        Creates a test user and defines a hall type for use in
+        reservation form tests.
         """
-        self.user = User.objects.create_user(username='testuser', password='password')
+        self.user = User.objects.create_user(
+            username='testuser', password='password'
+        )
         self.hall = 'indoor'
 
     def test_reservation_form_valid(self):
         """
-        Test that the ReservationForm is valid with future date and proper data.
-        
-        This test checks if the form is valid when provided with future 
+        Test that the ReservationForm is valid with future date and
+        proper data.
+
+        This checks if the form is valid when provided with future
         reservation data, including the reservation date and time.
         """
         future_date = timezone.now() + datetime.timedelta(days=1)
@@ -148,23 +194,26 @@ class ReservationFormTest(TestCase):
 
     def test_reservation_form_invalid_time(self):
         """
-        Test that the ReservationForm is invalid with a past reservation date.
-        
-        This test verifies that the form is invalid when the reservation date
-        is set to a past date.
+        Test that the ReservationForm is invalid with a past
+        reservation date.
+
+        This verifies that the form is invalid when the reservation
+        date is set to a past date.
         """
         form_data = {
             'name': 'Dim D',
             'special_requests': 'None',
             'num_guests': 2,
             'hall': self.hall,
-            'reservation_date': timezone.now().date() - datetime.timedelta(days=1),
+            'reservation_date': timezone.now().date() - datetime.timedelta(
+                days=1),
             'reservation_hour': '12',
             'reservation_minute': '30'
         }
         form = ReservationForm(data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('reservation_date', form.errors)
+
 
 class EventFormTest(TestCase):
     """Test cases for the EventForm."""
@@ -198,8 +247,9 @@ class CommentFormTest(TestCase):
     def test_valid_comment_form(self):
         """
         Test that the CommentForm is valid with proper content.
-        
-        This test checks if the form is valid when provided with valid comment content.
+
+        This checks if the form is valid when provided with valid comment
+        content.
         """
         form_data = {'content': 'This is a comment.'}
         form = CommentForm(data=form_data)
@@ -208,8 +258,9 @@ class CommentFormTest(TestCase):
     def test_invalid_comment_form_empty_content(self):
         """
         Test that the CommentForm is invalid with empty content.
-        
-        This test verifies that the form is invalid when no content is provided.
+
+        This verifies that the form is invalid when no content is
+        provided.
         """
         form_data = {'content': ''}
         form = CommentForm(data=form_data)

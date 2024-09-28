@@ -9,7 +9,7 @@
 
 :root {
     --warm-bg: #f8f2e6;
-    --warm-primary: #ff7043;
+    --warm-primary: #c95a2a;
     --warm-secondary: #6d4c41;
     --warm-dark: #3e2723;
     --highlight-color: #ffab91;
@@ -1247,7 +1247,6 @@ h4 {
 
     .card-text {
         font-size: 1rem;
-        /* Adjusted card text size */
     }
 
     .btn-category {
