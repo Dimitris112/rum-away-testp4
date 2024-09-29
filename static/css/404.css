@@ -11,38 +11,6 @@
     text-align: center;
 }
 
-
- /* only this path works - settings are correct */
-    
-
-/* .custom-404-page {
-    position: relative;
-    min-height: 100vh;
-    background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
-    background-size: cover;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-} */
-
-
-/* .custom-404-page {
-    background: url("{% static 'images/404.jpg' %}") no-repeat center center fixed;
-    background-size: cover;
-} */
-
-
-/* .custom-404-page {
-    background: url("https://8000-dimitris112-rumawaytest-vwtc52qqsyb.ws.codeinstitute-ide.net/static/images/404.jpg") no-repeat center center fixed;
-    background-size: cover;
-    height: 100vh;
-} */
-
-
-
 .custom-content {
     position: relative;
     z-index: 2;
