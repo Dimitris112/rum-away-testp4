@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { gsap } from "gsap";
+
+export function initialize404Animations() {
   document.body.classList.add("custom-404-active");
 
   gsap.from("#custom-404-title", {
@@ -15,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     opacity: 0,
     ease: "power2.out",
   });
+
   gsap.from("#custom-404-paragraph-2", {
     duration: 1,
     delay: 1,
@@ -22,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     opacity: 0,
     ease: "power2.out",
   });
+
   gsap.from("#custom-404-paragraph-3", {
     duration: 1,
     delay: 1.5,
@@ -47,9 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
     yoyo: true,
     ease: "sine.inOut",
   });
-});
+}
 
-// remove class if leave 404
+document.addEventListener("DOMContentLoaded", initialize404Animations);
+
+// beforeunload remove the class
 window.addEventListener("beforeunload", () => {
   document.body.classList.remove("custom-404-active");
 });

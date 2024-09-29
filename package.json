@@ -1,0 +1,41 @@
+{
+    "name": "rum-away-testp4",
+    "version": "1.0.0",
+    "description": "<h1 align=\"center\">🥃 <a href=\"https://rum-away-testp4-d410f580ea18.herokuapp.com/\">Rum Away Bar</a> 🥃</h1>",
+    "main": "index.js",
+    "scripts": {
+        "test": "node_modules/.bin/jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Dimitris112/rum-away-testp4.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Dimitris112/rum-away-testp4/issues"
+    },
+    "homepage": "https://github.com/Dimitris112/rum-away-testp4#readme",
+    "devDependencies": {
+        "@babel/core": "^7.25.2",
+        "@babel/preset-env": "^7.25.4",
+        "babel-jest": "^29.7.0",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "jsdom": "^25.0.1"
+    },
+    "jest": {
+        "transform": {
+            "^.+\\.jsx?$": "babel-jest"
+        },
+        "moduleFileExtensions": [
+            "js",
+            "json"
+        ],
+        "testEnvironment": "jest-environment-jsdom"
+    },
+    "dependencies": {
+        "gsap": "^3.12.5"
+    }
+}
