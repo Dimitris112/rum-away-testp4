@@ -36,6 +36,7 @@
         "testEnvironment": "jest-environment-jsdom"
     },
     "dependencies": {
-        "gsap": "^3.12.5"
+        "gsap": "^3.12.5",
+        "inputmask": "^5.0.9"
     }
 }
