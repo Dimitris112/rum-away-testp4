@@ -4,71 +4,82 @@
 
 ## The purpose of this project is a web based application designed to streamline the operations of a bar called **Rum Away Bar**, providing both customers and administrator with a platform to manage reservations, events and iteractions. It features a user friendly interface for users to browse events, make reservations and view testimonials while also offering an admin panel to control various aspects.
 
-### Key features: 
- - Authentication & Authorization: Secure user authentication and authorization built using Django allauth, allowing users to register, login and manage their accounts.
- - Reservation System: Users can create and manage their reservations while preventing them on multiple bookings for the same date.
- - Event Management: Admin has full control over event creation and management via the admin panel, including the ability to create - edit - delete events.
- - User Profiles & API Integration: API endpoints allow for dynamic content handling, such as profile management and profile images stored secured using Cloudinary.
- - Media management: Integration with Cloudinary allows users and admin to upload, store, manage images efficiently.
- - Testimonials Section: A dedicated area for users to view and interact with testimonials from other users.
- - The platform is built using Django and PostgreSQL.
+### Key features:
 
+- Authentication & Authorization: Secure user authentication and authorization built using Django allauth, allowing users to register, login and manage their accounts.
+- Reservation System: Users can create and manage their reservations while preventing them on multiple bookings for the same date.
+- Event Management: Admin has full control over event creation and management via the admin panel, including the ability to create - edit - delete events.
+- User Profiles & API Integration: API endpoints allow for dynamic content handling, such as profile management and profile images stored secured using Cloudinary.
+- Media management: Integration with Cloudinary allows users and admin to upload, store, manage images efficiently.
+- Testimonials Section: A dedicated area for users to view and interact with testimonials from other users.
+- The platform is built using Django and PostgreSQL.
 
-
-## [User Stories](https://github.com/users/Dimitris112/projects/5/views/1) 
+## [User Stories](https://github.com/users/Dimitris112/projects/5/views/1)
 
 ### 1. User Registration
+
 - **As a** new user, **I want** an easy account setup **to** enjoy personalized features.
 - **Acceptance**: Users enter email, username, and password. Errors show for taken usernames/emails.
 
 ### 2. User Profile Edit
+
 - **As a** user, **I want** to update my profile **to** keep my details current.
 - **Acceptance**: Users change name, email, or password. Changes save instantly.
 
 ### 3. Comment on Testimonials
+
 - **As a** registered user, **I want** to comment on testimonials **to** share my thoughts.
 - **Acceptance**: Users comment on testimonials, visible after submission. Errors appear for guideline violations.
 
 ### 4. Filter Testimonials
+
 - **As a** user, **I want** to filter testimonials **to** find what interests me.
 - **Acceptance**: Users filter testimonials by category, with options to reset filters.
 
 ### 5. Admin Dashboard Access
+
 - **As an** admin, **I want** dashboard access **to** manage testimonials efficiently.
 - **Acceptance**: Admins see user stats, testimonial counts, and can manage testimonials and accounts.
 
 ### 6. User Responsive Design
+
 - **As a** user, **I want** a device-friendly website **for** a smooth experience on any device.
 - **Acceptance**: The layout adjusts for mobile, keeping navigation user-friendly.
 
 ### 7. Admin Testimonial Analytics
+
 - **As an** admin, **I want** to see testimonial analytics **to** gauge engagement and popularity.
 - **Acceptance**: An analytics page shows total views and comments for each testimonial.
 
 ### 8. User Comment Character Limit
+
 - **As a** user, **I want** a comment character limit **to** keep discussions concise.
 - **Acceptance**: A 500-character limit is shown, with warnings as it approaches. A counter tracks remaining characters.
 
 ### 9. User Testimonial Details
+
 - **As a** user, **I want** detailed testimonial info **to** better understand the context.
 - **Acceptance**: Clicking a testimonial leads to a detail page with full text, user info, and comments.
 
 ### 10. User Account Deletion
+
 - **As a** user, **I want** to delete my account **to** remove my data if I no longer want the service.
 - **Acceptance**: A deletion option in settings, confirming without prompts for immediate removal.
 
 ### 11. User Edit Comment
+
 - **As a** user, **I want** to edit my comments **to** correct mistakes.
 - **Acceptance**: An "Edit" button allows modifications, with changes reflected instantly.
 
 ### 12. User Display Comments
+
 - **As a** user, **I want** to see all comments on a testimonial detail page **to** view community feedback.
 - **Acceptance**: The detail page shows all comments, sorted by most recent.
 
 ### 13. User Profile Customization
+
 - **As a** user, **I want** to customize my profile **to** express my personality.
 - **Acceptance**: Users upload a profile picture, change display name, and add a bio, with instant saving.
-
 
 ## User Experience
 
@@ -82,31 +93,75 @@ The project uses Roboto and Lato fonts for a clean and modern design. The color 
 
 This palette creates an inviting and cozy atmosphere, fitting for a bar setting, with subtle highlights and shadows adding depth to the design.
 
-
 ### Agile Planning
 
-This project was developed using agile methodologies over a span of approximately four weeks. The development process included the use of various labels such as "documentation" - "good first issue" - "enhancement" to organize tasks and streamline progress. An MVP (Minimum Viable Product) milestone was established to focus on delivering essential features. Each user story is accompanied by a comprehensive set of acceptance criteria, ensuring that all functionalities, including those for the 404 and 505 error pages, are well-defined and meet completion standards. For more details, you can view the kanban board [here](https://github.com/users/Dimitris112/projects/5).
+This project was developed using agile methodologies over a span of approximately four weeks. The development process included the use of various labels such as "documentation" - "good first issue" - "enhancement" to organize tasks and streamline progress. An MVP (Minimum Viable Product) milestone was established to focus on delivering essential features. Each user story is accompanied by a comprehensive set of acceptance criteria, ensuring that all functionalities, including those for the 404 and 505 error pages, are well defined and meet completion standards. For more details, you can view the kanban board [here](https://github.com/users/Dimitris112/projects/5).
 
 <div style="text-align: center;">
     <img src="images_documentation/gifs/kanban.png" alt="Kanban board" style="max-width: 55%; height: auto;">
 </div>
 
-
 ### Features
 
-#### Navigation
+#### Navigation & Footer
 
 The navigation bar displays the **Rum Away Bar text**, which serves as an index anchor. The **Home** - **Profile** links, for non logged in users also the **Register** - **Login**.
 To logged in users Register and Login links are gone and in their place it's the **Logout**.
 
-- Clicking the *Rum Away Bar* and *Home* takes the users back to the homepage (index.html).
-- Clicking the *Profile* takes the users to the profile page (profile.html).
-- Clicking the *Register* takes the users to the register page (signup.html).
-- Clicking the *Login* takes the users to the login page (login.html).
-- Clicking the *Logout* takes the users to the logout page (logout.html).
+The footer displays _© 2024 Rum Away Bar. Educational project by Dimitris_ followed by [My linkedin](https://www.linkedin.com/in/dimitrios-thlivitis/) and [My Github](https://github.com/Dimitris112).
 
+They can be both seen in all pages since they are "formed" in the `base.html` which is extended throughout each page of the platform.
 
+- Clicking the _Rum Away Bar_ and _Home_ takes the users back to the homepage (index.html).
+- Clicking the _Profile_ takes the users to the profile page (profile.html).
+- Clicking the _Register_ takes the users to the register page (signup.html).
+- Clicking the _Login_ takes the users to the login page (login.html).
+- Clicking the _Logout_ takes the users to the logout page (logout.html).
 
+<div style="text-align: center;">
+    <div style="display: inline-block; margin: 10px;">
+        <img src="images_documentation/gifs/navbar_loggedin.png" alt="Navbar while logged in" style="max-width: 55%; height: 65px;">
+        <img src="images_documentation/gifs/navbar_loggedout.png" alt="Navbar while logged out" style="max-width: 55%; height: 65px;">
+    </div>
+</div>
+<div style="text-align: center;">
+    <img src="images_documentation/gifs/footer.png" alt="Footer with a text and two icons" style="max-width: 55%; height: auto; margin: 10px;">
+</div>
+
+#### Home Page
+
+When the users land on the platform, they see the **Home** page. Starts with a carousel of 3 images which within each one there is an explanatory text and an anchor button leading to the correct page.
+Images
+
+1.  "Featured Cocktail" - Try our special cocktail of the month - _Discover more_ (button) which leads to the **[menu](https://rum-away-testp4-d410f580ea18.herokuapp.com/menu/)** page.
+2.  "Weekend Special" - Enjoy our weekend special with friends _See specials_ (button) which leads to the **[events](https://rum-away-testp4-d410f580ea18.herokuapp.com/events/)** page.
+3.  "Happy Hour" - Join us for happy hour every evening _Join us_ (button) which leads to the **[happy hour details](https://rum-away-testp4-d410f580ea18.herokuapp.com/events/4/)** page.
+
+Scrolling a bit further down they see the welcoming title as **_Welcome to the Rum Away Bar_** and an image of the hall along with 2 buttons.
+
+- [view our menu](https://rum-away-testp4-d410f580ea18.herokuapp.com/menu/) leads the users to the menu page.
+- [contact us](https://rum-away-testp4-d410f580ea18.herokuapp.com/contact/) leads the users to the contact page.
+
+Then they see the **_Share your Experience!_** along with a catchy phrase and a [Read testimonials](https://rum-away-testp4-d410f580ea18.herokuapp.com/testimonials/) button which directs the users to the testimonial page.
+
+After that comes the **_Upcoming Events_**. 2 events are active at the moment. 1 weekly (every friday 8 PM) and 1 daily (5-7 PM). Each event card contains a description and a "Learn more" button.
+
+- The first is the _Live music night_
+- The second is the _Happy Hour_
+
+Beneath them there is another button, [View All Events](https://rum-away-testp4-d410f580ea18.herokuapp.com/events/) which takes them to the events list.
+
+Then it's a small paragraph of **_Our menu_** with a catchy phrase and a [View full menu](https://rum-away-testp4-d410f580ea18.herokuapp.com/menu/) button
+
+Below that its the **_Contact Us_**, following the same format as the rest, with a catchy phrase and a [Contact](https://rum-away-testp4-d410f580ea18.herokuapp.com/contact/) button.
+
+For last but not least, they see the footer. Dark grey background with white text and 2 social icons.
+
+<div style="text-align: center;">
+    <img src="images_documentation/gifs/home.gif" alt="Home gif" style="max-width: 85%; height: auto;">
+</div>
+
+### Sign Up
 
 ### Wireframes
 
@@ -153,11 +208,6 @@ The wireframes have been designed for both PC and mobile screens to provide a vi
         </td>
     </tr>
 </table>
-
-
-
-
-
 
 ## Technology Stack
 
@@ -227,17 +277,15 @@ The wireframes have been designed for both PC and mobile screens to provide a vi
   </tr>
 </table>
 
-
 ## Credits
 
 🎓 **𝕽𝖔𝖍𝖎𝖙** - **Code Institute Mentor** [<img src="https://img.icons8.com/color/24/ffffff/github.png"/>](https://github.com/rohit0286)
 
-💡 **[Gareth's readme](https://github.com/Gareth-McGirr/Portfolio-Project-4-SizzleAndSteak)** as inspiration mine.
+💡 **[Gareth's readme](https://github.com/Gareth-McGirr/Portfolio-Project-4-SizzleAndSteak)** as inspiration to mine.
 
 [ChatGPT 4o mini](https://openai.com/chatgpt/) / [Codeium](https://codeium.com/) / [Stack Overflow](https://stackoverflow.com/) for adjustments and bug fixing aid.
 
 The main idea for this project was obtained by the [Django Blog](https://www.youtube.com/watch?v=YH--VobIA8c) walkthrough project of the [Code Institute course](https://codeinstitute.net/global/).
-
 
 #### Media
 
