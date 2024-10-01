@@ -76,11 +76,87 @@
 
 The project uses Roboto and Lato fonts for a clean and modern design. The color scheme consists of:
 
-    Primary Color: #c95a2a (warm orange)
-    Secondary Color: #6d4c41 (rich brown)
-    Background: #f8f2e6 (light beige)
+    Primary Color: #c95a2a (warm orange) 🟠
+    Secondary Color: #6d4c41 (rich brown) 🟤
+    Background: #f8f2e6 (light beige) 🟡
 
 This palette creates an inviting and cozy atmosphere, fitting for a bar setting, with subtle highlights and shadows adding depth to the design.
+
+
+### Agile Planning
+
+This project was developed using agile methodologies over a span of approximately four weeks. The development process included the use of various labels such as "documentation" - "good first issue" - "enhancement" to organize tasks and streamline progress. An MVP (Minimum Viable Product) milestone was established to focus on delivering essential features. Each user story is accompanied by a comprehensive set of acceptance criteria, ensuring that all functionalities, including those for the 404 and 505 error pages, are well-defined and meet completion standards. For more details, you can view the kanban board [here](https://github.com/users/Dimitris112/projects/5).
+
+<div style="text-align: center;">
+    <img src="images_documentation/gifs/kanban.png" alt="Kanban board" style="max-width: 55%; height: auto;">
+</div>
+
+
+### Features
+
+#### Navigation
+
+The navigation bar displays the **Rum Away Bar text**, which serves as an index anchor. The **Home** - **Profile** links, for non logged in users also the **Register** - **Login**.
+To logged in users Register and Login links are gone and in their place it's the **Logout**.
+
+- Clicking the *Rum Away Bar* and *Home* takes the users back to the homepage (index.html).
+- Clicking the *Profile* takes the users to the profile page (profile.html).
+- Clicking the *Register* takes the users to the register page (signup.html).
+- Clicking the *Login* takes the users to the login page (login.html).
+- Clicking the *Logout* takes the users to the logout page (logout.html).
+
+
+
+
+### Wireframes
+
+The wireframes have been designed for both PC and mobile screens to provide a visual representation of each page's layout and functionality.
+
+<table style="width: 100%; border-collapse: collapse;">
+    <tr>
+        <th style="text-align: center;">Home</th>
+        <th style="text-align: center;">Sign Up</th>
+        <th style="text-align: center;">Sign In</th>
+        <th style="text-align: center;">Profile</th>
+        <th style="text-align: center;">Testimonials</th>
+    </tr>
+    <tr>
+        <td style="text-align: center; vertical-align: top;">
+            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                <img src="images_documentation/wireframes/home_mobile_wirreframe.png" alt="Home Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
+                <img src="images_documentation/wireframes/home_pc_wireframe.png" alt="Home PC Wireframe" style="max-width: 100%; height: auto;">
+            </div>
+        </td>
+        <td style="text-align: center; vertical-align: top;">
+            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                <img src="images_documentation/wireframes/signup_mobile_wireframe.png" alt="Sign Up Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
+                <img src="images_documentation/wireframes/signup_pc_wireframe.png" alt="Sign Up PC Wireframe" style="max-width: 100%; height: auto;">
+            </div>
+        </td>
+        <td style="text-align: center; vertical-align: top;">
+            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                <img src="images_documentation/wireframes/signin_mobile_wireframe.png" alt="Sign In Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
+                <img src="images_documentation/wireframes/signin_pc_wireframe.png" alt="Sign In PC Wireframe" style="max-width: 100%; height: auto;">
+            </div>
+        </td>
+        <td style="text-align: center; vertical-align: top;">
+            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                <img src="images_documentation/wireframes/profile_mobile_wireframe.png" alt="Profile Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
+                <img src="images_documentation/wireframes/profile_pc_wireframe.png" alt="Profile PC Wireframe" style="max-width: 100%; height: auto;">
+            </div>
+        </td>
+        <td style="text-align: center; vertical-align: top;">
+            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                <img src="images_documentation/wireframes/testimonial_mobile_wireframe.png" alt="Testimonials Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
+                <img src="images_documentation/wireframes/testimonials_pc_wireframe.png" alt="Testimonials PC Wireframe" style="max-width: 100%; height: auto;">
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
+
 
 
 ## Technology Stack
@@ -152,3 +228,17 @@ This palette creates an inviting and cozy atmosphere, fitting for a bar setting,
 </table>
 
 
+## Credits
+
+🎓 **𝕽𝖔𝖍𝖎𝖙** - **Code Institute Mentor** [<img src="https://img.icons8.com/color/24/ffffff/github.png"/>](https://github.com/rohit0286)
+
+💡 **[Gareth's readme](https://github.com/Gareth-McGirr/Portfolio-Project-4-SizzleAndSteak)** as inspiration mine.
+
+[ChatGPT 4o mini](https://openai.com/chatgpt/) / [Codeium](https://codeium.com/) / [Stack Overflow](https://stackoverflow.com/) for adjustments and bug fixing aid.
+
+The main idea for this project was obtained by the [Django Blog](https://www.youtube.com/watch?v=YH--VobIA8c) walkthrough project of the [Code Institute course](https://codeinstitute.net/global/).
+
+
+#### Media
+
+All photos used in the project were taken from [Pexels](https://www.pexels.com/) / [Unsplash](https://unsplash.com/) / [Freepik](https://www.freepik.com/).
