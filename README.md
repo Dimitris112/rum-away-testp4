@@ -70,8 +70,17 @@
 - **Acceptance**: Users upload a profile picture, change display name, and add a bio, with instant saving.
 
 
-## Typography and Color scheme
-The project uses Roboto and Lato fonts for a modern and clean design. The color scheme features warm tones: a soft background #f8f2e6 (light beige), a vibrant primary color #c95a2a (warm orange), and a secondary color #6d4c41 (rich brown). This palette creates an inviting atmosphere ideal for a bar setting, while subtle highlights and shadows add depth to the overall design.
+## User Experience
+
+### Typography & Color scheme
+
+The project uses Roboto and Lato fonts for a clean and modern design. The color scheme consists of:
+
+    Primary Color: #c95a2a (warm orange)
+    Secondary Color: #6d4c41 (rich brown)
+    Background: #f8f2e6 (light beige)
+
+This palette creates an inviting and cozy atmosphere, fitting for a bar setting, with subtle highlights and shadows adding depth to the design.
 
 
 ## Technology Stack
