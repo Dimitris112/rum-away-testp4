@@ -103,111 +103,516 @@ This project was developed using agile methodologies over a span of approximatel
 
 ### Features
 
-#### Navigation & Footer
-
-The navigation bar displays the **Rum Away Bar text**, which serves as an index anchor. The **Home** - **Profile** links, for non logged in users also the **Register** - **Login**.
-To logged in users Register and Login links are gone and in their place it's the **Logout**.
-
-The footer displays _© 2024 Rum Away Bar. Educational project by Dimitris_ followed by [My linkedin](https://www.linkedin.com/in/dimitrios-thlivitis/) and [My Github](https://github.com/Dimitris112).
-
-They can be both seen in all pages since they are "formed" in the `base.html` which is extended throughout each page of the platform.
-
-- Clicking the _Rum Away Bar_ and _Home_ takes the users back to the homepage (index.html).
-- Clicking the _Profile_ takes the users to the profile page (profile.html).
-- Clicking the _Register_ takes the users to the register page (signup.html).
-- Clicking the _Login_ takes the users to the login page (login.html).
-- Clicking the _Logout_ takes the users to the logout page (logout.html).
-
-<div style="text-align: center;">
-    <div style="display: inline-block; margin: 10px;">
-        <img src="images_documentation/gifs/navbar_loggedin.png" alt="Navbar while logged in" style="max-width: 55%; height: 65px;">
-        <img src="images_documentation/gifs/navbar_loggedout.png" alt="Navbar while logged out" style="max-width: 55%; height: 65px;">
+<details>
+    <summary><strong>Navigation & Footer</strong></summary>
+    <p>
+        The navigation bar displays the <strong>Rum Away Bar</strong> text, which serves as an index anchor. The <strong>Home</strong> - <strong>Profile</strong> links, for non-logged-in users, also include the <strong>Register</strong> - <strong>Login</strong> links. For logged-in users, the Register and Login links are replaced with the <strong>Logout</strong> option.
+    </p>
+    <p>
+        The footer displays <em>© 2024 Rum Away Bar. Educational project by Dimitris</em> followed by <a href="https://www.linkedin.com/in/dimitrios-thlivitis/" target="_blank">My LinkedIn</a> and <a href="https://github.com/Dimitris112" target="_blank">My GitHub</a>.
+    </p>
+    <p>
+        The <code>base.html</code> is extended throughout the platform; therefore, both elements can be seen on all pages because this is where they are “formed.”
+    </p>
+    <ul>
+        <li>Clicking the <em>Rum Away Bar</em> and <em>Home</em> takes the users back to the homepage (index.html).</li>
+        <li>Clicking the <em>Profile</em> takes the users to the profile page (profile.html).</li>
+        <li>Clicking the <em>Register</em> takes the users to the register page (signup.html).</li>
+        <li>Clicking the <em>Login</em> takes the users to the login page (login.html).</li>
+        <li>Clicking the <em>Logout</em> takes the users to the logout page (logout.html).</li>
+    </ul>
+    <div style="text-align: center;">
+        <div style="display: inline-block; margin: 10px;">
+            <img src="images_documentation/gifs/navbar_loggedin.png" alt="Navbar while logged in" style="max-width: 55%; height: 65px;">
+            <img src="images_documentation/gifs/navbar_loggedout.png" alt="Navbar while logged out" style="max-width: 55%; height: 65px;">
+        </div>
     </div>
-</div>
-<div style="text-align: center;">
-    <img src="images_documentation/gifs/footer.png" alt="Footer with a text and two icons" style="max-width: 55%; height: auto; margin: 10px;">
-</div>
+    <div style="text-align: center;">
+        <img src="images_documentation/gifs/footer.png" alt="Footer with a text and two icons" style="max-width: 55%; height: auto; margin: 10px;">
+    </div>
+</details>
 
-#### Home Page
+<br>
 
-When the users land on the platform, they see the **Home** page. Starts with a carousel of 3 images which within each one there is an explanatory text and an anchor button leading to the correct page.
-Images
+<details>
+  <summary><strong>Home Page</strong></summary>
+  <p>
+    When the users land on the platform, they see the <strong>Home</strong> page. It starts with a carousel of three images, each containing explanatory text and an anchor button leading to the correct page.
+  </p>
+  <h4>Images</h4>
+  <ol>
+    <li>
+      <strong>"Featured Cocktail"</strong> - Try our special cocktail of the month - 
+      <em>Discover more</em> (button) which leads to the <strong><a href="https://rum-away-testp4-d410f580ea18.herokuapp.com/menu/">menu</a></strong> page.
+    </li>
+    <li>
+      <strong>"Weekend Special"</strong> - Enjoy our weekend special with friends - 
+      <em>See specials</em> (button) which leads to the <strong><a href="https://rum-away-testp4-d410f580ea18.herokuapp.com/events/">events</a></strong> page.
+    </li>
+    <li>
+      <strong>"Happy Hour"</strong> - Join us for happy hour every evening - 
+      <em>Join us</em> (button) which leads to the <strong><a href="https://rum-away-testp4-d410f580ea18.herokuapp.com/events/4/">happy hour details</a></strong> page.
+    </li>
+  </ol>
+  <p>
+    Scrolling a bit further down, users see the welcoming title <strong><em>Welcome to the Rum Away Bar</em></strong> and an image of the hall along with two buttons:
+  </p>
+  <ul>
+    <li><strong><a href="https://rum-away-testp4-d410f580ea18.herokuapp.com/menu/">view our menu</a></strong> leads the users to the menu page.</li>
+    <li><strong><a href="https://rum-away-testp4-d410f580ea18.herokuapp.com/contact/">contact us</a></strong> leads the users to the contact page.</li>
+  </ul>
+  <p>
+    Next, they see <strong><em>Share your Experience!</em></strong> along with a catchy phrase and a <strong><a href="https://rum-away-testp4-d410f580ea18.herokuapp.com/testimonials/">Read testimonials</a></strong> button, which directs users to the testimonial page.
+  </p>
+  <p>
+    Following that comes the <strong><em>Upcoming Events</em></strong>. Two events are active at the moment: one weekly (every Friday at 8 PM) and one daily (5-7 PM). Each event card contains a description and a "Learn more" button:
+  </p>
+  <ul>
+    <li>The first is the <strong><em>Live music night</em></strong>.</li>
+    <li>The second is the <strong><em>Happy Hour</em></strong>.</li>
+  </ul>
+  <p>
+    Beneath them is another button, <strong><a href="https://rum-away-testp4-d410f580ea18.herokuapp.com/events/">View All Events</a></strong>, which takes users to the events list.
+  </p>
+  <p>
+    Then there's a small paragraph of <strong><em>Our menu</em></strong> with a catchy phrase and a <strong><a href="https://rum-away-testp4-d410f580ea18.herokuapp.com/menu/">View full menu</a></strong> button.
+  </p>
+  <p>
+    Below that is the <strong><em>Contact Us</em></strong>, following the same format as the rest, with a catchy phrase and a <strong><a href="https://rum-away-testp4-d410f580ea18.herokuapp.com/contact/">Contact</a></strong> button.
+  </p>
+  <p>
+    Finally, users see the footer, which has a dark grey background with white text and two social icons.
+  </p>
+  <div style="text-align: center;">
+      <img src="images_documentation/gifs/home.gif" alt="Home gif" style="max-width: 85%; height: auto;">
+  </div>
+</details>
 
-1.  "Featured Cocktail" - Try our special cocktail of the month - _Discover more_ (button) which leads to the **[menu](https://rum-away-testp4-d410f580ea18.herokuapp.com/menu/)** page.
-2.  "Weekend Special" - Enjoy our weekend special with friends _See specials_ (button) which leads to the **[events](https://rum-away-testp4-d410f580ea18.herokuapp.com/events/)** page.
-3.  "Happy Hour" - Join us for happy hour every evening _Join us_ (button) which leads to the **[happy hour details](https://rum-away-testp4-d410f580ea18.herokuapp.com/events/4/)** page.
+<br>
 
-Scrolling a bit further down they see the welcoming title as **_Welcome to the Rum Away Bar_** and an image of the hall along with 2 buttons.
+<details>
+  <summary><strong>Sign Up Page</strong></summary>
+  <p>
+    On the <strong>Sign Up</strong> page, users who already have an account can click the <em>Sign in</em> link to be redirected to the <strong>Login</strong> page.
+  </p>
+  <p>
+    To make reservations or add testimonials, users must first create a profile, which is done through the <strong><em>Sign Up</em></strong> page.
+  </p>
+  <h4>The form includes the following inputs:</h4>
+  <ul>
+    <li><strong>Username</strong> (required)</li>
+    <li><strong>Email</strong> (optional)</li>
+    <li><strong>Password</strong> (required)</li>
+    <li><strong>Confirm Password</strong> (required)</li>
+  </ul>
+  <p>
+    By default, password fields are masked with <code>*</code> symbols and a 🙈 icon to indicate privacy. Users can toggle the visibility of their password by clicking the <code>👁️</code> icon.
+  </p>
+  <h4>Password requirements:</h4>
+  <ul>
+    <li>Must not be too similar to other personal information.</li>
+    <li>Must contain at least 8 characters.</li>
+    <li>Must not be a commonly used password.</li>
+    <li>Must not be entirely numeric.</li>
+  </ul>
+  <p>
+    If any of these conditions are not met, specific error messages will be displayed under the respective input field.
+  </p>
+  <p>
+    After completing the form, users can click the <strong>Sign Up</strong> button and will be redirected to the <strong>Home</strong> page with a message displayed:  
+    <strong>"Successfully signed up as (username)."</strong>
+  </p>
+  <div style="text-align: center;">
+      <img src="images_documentation/gifs/sign_up.gif" alt="Sign up gif" style="max-width: 85%; height: auto;">
+  </div>
+</details>
 
-- [view our menu](https://rum-away-testp4-d410f580ea18.herokuapp.com/menu/) leads the users to the menu page.
-- [contact us](https://rum-away-testp4-d410f580ea18.herokuapp.com/contact/) leads the users to the contact page.
+<br>
 
-Then they see the **_Share your Experience!_** along with a catchy phrase and a [Read testimonials](https://rum-away-testp4-d410f580ea18.herokuapp.com/testimonials/) button which directs the users to the testimonial page.
+<details>
+  <summary><strong>Sign In Page</strong></summary>
+  <p>
+    On the <strong>Sign In</strong> page, users can enter their credentials to access their account.
+  </p>
+  <h4>The form includes the following inputs:</h4>
+  <ul>
+    <li><strong>Username</strong> (required)</li>
+    <li><strong>Password</strong> (required)</li>
+  </ul>
+  <p>
+    Additionally, there is a <em>Forgot your password?</em> link to help users reset their password if needed, and a <strong>Remember Me</strong> checkbox to keep users signed in across sessions.
+  </p>
+  <p>
+    Once users complete the form and click the <strong>Sign In</strong> button, they will be redirected to the <strong>Home</strong> page with a message displayed:  
+    <strong>"Successfully signed in as (username)."</strong>
+  </p>
+  <div style="text-align: center;">
+      <img src="images_documentation/gifs/login.png" alt="Sign in png" style="max-width: 85%; height: auto;">
+  </div>
+</details>
 
-After that comes the **_Upcoming Events_**. 2 events are active at the moment. 1 weekly (every friday 8 PM) and 1 daily (5-7 PM). Each event card contains a description and a "Learn more" button.
+<br>
 
-- The first is the _Live music night_
-- The second is the _Happy Hour_
+<details>
+  <summary><strong>Profile Page</strong></summary>
+  
+  <p>
+    At the top of the <strong>Profile</strong> page, users will see their profile card, which includes the following details:
+  </p>
+  <ul>
+    <li><strong>Profile Image</strong>: Displays a default "nobody image" if no image is uploaded.</li>
+    <li><strong>Username</strong></li>
+    <li><strong>First Name</strong></li>
+    <li><strong>Last Name</strong></li>
+    <li><strong>Email</strong></li>
+    <li><strong>Bio</strong></li>
+    <li><strong>Member Since</strong>: The date the user joined.</li>
+  </ul>
 
-Beneath them there is another button, [View All Events](https://rum-away-testp4-d410f580ea18.herokuapp.com/events/) which takes them to the events list.
+  <hr>
 
-Then it's a small paragraph of **_Our menu_** with a catchy phrase and a [View full menu](https://rum-away-testp4-d410f580ea18.herokuapp.com/menu/) button
+  <p>
+    Below the profile card is the <strong>My Information</strong> section, where users can update their details. This section includes a form with the following inputs:
+  </p>
+  <ul>
+    <li><strong>First Name</strong> (required)</li>
+    <li><strong>Last Name</strong> (required)</li>
+    <li><strong>Email</strong>: Must be valid, otherwise, an error message will be displayed.</li>
+    <li>
+      <strong>Profile Image</strong>: Upload options allow formats in <code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>, <code>.gif</code>, and <code>.webp</code>, with a file size limit of 8MB. If the size or format is invalid, an error message will appear.
+    </li>
+    <li><strong>Bio</strong>: A text area where users can enter up to <strong>50 characters</strong>.</li>
+  </ul>
+  
+  <p>
+    At the bottom of the form are the following buttons:
+  </p>
+  <ul>
+    <li><strong>Save Changes</strong></li>
+    <li><strong>Delete Account</strong></li>
+    <li><strong>Reset Profile Picture</strong></li>
+  </ul>
+  
+  <p>
+    Additionally, there is a text below the buttons:  
+    <strong>Need help? <a href="https://rum-away-testp4-d410f580ea18.herokuapp.com/contact/#contact-form">Contact support</a></strong> — Clicking the link takes users to the Contact page.
+  </p>
 
-Below that its the **_Contact Us_**, following the same format as the rest, with a catchy phrase and a [Contact](https://rum-away-testp4-d410f580ea18.herokuapp.com/contact/) button.
+  <hr>
 
-For last but not least, they see the footer. Dark grey background with white text and 2 social icons.
+  <h4>My Testimonials</h4>
+  
+  <p>
+    If the user has not added any testimonials, the following message is displayed:  
+    <strong>"No testimonials yet. Share your experiences to inspire others!"</strong>
+  </p>
+  
+  <p>
+    If the user has submitted testimonials, they will be displayed in individual cards, showing:
+  </p>
+  <ul>
+    <li><strong>Testimonial Content</strong></li>
+    <li><strong>Submitted On</strong> date</li>
+    <li><strong>Edited On</strong> date (if applicable)</li>
+    <li><strong>Rating</strong></li>
+    <li>
+      <strong>View Testimonial Details</strong>, <strong>Edit</strong>, and <strong>Delete</strong> buttons
+    </li>
+  </ul>
+  
+  <p>
+    Below the testimonials, users will find the <strong>Share Your Experience</strong> section:
+    <strong>"Your voice matters! Each testimonial helps create a welcoming atmosphere for new guests."</strong>
+  </p>
+  
+  <p>
+    A button labeled <strong>"Add Your Testimonial"</strong> leads users to the testimonials page to submit a new testimonial.
+  </p>
 
-<div style="text-align: center;">
-    <img src="images_documentation/gifs/home.gif" alt="Home gif" style="max-width: 85%; height: auto;">
-</div>
+  <hr>
 
-### Sign Up
+  <h4>Upcoming Reservations</h4>
+  
+  <p>
+    If no reservations have been made, the page will display:  
+    <strong>No upcoming reservations.</strong>
+  </p>
+  
+  <p>
+    If the user has made reservations, each reservation will be shown in a card format with:
+  </p>
+  <ul>
+    <li><strong>Date</strong></li>
+    <li><strong>Time</strong></li>
+    <li><strong>Number of Guests</strong></li>
+    <li><strong>Hall</strong></li>
+  </ul>
+  
+  <p>
+    The card also includes <strong>Edit</strong> and <strong>Delete</strong> buttons for managing reservations.
+  </p>
+  
+  <p>
+    Below this section is a prompt for making new reservations:  
+    <strong>Ready to Reserve? Make your reservation today to ensure you get the best experience!</strong>
+  </p>
+  
+  <p>
+    The <strong>Make a Reservation</strong> button takes users to the Contact page, specifically targeting the reservation section.
+  </p>
 
-### Wireframes
+  <div style="text-align: center;">
+      <img src="images_documentation/gifs/profile_testimonial_reservation.gif" alt="Profile, testimonial, and reservation gif" style="max-width: 85%; height: auto;">
+  </div>
+</details>
 
-The wireframes have been designed for both PC and mobile screens to provide a visual representation of each page's layout and functionality.
+<br>
 
-<table style="width: 100%; border-collapse: collapse;">
-    <tr>
-        <th style="text-align: center;">Home</th>
-        <th style="text-align: center;">Sign Up</th>
-        <th style="text-align: center;">Sign In</th>
-        <th style="text-align: center;">Profile</th>
-        <th style="text-align: center;">Testimonials</th>
-    </tr>
-    <tr>
-        <td style="text-align: center; vertical-align: top;">
-            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
-                <img src="images_documentation/wireframes/home_mobile_wirreframe.png" alt="Home Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
-                <img src="images_documentation/wireframes/home_pc_wireframe.png" alt="Home PC Wireframe" style="max-width: 100%; height: auto;">
-            </div>
-        </td>
-        <td style="text-align: center; vertical-align: top;">
-            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
-                <img src="images_documentation/wireframes/signup_mobile_wireframe.png" alt="Sign Up Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
-                <img src="images_documentation/wireframes/signup_pc_wireframe.png" alt="Sign Up PC Wireframe" style="max-width: 100%; height: auto;">
-            </div>
-        </td>
-        <td style="text-align: center; vertical-align: top;">
-            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
-                <img src="images_documentation/wireframes/signin_mobile_wireframe.png" alt="Sign In Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
-                <img src="images_documentation/wireframes/signin_pc_wireframe.png" alt="Sign In PC Wireframe" style="max-width: 100%; height: auto;">
-            </div>
-        </td>
-        <td style="text-align: center; vertical-align: top;">
-            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
-                <img src="images_documentation/wireframes/profile_mobile_wireframe.png" alt="Profile Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
-                <img src="images_documentation/wireframes/profile_pc_wireframe.png" alt="Profile PC Wireframe" style="max-width: 100%; height: auto;">
-            </div>
-        </td>
-        <td style="text-align: center; vertical-align: top;">
-            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
-                <img src="images_documentation/wireframes/testimonial_mobile_wireframe.png" alt="Testimonials Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
-                <img src="images_documentation/wireframes/testimonials_pc_wireframe.png" alt="Testimonials PC Wireframe" style="max-width: 100%; height: auto;">
-            </div>
-        </td>
-    </tr>
-</table>
+<details>
+  <summary><strong>Menu Page</strong></summary>
+  
+  <p>
+    The <strong>Menu</strong> page invites users to explore a wide selection of drinks with the heading:  
+    <strong>Explore our menu</strong>
+  </p>
+  
+  <p>
+    Below the heading, users can select a drink category from the dropdown labeled:  
+    <strong>Select a category</strong>
+  </p>
+  <p>
+    The available categories are:
+  </p>
+  <ul>
+    <li><strong>Wines</strong></li>
+    <li><strong>Beer</strong></li>
+    <li><strong>Whiskey</strong></li>
+    <li><strong>Vodka</strong></li>
+    <li><strong>Rum</strong></li>
+    <li><strong>Cocktails</strong></li>
+  </ul>
+
+  <p>
+    When users click on a category, a modal opens, displaying a catalogue of drinks for that category. Up to <strong>4 drinks</strong> are shown per page, each represented by its own card, which includes:
+  </p>
+  <ul>
+    <li><strong>A Photo</strong> of the drink</li>
+    <li><strong>A brief Description</strong></li>
+    <li><strong>The Price</strong></li>
+    <li><strong>A View Details</strong> button, which opens another modal with more information.</li>
+  </ul>
+
+  <p>
+    In the <strong>Cocktails</strong> category, the <strong>View Details</strong> modal provides an extra section describing the <strong>Ingredients</strong> of each cocktail, offering users additional insight into the drink.
+  </p>
+
+  <div style="text-align: center;">
+      <img src="images_documentation/gifs/menu.gif" alt="Menu gif" style="max-width: 85%; height: auto;">
+  </div>
+</details>
+
+<br>
+
+<details>
+  <summary><strong>Contact Page</strong></summary>
+
+  <p>
+    The <strong>Contact</strong> page begins with a warm welcome:  
+    <strong>We'd love to hear from you!</strong>
+  </p>
+
+  <h3>Contact Form</h3>
+  <p>
+    Users can reach out to the admin by filling in the following fields:
+  </p>
+  <ul>
+    <li><strong>Your Name</strong> (required)</li>
+    <li><strong>Your Email Address</strong> (required)</li>
+    <li><strong>Phone Number</strong> (optional, masked format)</li>
+    <li><strong>Your Message</strong> (required)</li>
+  </ul>
+  <p>
+    A button labeled <strong>"Send Your Message"</strong> is available for submitting the form.
+  </p>
+
+  <h3>Reservation Form</h3>
+  <p>
+    Below the contact form, users can make a reservation by filling out the reservation form. The form includes:
+  </p>
+  <ul>
+    <li><strong>Date of Reservation</strong>: Users cannot select past dates or dates more than <strong>6 months</strong> in advance. Error messages will appear if these conditions aren't met.</li>
+    <li><strong>Time of Reservation</strong>: The time slots start from <strong>16:00</strong> and end at <strong>02:00</strong>, with intervals of <strong>5 minutes</strong>.</li>
+    <li><strong>Number of Guests</strong>: This field allows users to specify the size of their party.</li>
+    <li><strong>Select Location</strong>: Users can choose the preferred location for the reservation.</li>
+    <li><strong>Indoor or Outdoor</strong>:
+      <ul>
+        <li>Indoor reservations allow up to <strong>70 guests</strong>.</li>
+        <li>Outdoor reservations allow up to <strong>120 guests</strong>.</li>
+      </ul>
+      The form dynamically calculates the <strong>available spots</strong> based on the number of guests the user selects. If the user exceeds the available spots, an error message will be shown.
+    </li>
+    <li><strong>Special Requests</strong>: A text area for any additional requests.</li>
+  </ul>
+  <p>
+    A <strong>Submit Reservation</strong> button is provided for completing the reservation.
+  </p>
+
+  <h3>Bar Showcase</h3>
+  <p>
+    Next, the page features some catchy paragraphs about the bar, followed by a <strong>carousel</strong> showcasing images:
+  </p>
+  <ul>
+    <li><strong>Indoor Hall</strong>: A carousel with 3 images of the indoor area.</li>
+    <li><strong>Outdoor Hall</strong>: A carousel with 3 images of the outdoor area.</li>
+  </ul>
+
+  <h3>Find Us Here</h3>
+  <p>
+    At the bottom of the page, users can find contact details and location information:
+  </p>
+  <ul>
+    <li><strong>Phone</strong>: +123 456 7890</li>
+    <li><strong>Email</strong>: contact@rumaway.com</li>
+    <li><strong>Location</strong>: Area 51, Nevada</li>
+  </ul>
+  <p>
+    The <strong>Google Maps</strong> integration shows the precise location of the bar.
+  </p>
+  
+  <blockquote>
+    <p><strong>Note:</strong> To review the reservation procedure, refer to the <a href="#profile-page">profile page reservation section</a>.</p>
+  </blockquote>
+
+  <div style="text-align: center;">
+      <img src="images_documentation/gifs/contact_send_message.gif" alt="Contact page gif" style="max-width: 85%; height: auto;">
+  </div>
+</details>
+
+<br>
+
+<details>
+  <summary><strong>Testimonials Page</strong></summary>
+
+  <p>
+    On the <strong>Testimonials</strong> page, users can:
+  </p>
+
+  <h3>Rate Your Experience:</h3>
+  <p>
+    Curious about our ratings? 🍺  
+    <strong>Red</strong> means 'Room for Improvement', <strong>Yellow</strong> signifies 'Good, but Could Be Better,' and <strong>Green</strong> represents 'Top-Notch Experience!' 🍺
+  </p>
+
+  <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+      <table style="border-collapse: collapse; width: auto; text-align: left;">
+          <tr>
+              <th style="text-align: left;">Rating Scale</th>
+              <th style="text-align: left;">CSS Code</th>
+          </tr>
+          <tr>
+              <td>1 - 🔴 Red</td>
+              <td>.bar-rating[data-rating="1"] { width: 20%; background: red; }</td>
+          </tr>
+          <tr>
+              <td>2 - 🟡 Yellow</td>
+              <td>.bar-rating[data-rating="2"] { width: 40%; background: orange; }</td>
+          </tr>
+          <tr>
+              <td>3 - 🟠 Bright Yellow</td>
+              <td>.bar-rating[data-rating="3"] { width: 60%; background: yellow; }</td>
+          </tr>
+          <tr>
+              <td>4 - 🟢 Light Green</td>
+              <td>.bar-rating[data-rating="4"] { width: 80%; background: lightgreen; }</td>
+          </tr>
+          <tr>
+              <td>5 - 🟩 Dark Green</td>
+              <td>.bar-rating[data-rating="5"] { width: 100%; background: green; }</td>
+          </tr>
+          <tr>
+              <td colspan="2" style="text-align: left; padding-top: 20px;">
+                  <strong>Background Gradient CSS:</strong><br>
+                  .bar-rating {<br>
+                  &nbsp;&nbsp;background: linear-gradient(to right, red 0%, yellow 20%, orange 40%, lightgreen 60%, green 100%);<br>
+                  }
+              </td>
+          </tr>
+      </table>
+  </div>
+
+  <h3>Sort By:</h3>
+  <p>
+    The testimonials can be sorted by the following criteria, with the default set to <strong>Date Added</strong>:
+  </p>
+  <ul>
+    <li><strong>Date</strong></li>
+    <li><strong>Views</strong></li>
+    <li><strong>Comments</strong></li>
+    <li><strong>Ratings</strong></li>
+  </ul>
+  <p><strong>Sort Order:</strong> Ascending or Descending</p>
+
+  <h3>Testimonials Display:</h3>
+  <p>
+    - Two testimonial cards are displayed per row.
+  </p>
+  <p>
+    Each testimonial card includes:
+  </p>
+  <ul>
+    <li><strong>Profile Picture</strong> of the user. Other users can click on the picture to open a modal titled <strong>[Username] Info</strong>, displaying:
+      <ul>
+        <li>Profile picture</li>
+        <li>Username</li>
+        <li>Member since</li>
+        <li>Bio</li>
+      </ul>
+    </li>
+    <li><strong>Testimonial Content</strong>: The message provided by the user.</li>
+    <li><strong>Submitted On</strong>: The date the testimonial was submitted.</li>
+    <li><strong>Edited On</strong>: The date if the testimonial was edited.</li>
+    <li><strong>Views Counter</strong></li>
+    <li><strong>Comments Counter</strong>  
+      If no comments have been added, it displays: <strong>No comments yet!</strong>
+    </li>
+  </ul>
+
+  <h4>Action Buttons:</h4>
+  <p>
+    For the testimonial's author:
+  </p>
+  <ul>
+    <li><strong>Edit</strong></li>
+    <li><strong>Delete</strong></li>
+    <li><strong>Comment</strong></li>
+    <li><strong>View Details</strong></li>
+  </ul>
+  <p>
+    For other users:
+  </p>
+  <ul>
+    <li><strong>Comment</strong></li>
+    <li><strong>View Details</strong></li>
+  </ul>
+  <p>
+    Clicking <strong>View Details</strong> takes users to a new page, <strong>Testimonial Detail</strong>, with the following information:
+  </p>
+  <ul>
+    <li><strong>Testimonial Content</strong></li>
+    <li><strong>Submitted On</strong></li>
+    <li><strong>Edited On</strong> (if applicable)</li>
+    <li><strong>Comments Section</strong>: Users can add their own comments directly from this page, with the same action buttons available as on the main testimonials page.</li>
+  </ul>
+
+  <h3>Add Your Testimonial</h3>
+  <p>
+    Below the last testimonial displayed, there is an <strong>"Add Your Testimonial"</strong> button, inviting users to share their experiences.
+  </p>
+
+  <div style="text-align: center;">
+      <img src="images_documentation/gifs/testimonial_with_details.gif" alt="Testimonials page gif" style="max-width: 85%; height: auto;">
+  </div>
+</details>
 
 ## Technology Stack
 
@@ -283,7 +688,7 @@ The wireframes have been designed for both PC and mobile screens to provide a vi
 
 💡 **[Gareth's readme](https://github.com/Gareth-McGirr/Portfolio-Project-4-SizzleAndSteak)** as inspiration to mine.
 
-[ChatGPT 4o mini](https://openai.com/chatgpt/) / [Codeium](https://codeium.com/) / [Stack Overflow](https://stackoverflow.com/) for adjustments and bug fixing aid.
+[ChatGPT 4o](https://openai.com/chatgpt/) / [Codeium](https://codeium.com/) / [Stack Overflow](https://stackoverflow.com/) for adjustments and bug fixing aid.
 
 The main idea for this project was obtained by the [Django Blog](https://www.youtube.com/watch?v=YH--VobIA8c) walkthrough project of the [Code Institute course](https://codeinstitute.net/global/).
 
