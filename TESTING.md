@@ -61,14 +61,21 @@ python3 manage.py test
       <img src="images_documentation/lighthouse_scores/js_tests.png" alt="JavaScript Tests Results" style="max-width: 50%; height: auto; margin: 0 10px;">
   </div>
 
-  - **Django Testing**: The Django tests for the application returned the following results:
+- **Django Testing**: The Django tests for the application returned the following results:
 
-  - **Bar App Tests**:
-    <div style="text-align: center; margin: 10px 0;">
-        <img src="images_documentation/lighthouse_scores/bar_app_tests.png" alt="Bar App Test Results" style="max-width: 50%; height: auto; margin: 0 10px;">
-    </div>
-
-  - **Testimonial App Tests**:
-    <div style="text-align: center; margin: 10px 0;">
-        <img src="images_documentation/lighthouse_scores/testimonial_app_tests.png" alt="Testimonial App Test Results" style="max-width: 50%; height: auto; margin: 0 10px;">
-    </div>
+<table style="width: 100%; margin: 20px 0; border-collapse: collapse; text-align: center;">
+    <tr>
+        <td>
+            <h2>Bar App Tests</h2>
+            <img src="images_documentation/lighthouse_scores/bar_app_tests.png" 
+                 alt="Bar App Test Results" 
+                 style="max-width: 50%; height: auto; margin: 10px 0;">
+        </td>
+        <td>
+            <h2>Testimonial App Tests</h2>
+            <img src="images_documentation/lighthouse_scores/testimonial_app_tests.png" 
+                 alt="Testimonial App Test Results" 
+                 style="max-width: 50%; height: auto; margin: 10px 0;">
+        </td>
+    </tr>
+</table>
