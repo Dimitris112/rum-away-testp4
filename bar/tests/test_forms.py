@@ -212,7 +212,7 @@ class ReservationFormTest(TestCase):
         }
         form = ReservationForm(data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertIn('reservation_date', form.errors)
+        self.assertIn('__all__', form.errors)
 
 
 class EventFormTest(TestCase):

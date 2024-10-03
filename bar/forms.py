@@ -189,11 +189,10 @@ class ReservationForm(forms.ModelForm):
         Validate the reservation details and check for existing reservations.
 
         Raises:
-            ValidationError: If the user already has a reservation
-            on the same date.
+            ValidationError: If the user already has a reservation on the same
+            date or if the reservation time is in the past.
         """
         cleaned_data = super().clean()
-
         reservation_date = cleaned_data.get('reservation_date')
         reservation_hour = cleaned_data.get('reservation_hour')
         reservation_minute = cleaned_data.get('reservation_minute')
@@ -204,14 +203,29 @@ class ReservationForm(forms.ModelForm):
             )
 
         if reservation_date:
-            # Get the user for new reservations
+            # Combine the date, hour, and minute into a single datetime
+            reservation_time = timezone.make_aware(
+                datetime.datetime.combine(
+                    reservation_date,
+                    datetime.time(
+                        int(reservation_hour),
+                        int(reservation_minute)
+                    )
+                )
+            )
+
+            if reservation_time < timezone.now():
+                raise ValidationError(
+                    "Reservation time cannot be in the past."
+                )
+
             user = self.instance.user if self.instance.pk else None
 
             if user:
                 same_day_reservations = Reservation.objects.filter(
                     user=user,
-                    reservation_time__date=reservation_date  # Check same date
-                ).exclude(pk=self.instance.pk)  # Ignore if editing
+                    reservation_time__date=reservation_date
+                ).exclude(pk=self.instance.pk)
 
                 if same_day_reservations.exists():
                     raise ValidationError(

@@ -29,6 +29,15 @@ class ViewsTestCase(TestCase):
             end_time=timezone.now().time()
         )
 
+        self.reservation = Reservation.objects.create(
+            user=self.user,
+            name='Test Reservation',
+            reservation_time=timezone.now() + timezone.timedelta(days=1),
+            special_requests='None',
+            num_guests=2,
+            hall='indoor'
+        )
+
     def test_custom_signup_view(self):
         """Test that the custom signup view returns a 200 status code
         and contains 'Sign Up'."""
@@ -67,43 +76,16 @@ class ViewsTestCase(TestCase):
 
     def test_reservation_detail_view(self):
         """Test that the reservation detail view returns a 200 status code
-        after creating a reservation."""
+        and shows reservation details."""
         self.client.login(username='testuser', password='testpassword')
 
-        reservation_response = self.client.post(
-            reverse('reservations_list'),
-            {
-                'reservation_date': timezone.now().date(),
-                'reservation_hour': timezone.now().hour,
-                'reservation_minute': timezone.now().minute,
-                'guests': 2,
-                'location': 'Main area',
-            }
-        )
-
-        print("Reservation Response Content:",
-              reservation_response.content.decode())
-
-        # Check if the response is a redirect or valid
-        self.assertIn(
-            reservation_response.status_code,
-            [200, 302],
-            "Expected a valid response after reservation creation."
-        )
-
-        # Fetch the last reservation created
-        reservation = Reservation.objects.last()
-        self.assertIsNotNone(reservation,
-                             "Reservation was not created successfully.")
-
-        self.assertEqual(reservation.guests, 2)
-        self.assertEqual(reservation.location, 'Main area')
-
         response = self.client.get(
-            reverse('reservations_detail', args=[reservation.id])
+            reverse('reservations_detail', args=[self.reservation.id])
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Reservation Details')
+        self.assertContains(response, 'indoor')
+        self.assertContains(response, str(self.reservation.num_guests))
 
     def test_event_detail_view(self):
         """Test that the event detail view returns a 200 status code
@@ -114,3 +96,10 @@ class ViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.event.title)
         self.assertContains(response, 'This is a test event.')
+
+    def test_logout_view(self):
+        """Test that the logout view redirects after a successful logout."""
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.post(reverse('logout'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/')

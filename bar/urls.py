@@ -5,6 +5,7 @@ from .api import user_profile_api
 
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
     path('profile/', views.profile, name='profile'),
     path('accounts/delete/', views.delete_account,

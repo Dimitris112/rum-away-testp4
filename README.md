@@ -672,7 +672,7 @@ The database was designed to allow CRUD functionality to registered users.
 The ERD (Entity Relationship Diagram) was designed on [dbdiagram.io](https://dbdiagram.io/d)
 
   <div style="text-align: center;">
-      <img src="images_documentation/flowcharts/ERD.png" alt="Menu gif" style="max-width: 85%; height: auto;">
+      <img src="images_documentation/flowcharts/ERD.png" alt="ERD" style="max-width: 85%; height: auto;">
   </div>
 
 ## Technology Stack
@@ -746,6 +746,7 @@ The ERD (Entity Relationship Diagram) was designed on [dbdiagram.io](https://dbd
 ### Tools used
 
 - Git: Used commands such as `git` `add` - `commit -m "message'` - `push`.
+- Gitpod: Used as my IDE.
 - Github: Used as the code hosting.
 - [Font awesome](https://fontawesome.com/): Used for a variety of icons through the pages.
 - [Favicon io](https://favicon.io/favicon-converter/): Used to generate the faveicon.
