@@ -614,6 +614,67 @@ This project was developed using agile methodologies over a span of approximatel
   </div>
 </details>
 
+### Wireframes
+
+The wireframes have been designed for both PC and mobile screens to provide a visual representation of each page's layout and functionality.
+
+<table style="width: 100%; border-collapse: collapse;">
+    <tr>
+        <th style="text-align: center;">Home</th>
+        <th style="text-align: center;">Sign Up</th>
+        <th style="text-align: center;">Sign In</th>
+        <th style="text-align: center;">Profile</th>
+        <th style="text-align: center;">Testimonials</th>
+    </tr>
+    <tr>
+        <td style="text-align: center; vertical-align: top;">
+            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                <img src="images_documentation/wireframes/home_mobile_wirreframe.png" alt="Home Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
+                <img src="images_documentation/wireframes/home_pc_wireframe.png" alt="Home PC Wireframe" style="max-width: 100%; height: auto;">
+            </div>
+        </td>
+        <td style="text-align: center; vertical-align: top;">
+            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                <img src="images_documentation/wireframes/signup_mobile_wireframe.png" alt="Sign Up Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
+                <img src="images_documentation/wireframes/signup_pc_wireframe.png" alt="Sign Up PC Wireframe" style="max-width: 100%; height: auto;">
+            </div>
+        </td>
+        <td style="text-align: center; vertical-align: top;">
+            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                <img src="images_documentation/wireframes/signin_mobile_wireframe.png" alt="Sign In Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
+                <img src="images_documentation/wireframes/signin_pc_wireframe.png" alt="Sign In PC Wireframe" style="max-width: 100%; height: auto;">
+            </div>
+        </td>
+        <td style="text-align: center; vertical-align: top;">
+            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                <img src="images_documentation/wireframes/profile_mobile_wireframe.png" alt="Profile Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
+                <img src="images_documentation/wireframes/profile_pc_wireframe.png" alt="Profile PC Wireframe" style="max-width: 100%; height: auto;">
+            </div>
+        </td>
+        <td style="text-align: center; vertical-align: top;">
+            <div style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap;">
+                <img src="images_documentation/wireframes/testimonial_mobile_wireframe.png" alt="Testimonials Mobile Wireframe" style="max-width: 60%; height: auto; margin-bottom: 20px;">
+                <img src="images_documentation/wireframes/testimonials_pc_wireframe.png" alt="Testimonials PC Wireframe" style="max-width: 100%; height: auto;">
+            </div>
+        </td>
+    </tr>
+</table>
+
+### Database design
+
+The database was designed to allow CRUD functionality to registered users.
+
+- Users can register, log in, and manage their profiles, allowing for the creation and updating of personal information and images in the `user_profiles` table.
+- Reservations enable users to create, view, and modify their bookings, with relevant details like name, reservation time, special requests, and guest count stored in the `reservations` table.
+- The Testimonials table allows users to submit their experiences, read others' testimonials, and update or delete their submissions as needed. It includes ratings and counters for views and comments to enhance community interaction.
+- Comments associated with testimonials allow users to provide feedback, with the ability to add, edit, or delete their comments.
+
+The ERD (Entity Relationship Diagram) was designed on [dbdiagram.io](https://dbdiagram.io/d)
+
+  <div style="text-align: center;">
+      <img src="images_documentation/flowcharts/ERD.png" alt="Menu gif" style="max-width: 85%; height: auto;">
+  </div>
+
 ## Technology Stack
 
 <table>
@@ -682,12 +743,22 @@ This project was developed using agile methodologies over a span of approximatel
   </tr>
 </table>
 
+### Tools used
+
+- Git: Used commands such as `git` `add` - `commit -m "message'` - `push`.
+- Github: Used as the code hosting.
+- [Font awesome](https://fontawesome.com/): Used for a variety of icons through the pages.
+- [Favicon io](https://favicon.io/favicon-converter/): Used to generate the faveicon.
+- [Balsamiq](https://balsamiq.com/wireframes/desktop/): Used to create the wireframes - desktop version.
+- [TinyPNG](https://tinypng.com/): Used to compress each image used in the project for optimal load times.
+- [dbdiagraim.io](https://dbdiagram.io/home): Used to create the ERD.
+
 ## Deployment
 
 ### via Heroku
 
 1. Navigate to [heroku](https://www.heroku.com/home) and create an account.
-2. Click `Create new app` and enter the app name and choose your region, hit `create app`.
+2. Click `Create new app`, enter the app name and choose your region, hit `create app`.
 3. Click **Deploy** and in the _Deployment method_ option choose **Github**. Enter the repository's name and click connect, you can leave the branch deployment to `main`.
    > You need to have created your github repository.
 4. Head to **Settings** and click `Reveal config vars`
