@@ -753,6 +753,393 @@ The ERD (Entity Relationship Diagram) was designed on [dbdiagram.io](https://dbd
 - [TinyPNG](https://tinypng.com/): Used to compress each image used in the project for optimal load times.
 - [dbdiagraim.io](https://dbdiagram.io/home): Used to create the ERD.
 
+## Fixed bugs
+
+<details>
+    <summary>Patch 1.0.0</summary>
+    <div style="display: flex; justify-content: center;">
+        <div style="overflow-x: auto; width: 80%;">
+            <table style="margin: 0 auto; border-collapse: collapse; width: 100%;">
+                <tr>
+                    <th>Issue</th>
+                    <th>Description of Fix</th>
+                    <th>Pass/Fail</th>
+                </tr>
+                <tr>
+                    <td>Drinks and Drink Detail Modals Collision</td>
+                    <td>Resolved the collision issue between drinks and drink detail modals.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>UserProfile Image Upload Error</td>
+                    <td>Fixed the issue where image uploads to UserProfile were failing due to file size restrictions.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Reservation Date Duplication</td>
+                    <td>Corrected the logic to prevent users from making multiple reservations on the same date.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Testimonial Character Count Validation</td>
+                    <td>Enhanced validation to ensure comments do not exceed 50 characters.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Navbar Active Link Highlighting</td>
+                    <td>Improved the active link highlighting on the navbar for better navigation.</td>
+                    <td>Pass</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</details>
+
+<details>
+    <summary>Patch 1.0.1</summary>
+    <div style="display: flex; justify-content: center;">
+        <div style="overflow-x: auto; width: 80%;">
+            <table style="margin: 0 auto; border-collapse: collapse; width: 100%;">
+                <tr>
+                    <th>Issue</th>
+                    <th>Description of Fix</th>
+                    <th>Pass/Fail</th>
+                </tr>
+                <tr>
+                    <td>UserProfile Form Validation</td>
+                    <td>Improved validation for image formats in the UserProfile form.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>User Data Update</td>
+                    <td>Fixed issues in the UserForm to ensure proper data updates.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Profile Template Changes</td>
+                    <td>Updated profile template to enhance user experience during profile updates.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Reset Profile Picture Functionality</td>
+                    <td>Ensured reset functionality correctly sets the profile image to None.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Improved Form Handling</td>
+                    <td>Refined form handling in the views to enhance performance.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Cloudinary URL Error</td>
+                    <td>Fixed error from Cloudinary URL when changing profile info.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Editing Testimonials</td>
+                    <td>Fixed issues in the testimonials editing process and display updated timestamps correctly.</td>
+                    <td>Pass</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</details>
+
+<details>
+    <summary>Patch 1.0.2</summary>
+    <div style="display: flex; justify-content: center;">
+        <div style="overflow-x: auto; width: 80%;">
+            <table style="margin: 0 auto; border-collapse: collapse; width: 100%;">
+                <tr>
+                    <th>Issue</th>
+                    <th>Description of Fix</th>
+                    <th>Pass/Fail</th>
+                </tr>
+                <tr>
+                    <td>User Authentication</td>
+                    <td>Implemented a login requirement for making reservations, ensuring only authenticated users can access this feature.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Reservation Restrictions</td>
+                    <td>Added logic to prevent users from making multiple reservations on the same date.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Admin Panel Enhancements</td>
+                    <td>Strengthened admin-only access for creating events to enhance security.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Content Management</td>
+                    <td>Adjusted testimonial and comment models to validate content length, improving the quality of user-generated content.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>UI/UX Improvements</td>
+                    <td>Enhanced CSS for better contrast and accessibility.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Testing and Quality Assurance</td>
+                    <td>Improved testing for user profile APIs and reservation functionality to ensure stability.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Documentation Updates</td>
+                    <td>Updated README.md to include the new ERD section and relevant videos, with clearer issue descriptions.</td>
+                    <td>Pass</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</details>
+
+<details>
+    <summary>Patch 1.0.3</summary>
+    <div style="display: flex; justify-content: center;">
+        <div style="overflow-x: auto; width: 80%;">
+            <table style="margin: 0 auto; border-collapse: collapse; width: 100%;">
+                <tr>
+                    <th>Issue</th>
+                    <th>Description of Fix</th>
+                    <th>Pass/Fail</th>
+                </tr>
+                <tr>
+                    <td>Username Case Insensitivity</td>
+                    <td>Implemented CaseInsensitiveUsernameBackend to allow login with lowercase or uppercase usernames.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Custom Login View Update</td>
+                    <td>Updated CustomLoginView to authenticate users with case-insensitive usernames.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Added backends.py</td>
+                    <td>Created backends.py in the bar app to handle custom authentication logic.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Settings Update</td>
+                    <td>Updated settings.py to include the custom authentication backend.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Comment Character Limit</td>
+                    <td>Updated comment editing functionality to restrict character count to a maximum of 50 characters and changed color indication for exceeding limit.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Was Edited Field</td>
+                    <td>Added <code>was_edited</code> field to Comment model and updated relevant migration files.</td>
+                    <td>Pass</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</details>
+
+<details>
+    <summary>Patch 1.0.4</summary>
+    <div style="display: flex; justify-content: center;">
+        <div style="overflow-x: auto; width: 80%;">
+            <table style="margin: 0 auto; border-collapse: collapse; width: 100%;">
+                <tr>
+                    <th>Issue</th>
+                    <th>Description of Fix</th>
+                    <th>Pass/Fail</th>
+                </tr>
+                <tr>
+                    <td>Fixed Testimonial Deletions</td>
+                    <td>Updated the delete functionality for testimonials to ensure proper handling and messaging in the admin panel.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Comment Functionality Update</td>
+                    <td>Improved comment section UI and backend handling for better user experience.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Admin Panel Enhancements</td>
+                    <td>Updated TestimonialAdmin to display comment counts and included additional fields in the admin view for better management.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Textarea Update in Add Testimonial</td>
+                    <td>Updated textarea for testimonial content to enforce character limits.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Improved Delete Testimonial Template</td>
+                    <td>Enhanced the delete testimonial template for clearer user messaging and action confirmation.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Testimonial List Enhancements</td>
+                    <td>Improved the layout and functionality of the testimonial list page, including comment display and delete buttons.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Security on Edit and Delete</td>
+                    <td>Added permission checks to ensure only authorized users can edit or delete testimonials and comments.</td>
+                    <td>Pass</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</details>
+
+<details>
+    <summary>Patch 1.0.5</summary>
+    <div style="display: flex; justify-content: center;">
+        <div style="overflow-x: auto; width: 80%;">
+            <table style="margin: 0 auto; border-collapse: collapse; width: 100%;">
+                <tr>
+                    <th>Issue</th>
+                    <th>Description of Fix</th>
+                    <th>Pass/Fail</th>
+                </tr>
+                <tr>
+                    <td>JavaScript Code Duplication</td>
+                    <td>Removed duplicate lines of code for variable declarations and event listeners to improve readability and maintainability.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Update Available Spots Logic</td>
+                    <td>Refactored the logic for updating available spots based on reservation input to ensure accurate calculations.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Validation for Future Reservations</td>
+                    <td>Implemented validation to ensure that reservations can only be made for future dates and times, enhancing user experience.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Error Handling in Fetch Requests</td>
+                    <td>Added error handling to the fetch request for availability to provide clear feedback in case of network issues.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Improve Alert Messaging</td>
+                    <td>Enhanced alert messaging to provide users with clearer instructions regarding reservation limits and issues.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>UI Improvements for Time Selection</td>
+                    <td>Updated the time selection UI to ensure users can only select valid time options for their reservations.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Clearer Comments for Future Dates</td>
+                    <td>Provided clearer comments in the code for future dates validation to aid developers in understanding the logic.</td>
+                    <td>Pass</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</details>
+
+<details>
+    <summary>Patch 1.0.6</summary>
+    <div style="display: flex; justify-content: center;">
+        <div style="overflow-x: auto; width: 80%;">
+            <table style="margin: 0 auto; border-collapse: collapse; width: 100%;">
+                <tr>
+                    <th>Issue</th>
+                    <th>Description of Fix</th>
+                    <th>Pass/Fail</th>
+                </tr>
+                <tr>
+                    <td>Fix Hour Option Population</td>
+                    <td>Refactored the hour options population logic to ensure proper formatting and prevent duplicates in the hour selection dropdown.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Fix Minute Option Population</td>
+                    <td>Corrected the population of minute options to avoid duplication and ensure that only valid minute intervals are displayed.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Update Available Spots Logic</td>
+                    <td>Revised the available spots calculation to accommodate new logic and ensure it reflects the correct number of spots based on input.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Validation for Reservation Date and Time</td>
+                    <td>Improved validation checks to ensure the selected reservation time and date are in the future, enhancing usability.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Consistent API Response Handling</td>
+                    <td>Ensured consistency in how API responses are handled, with error checking for network responses to improve reliability.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Alert Function Enhancements</td>
+                    <td>Enhanced the alert function to provide clearer feedback messages to users when input is invalid or unavailable.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Comment Documentation Improvement</td>
+                    <td>Improved inline comments within the code to clarify the purpose of functions and logic for better maintainability.</td>
+                    <td>Pass</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</details>
+
+<details>
+    <summary>Patch 1.0.7</summary>
+    <div style="display: flex; justify-content: center;">
+        <div style="overflow-x: auto; width: 80%;">
+            <table style="margin: 0 auto; border-collapse: collapse; width: 100%;">
+                <tr>
+                    <th>Issue</th>
+                    <th>Description of Fix</th>
+                    <th>Pass/Fail</th>
+                </tr>
+                <tr>
+                    <td>Validation Logic for Reservation Time</td>
+                    <td>Improved the clean method in ReservationForm to ensure hour and minute selection is validated before creating the reservation time.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Error Handling for Past Reservations</td>
+                    <td>Added checks to ensure users cannot create reservations in the past, with appropriate validation messages.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Existing Reservations Check</td>
+                    <td>Implemented checks in both the form and view logic to prevent users from making multiple reservations on the same date.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Refactored Code for Readability</td>
+                    <td>Refactored the form and view code to enhance readability and maintainability, reducing duplication of logic.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Consistent User Messaging</td>
+                    <td>Standardized error messages across different views for consistency in user experience when handling reservations.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Enhanced Reservation Logic</td>
+                    <td>Updated the reservation creation and editing logic to better handle user input and reservation time management.</td>
+                    <td>Pass</td>
+                </tr>
+                <tr>
+                    <td>Documentation Updates</td>
+                    <td>Enhanced comments and docstrings in the code to provide clearer explanations of the logic and validation rules implemented.</td>
+                    <td>Pass</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</details>
+
 ## Deployment
 
 ### via Heroku
