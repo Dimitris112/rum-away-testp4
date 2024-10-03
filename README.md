@@ -682,6 +682,26 @@ This project was developed using agile methodologies over a span of approximatel
   </tr>
 </table>
 
+## Deployment
+
+### via Heroku
+
+1. Navigate to [heroku](https://www.heroku.com/home) and create an account.
+2. Click `Create new app` and enter the app name and choose your region, hit `create app`.
+3. Click **Deploy** and in the _Deployment method_ option choose **Github**. Enter the repository's name and click connect, you can leave the branch deployment to `main`.
+   > You need to have created your github repository.
+4. Head to **Settings** and click `Reveal config vars`
+5. On the KEY inputs add: DATABASE_URL - SECRET_KEY - CLOUDINARY_URL. On the VALUE inputs add your own, for each one.
+6. Click **Add buildpack** and choose `python`.
+7. Now you're set. Go back to `Deploy` and click **Deploy branch**.
+
+### Via Forking
+
+Forking a repository is commonly done to contribute to another developer's project or to use it as the foundation for your own. To fork a repository:
+
+1. Click the **Fork** button at the top right of the repository page.
+2. This will create a copy of the repository in your own GitHub account, which you can modify independently.
+
 ## Credits
 
 🎓 **𝕽𝖔𝖍𝖎𝖙** - **Code Institute Mentor** [<img src="https://img.icons8.com/color/24/ffffff/github.png"/>](https://github.com/rohit0286)
@@ -692,6 +712,6 @@ This project was developed using agile methodologies over a span of approximatel
 
 The main idea for this project was obtained by the [Django Blog](https://www.youtube.com/watch?v=YH--VobIA8c) walkthrough project of the [Code Institute course](https://codeinstitute.net/global/).
 
-#### Media
+### Media
 
-All photos used in the project were taken from [Pexels](https://www.pexels.com/) / [Unsplash](https://unsplash.com/) / [Freepik](https://www.freepik.com/).
+All photos used in the project - including favicon - were taken from [Pexels](https://www.pexels.com/) / [Unsplash](https://unsplash.com/) / [Freepik](https://www.freepik.com/).
