@@ -1154,6 +1154,11 @@ The ERD (Entity Relationship Diagram) was designed on [dbdiagram.io](https://dbd
 6. Click **Add buildpack** and choose `python`.
 7. Now you're set. Go back to `Deploy` and click **Deploy branch**.
 
+<div style="display: flex; justify-content: space-between; align-items: center; text-align: center;">
+    <img src="images_documentation/flowcharts/settings_message.png" alt="Settings Message" style="max-width: 45%; height: auto;">
+    <img src="images_documentation/flowcharts/env_message.png" alt="Environment Message" style="max-width: 45%; height: auto;">
+</div>
+
 ### Via Forking
 
 Forking a repository is commonly done to contribute to another developer's project or to use it as the foundation for your own. To fork a repository:
