@@ -1,5 +1,12 @@
 # Testing Documentation
 
+[Automated Testing](#automated-testing)
+
+- [Lighthouse Scores](#lighthouse-scores)
+- [Running Tests](#running-tests)
+
+[Manual Testing](#manual-testing)
+
 ## Automated Testing
 
 - **HTML Validation**: Used the [W3C HTML Validator](https://validator.w3.org/) which returned the following results:

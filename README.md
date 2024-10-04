@@ -14,6 +14,35 @@
 - Testimonials Section: A dedicated area for users to view and interact with testimonials from other users.
 - The platform is built using Django and PostgreSQL.
 
+[User Stories](#user-stories)
+
+[User Experience](#user-experience)
+
+- [Typography & Colors](#typography--color-scheme)
+- [Agile planning](#agile-planning)
+- [Features](#features)
+
+[Wireframes](#wireframes)
+
+- [Database design](#database-design)
+
+[Technology stack](#technology-stack)
+
+- [Tools used](#tools-used)
+
+[Fixed bugs](#fixed-bugs)
+
+[Testing](#testing)
+
+[Deployment](#deployment)
+
+- [Via Heroku](#via-heroku)
+- [Via Forking](#via-forking)
+
+[Credits](#credits)
+
+- [Media](#media)
+
 ## [User Stories](https://github.com/users/Dimitris112/projects/5/views/1)
 
 ### 1. User Registration
@@ -753,6 +782,7 @@ The ERD (Entity Relationship Diagram) was designed on [dbdiagram.io](https://dbd
 - [Balsamiq](https://balsamiq.com/wireframes/desktop/): Used to create the wireframes - desktop version.
 - [TinyPNG](https://tinypng.com/): Used to compress each image used in the project for optimal load times.
 - [dbdiagraim.io](https://dbdiagram.io/home): Used to create the ERD.
+- [GSAP](https://gsap.com/): Used for the animations on the 404 page.
 
 ## Fixed bugs
 
