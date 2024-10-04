@@ -95,7 +95,7 @@ This palette creates an inviting and cozy atmosphere, fitting for a bar setting,
 
 ### Agile Planning
 
-This project was developed using agile methodologies over a span of approximately four weeks. The development process included the use of various labels such as "documentation" - "good first issue" - "enhancement" to organize tasks and streamline progress. An MVP (Minimum Viable Product) milestone was established to focus on delivering essential features. Each user story is accompanied by a comprehensive set of acceptance criteria, ensuring that all functionalities, including those for the 404 and 505 error pages, are well defined and meet completion standards. For more details, you can view the kanban board [here](https://github.com/users/Dimitris112/projects/5).
+This project was developed using agile methodologies over a span of approximately four weeks. The development process included the use of various labels such as "documentation" - "good first issue" - "enhancement" to organize tasks and streamline progress. An MVP (Minimum Viable Product) milestone was established to focus on delivering essential features. Each user story is accompanied by a comprehensive set of acceptance criteria, ensuring that all functionalities, including those for the 404 and 500 error pages, are well defined and meet completion standards. For more details, you can view the kanban board [here](https://github.com/users/Dimitris112/projects/5).
 
 <div style="text-align: center;">
     <img src="images_documentation/gifs/kanban.png" alt="Kanban board" style="max-width: 55%; height: auto;">
