@@ -1141,6 +1141,10 @@ The ERD (Entity Relationship Diagram) was designed on [dbdiagram.io](https://dbd
     </div>
 </details>
 
+## Testing
+
+For a detailed overview of both manual and automated testing processes, please refer to [TESTING.md](https://github.com/Dimitris112/rum-away-testp4/blob/main/TESTING.md). It covers all testing scenarios and methodologies used in the project.
+
 ## Deployment
 
 ### via Heroku
